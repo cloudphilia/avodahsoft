@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work — Avodah</title>
+<meta name="description" content="Software released by Avodah, and how the studio works on client projects.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Work — Avodah">
+<meta property="og:description" content="Software released by Avodah, and how the studio works on client projects.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">Avodah <span lang="he" dir="rtl">עֲבוֹדָה</span></a>
+    <nav class="nav">
+      <a href="work.html" aria-current="page">Work</a>
+      <a href="studio.html">Studio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero flush">
+  <div class="wrap">
+    <p class="label label--accent">Work</p>
+    <h1 style="margin-top:20px">Everything we have shipped.</h1>
+    <p class="lede">The list is short because it is honest. An app appears here once it is
+      on the App Store &mdash; not when it is announced, and not when it is nearly done.</p>
+  </div>
+</section>
+
+<section class="flush" style="padding-top:0">
+  <div class="wrap">
+    <div class="ledger">
+      <a class="entry rv" href="kilojo.html">
+        <span class="n">01</span>
+        <h3>Kilojo</h3>
+        <p class="small dim">A food diary that reads your plate. Photograph a meal for an
+          estimate, scan a barcode for the packet&rsquo;s own label, or type it in.</p>
+        <span class="state">Coming soon</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <p class="label">Client work</p>
+    <div class="stack">
+      <h2>How a project runs</h2>
+      <p class="dim">Client work is not listed publicly unless the client wants it to be.
+        What is worth saying is how it goes.</p>
+      <div class="grid grid-2" style="margin-top:8px">
+        <div class="cell rv">
+          <p class="label label--accent">Week one</p>
+          <h4>Scope, written down</h4>
+          <p class="small dim">Screens, states and what is explicitly out. A fixed price
+            against that document, so the number does not move unless the scope does.</p>
+        </div>
+        <div class="cell rv">
+          <p class="label label--accent">Every week</p>
+          <h4>A build you can hold</h4>
+          <p class="small dim">Installed on your own device, not a screenshot in a deck.
+            You see it going wrong early enough to say so.</p>
+        </div>
+        <div class="cell rv">
+          <p class="label label--accent">Release</p>
+          <h4>Submission included</h4>
+          <p class="small dim">App Store listing, privacy labels, review responses. The job
+            is not done when the code is done.</p>
+        </div>
+        <div class="cell rv">
+          <p class="label label--accent">After</p>
+          <h4>You own all of it</h4>
+          <p class="small dim">Repository, accounts, signing, the lot &mdash; documented well
+            enough that another developer could pick it up without ringing us.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn btn--fill" href="contact.html">Start a project <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="stack-sm">
+      <div class="wordmark">Avodah <span lang="he" dir="rtl">עֲבוֹדָה</span></div>
+      <p class="small dim">Software studio. <a class="ln" href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a></p>
+    </div>
+    <div class="foot-links">
+      <a href="work.html">Work</a>
+      <a href="studio.html">Studio</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html#privacy">Privacy</a>
+      <a href="legal.html#terms">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".rv");
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var sibs = Array.prototype.filter.call(e.target.parentNode.children, function (n) {
+        return n.classList.contains("rv");
+      });
+      e.target.style.transitionDelay = Math.max(0, sibs.indexOf(e.target)) * 55 + "ms";
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    });
+  }, { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

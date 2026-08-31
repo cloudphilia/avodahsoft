@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kilojo — Avodah</title>
+<meta name="description" content="Kilojo is a food diary for iOS: photograph a meal for an estimate, or scan a barcode for the label.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Kilojo — Avodah">
+<meta property="og:description" content="Kilojo is a food diary for iOS: photograph a meal for an estimate, or scan a barcode for the label.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">Avodah <span lang="he" dir="rtl">עֲבוֹדָה</span></a>
+    <nav class="nav">
+      <a href="work.html" aria-current="page">Work</a>
+      <a href="studio.html">Studio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero flush">
+  <div class="wrap">
+    <p class="label label--accent">01 &mdash; Kilojo &middot; iOS</p>
+    <h1 style="margin-top:20px">A food diary that reads your plate.</h1>
+    <p class="lede">Photograph a meal and Kilojo estimates the calories and macronutrients.
+      Scan a barcode and it takes the figures straight off the packet. Everything it
+      produces is editable, because an estimate you cannot correct is a guess you are
+      stuck with.</p>
+    <div class="actions">
+      <a class="btn" href="contact.html">Ask about Kilojo <span class="arw">&rarr;</span></a>
+    </div>
+    <div class="meta">
+      <div><span class="label">Platform</span><b>iOS</b></div>
+      <div><span class="label">Price</span><b>Free</b></div>
+      <div><span class="label">Status</span><b>Coming soon</b></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <p class="label">Three ways in</p>
+    <div class="grid grid-3">
+      <div class="cell rv">
+        <p class="label label--accent">Photograph</p>
+        <h3>Point at the plate</h3>
+        <p class="small dim">For food that never had a label &mdash; a plate of rice, a
+          takeaway, someone else&rsquo;s cooking. Kilojo itemises what it can see and shows
+          its working, so you can see why a number came out as it did.</p>
+      </div>
+      <div class="cell rv">
+        <p class="label label--accent">Scan</p>
+        <h3>Read the packet</h3>
+        <p class="small dim">A barcode gives the manufacturer&rsquo;s own figures, which beats
+          any estimate from a photograph. Instant, and free to run.</p>
+      </div>
+      <div class="cell rv">
+        <p class="label label--accent">Type</p>
+        <h3>Or just say it</h3>
+        <p class="small dim">Sometimes you know. Type the name and the numbers, and log a
+          repeat of it in one tap for as long as you keep eating it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <p class="label">Honestly</p>
+    <div class="stack">
+      <h2>What a photograph cannot tell you</h2>
+      <p class="dim">A picture does not contain the portion. A bowl of rice can hold twice
+        what it appears to, and no amount of cleverness recovers information the camera
+        never captured. Kilojo estimates, and sometimes it is wrong.</p>
+      <p class="dim">So it is built to be corrected: every figure is editable, it says how
+        confident it is, and it shows the portion it assumed for each item rather than
+        handing down a total. Tell it &ldquo;one cup of rice&rdquo; and the guess becomes
+        arithmetic.</p>
+      <div class="callout">
+        <p class="small">Kilojo counts. It is not medical advice, and it does not have an
+          opinion about your dinner.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <p class="label">Privacy</p>
+    <div class="stack">
+      <h2>Your diary is yours</h2>
+      <ul class="prose" style="padding-left:20px;display:grid;gap:8px;max-width:62ch">
+        <li class="dim">No advertising, no analytics, no tracking software of any kind.</li>
+        <li class="dim">Meal photographs are sent for analysis carrying the picture and your
+          typed hint &mdash; not your name, your email or anything else about you.</li>
+        <li class="dim">Barcode lookups send the number on the packet and nothing more.</li>
+        <li class="dim">Erase everything, or delete the account outright, from inside the app.
+          Both reach the server, not just the phone.</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="legal.html#privacy">Read the privacy policy <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="stack-sm">
+      <div class="wordmark">Avodah <span lang="he" dir="rtl">עֲבוֹדָה</span></div>
+      <p class="small dim">Software studio. <a class="ln" href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a></p>
+    </div>
+    <div class="foot-links">
+      <a href="work.html">Work</a>
+      <a href="studio.html">Studio</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html#privacy">Privacy</a>
+      <a href="legal.html#terms">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".rv");
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var sibs = Array.prototype.filter.call(e.target.parentNode.children, function (n) {
+        return n.classList.contains("rv");
+      });
+      e.target.style.transitionDelay = Math.max(0, sibs.indexOf(e.target)) * 55 + "ms";
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    });
+  }, { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Avodah</title>
+<meta name="description" content="Support, new projects and acquisition enquiries for Avodah software studio.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Contact — Avodah">
+<meta property="og:description" content="Support, new projects and acquisition enquiries for Avodah software studio.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">Avodah <span lang="he" dir="rtl">עֲבוֹדָה</span></a>
+    <nav class="nav">
+      <a href="work.html">Work</a>
+      <a href="studio.html">Studio</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero flush">
+  <div class="wrap">
+    <p class="label label--accent">Contact</p>
+    <h1 style="margin-top:20px">What brings you here?</h1>
+    <p class="lede">Everything reaches the same inbox. Picking the closest fit just means a
+      faster and more useful answer.</p>
+  </div>
+</section>
+
+<section class="flush" style="padding-top:0">
+  <div class="wrap">
+    <div class="grid grid-3">
+      <a class="cell rv" href="mailto:hello@avodahsoft.com?subject=Support">
+        <p class="label label--accent">Support</p>
+        <h3>I use one of your apps</h3>
+        <p class="small dim">Something is broken, a question about your account, or a feature
+          you wish existed. Say which app and which phone.</p>
+        <span class="go">hello@avodahsoft.com <span class="arw">&rarr;</span></span>
+      </a>
+      <a class="cell rv" href="mailto:hello@avodahsoft.com?subject=New%20project">
+        <p class="label label--accent">New project</p>
+        <h3>I want an app built</h3>
+        <p class="small dim">The idea, who it is for, and roughly when it needs to be live.
+          A budget range saves us both a round trip.</p>
+        <span class="go">hello@avodahsoft.com <span class="arw">&rarr;</span></span>
+      </a>
+      <a class="cell rv" href="mailto:hello@avodahsoft.com?subject=Acquisition">
+        <p class="label label--accent">Acquisition</p>
+        <h3>I am interested in buying</h3>
+        <p class="small dim">Enquiries about acquiring one of our apps, in whole or in part.</p>
+        <span class="go">hello@avodahsoft.com <span class="arw">&rarr;</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <p class="label">Response</p>
+    <div class="stack">
+      <h2>What happens next</h2>
+      <p class="dim">Support gets answered first, usually the same day. Project enquiries get
+        a real reply rather than a calendar link &mdash; if it is not a fit we will say so
+        and, where we can, point you somewhere better.</p>
+      <p class="dim">Working directly with the person who writes the software: <a class="ln"
+        href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="stack-sm">
+      <div class="wordmark">Avodah <span lang="he" dir="rtl">עֲבוֹדָה</span></div>
+      <p class="small dim">Software studio. <a class="ln" href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a></p>
+    </div>
+    <div class="foot-links">
+      <a href="work.html">Work</a>
+      <a href="studio.html">Studio</a>
+      <a href="contact.html">Contact</a>
+      <a href="legal.html#privacy">Privacy</a>
+      <a href="legal.html#terms">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".rv");
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var sibs = Array.prototype.filter.call(e.target.parentNode.children, function (n) {
+        return n.classList.contains("rv");
+      });
+      e.target.style.transitionDelay = Math.max(0, sibs.indexOf(e.target)) * 55 + "ms";
+      e.target.classList.add("in");
+      io.unobserve(e.target);
+    });
+  }, { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
