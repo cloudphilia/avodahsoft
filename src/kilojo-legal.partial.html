@@ -1,0 +1,148 @@
+<section class="hero flush">
+  <div class="wrap">
+    <p class="label label--accent">Kilojo</p>
+    <h1 style="margin-top:20px">Privacy &amp; Terms</h1>
+    <p class="lede">Kilojo is a food diary, so it holds things that are genuinely personal
+      &mdash; what you eat, what you weigh, and photographs taken in your kitchen. This page
+      says exactly what is held, where it goes and how to get rid of it.</p>
+  </div>
+</section>
+
+<section class="flush" style="padding-top:0">
+  <div class="wrap">
+    <div class="todo">
+      <p class="label label--accent">
+      <p class="small">Four values only you can fill in, marked through the page:
+        <mark>Avodahsoft</mark>, <mark>hello@avodahsoft.com</mark>,
+        <mark>Australia</mark>, <mark>6 September 2026</mark>. Check the Anthropic section against
+        their current terms. A careful draft written from what the app does &mdash; not legal
+        advice.</p>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap split">
+    <p class="label">Privacy policy</p>
+    <div class="stack prose">
+      <p class="small dim">Last updated <mark>6 September 2026</mark> &middot; Kilojo for iOS &middot;
+        Operated by <mark>Avodahsoft</mark></p>
+
+      <div class="callout">
+        <p class="small"><b>Three things Kilojo does not do.</b> There is no advertising.
+          There is no analytics or tracking software of any kind. Nothing about you is sold,
+          rented or shared for marketing, by anyone, ever.</p>
+      </div>
+
+      <h3>What Kilojo holds</h3>
+      <p class="dim small">Everything below is entered by you, or produced from something you
+        entered. Kilojo does not read your contacts, your location or your health app.</p>
+      <div class="scroll-x">
+        <table>
+          <tr><th>Email address</th><td class="dim">To sign in and reset a password</td></tr>
+          <tr><th>Password</th><td class="dim">Stored hashed; never readable, including by us</td></tr>
+          <tr><th>Meals</th><td class="dim">Name, description, calories, protein, carbs, fat, water, time</td></tr>
+          <tr><th>Meal photographs</th><td class="dim">The picture you took, if you took one</td></tr>
+          <tr><th>Weigh-ins</th><td class="dim">One weight per day, with its date</td></tr>
+          <tr><th>Body details</th><td class="dim">Sex, age, height, weight, activity, goal &mdash; only if you build a plan</td></tr>
+          <tr><th>Settings</th><td class="dim">Targets, reminder times, units, theme, your own note</td></tr>
+        </table>
+      </div>
+
+      <h3>Where it is kept</h3>
+      <p class="dim">On your phone first &mdash; Kilojo works without a connection, and your
+        sign-in token lives in the iOS keychain. If you are signed in, a copy syncs to a
+        Supabase project hosted on Amazon Web Services in <b>Tokyo, Japan</b>, so your diary
+        survives a lost phone. If you are outside Japan, your data is transferred there.</p>
+      <p class="dim">Each account can only reach its own rows and its own photographs, and
+        that restriction is enforced by the database rather than by the app &mdash; so a fault
+        in the app cannot expose one person&rsquo;s diary to another.</p>
+
+      <h3>Who else sees it</h3>
+      <p class="dim"><b>Anthropic</b>, for reading your photographs. The request carries the
+        photograph and the hint you typed, and nothing else &mdash; not your name, your email,
+        your account or your other meals. Scanning a barcode or typing a meal in sends nothing
+        to Anthropic at all.</p>
+      <p class="dim"><b>Supabase and Amazon Web Services</b>, for storage, on Kilojo&rsquo;s
+        behalf and not for their own purposes.</p>
+      <p class="dim"><b>Open Food Facts</b>, for barcodes. They receive the number printed on
+        the packet and no account information, so they cannot tell who scanned it.</p>
+      <p class="dim">Beyond these, data is disclosed only where the law requires it.</p>
+
+      <h3>Deleting it</h3>
+      <p class="dim"><b>Erase all data</b> clears your diary and keeps your login. <b>Delete my
+        account</b> removes the account itself: photographs are deleted from storage first,
+        then the account record and everything attached to it. Neither can be undone, and both
+        reach the server rather than only the phone.</p>
+      <div class="callout">
+        <p class="small">When you delete a single meal, a marker is kept &mdash; its identifier
+          and the fact of deletion, with no food, numbers or photograph attached. It exists so
+          a second device learns the meal is gone rather than restoring it. These markers go
+          when you delete your account.</p>
+      </div>
+
+      <h3>Your rights</h3>
+      <ul>
+        <li class="dim"><b>See it</b> &mdash; everything held is visible in the app.</li>
+        <li class="dim"><b>Correct it</b> &mdash; every estimate is editable, by design.</li>
+        <li class="dim"><b>Delete it</b> &mdash; both routes are in the app and need nobody&rsquo;s permission.</li>
+        <li class="dim"><b>Take it elsewhere</b> &mdash; ask and you will be sent a machine-readable copy.</li>
+      </ul>
+      <p class="dim">In the UK and EU, the UK GDPR and GDPR give you these rights and the right
+        to complain to your regulator. The basis for processing is the contract between us:
+        without this data the app cannot do the thing you installed it for. Contact
+        <mark>hello@avodahsoft.com</mark>.</p>
+
+      <h3>Children</h3>
+      <p class="dim">Kilojo is not intended for children under 13. Calorie tracking is not
+        appropriate for everyone &mdash; if you have or have had an eating disorder, please
+        speak to a doctor before using an app like this one.</p>
+    </div>
+  </div>
+</section>
+
+<section id="terms">
+  <div class="wrap split">
+    <p class="label">Terms of use</p>
+    <div class="stack prose">
+      <p class="small dim">Last updated <mark>6 September 2026</mark></p>
+      <p class="dim">By creating an account you agree to what follows. If you do not, please
+        do not use the app.</p>
+
+      <h3>About the numbers</h3>
+      <div class="callout">
+        <p class="small"><b>Kilojo estimates. It does not measure, and it is not medical
+          advice.</b></p>
+      </div>
+      <p class="dim">A photograph cannot tell anyone how much food is on a plate; the app
+        infers it and is sometimes wrong. Barcode figures come from a public database anyone
+        may edit. Treat every number as a starting point to correct, which is why all of them
+        are editable. Do not use Kilojo to make medical decisions or to replace advice from a
+        doctor or dietitian.</p>
+
+      <h3>Your account</h3>
+      <ul>
+        <li class="dim">Give a real email address &mdash; it is the only way to recover a password.</li>
+        <li class="dim">Keep your password to yourself; activity through your account is treated as yours.</li>
+        <li class="dim">You keep ownership of everything you put in.</li>
+      </ul>
+
+      <h3>Acceptable use</h3>
+      <p class="dim">Do not attempt to reach another person&rsquo;s data, work around limits,
+        take the service apart or automate it. Photo analysis is limited per person and per
+        day; abusing it may end an account without warning.</p>
+
+      <h3>Availability</h3>
+      <p class="dim">Kilojo is provided as it is, with no warranty. It may be unavailable, may
+        lose data, and may change or stop. To the fullest extent the law allows,
+        <mark>Avodahsoft</mark> is not liable for any loss arising from its use,
+        including decisions taken on the strength of its estimates. Nothing here excludes
+        liability that cannot lawfully be excluded.</p>
+
+      <h3>Governing law</h3>
+      <p class="dim">These terms are governed by the law of <mark>Australia</mark>, and
+        its courts have jurisdiction. Questions about either document:
+        <mark>hello@avodahsoft.com</mark>.</p>
+    </div>
+  </div>
+</section>
