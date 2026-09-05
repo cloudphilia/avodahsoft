@@ -193,7 +193,7 @@ GIGPAL = f'''
   <div class="photo" style="background-image:url(/img/photos/concert.jpg)"></div><div class="bg"></div>
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow-row"><span class="pill"><span class="dot"></span>In development · App Store {YEAR}</span><span class="pill">iPhone · iPad · Web</span></div>
+      <div class="eyebrow-row"><img class="appicon" src="/img/gigpal/icon.png" alt="GigPal app icon" width="64" height="64"><span class="pill"><span class="dot"></span>In development · App Store {YEAR}</span><span class="pill">iPhone · iPad · Web</span></div>
       <h1>Practice like <span class="accent">the band is in the room.</span></h1>
       <p class="lead mt-24">GigPal turns any song into a rehearsal. Pull the vocals, piano, bass and drums apart, follow the chords as they change, slow it down, move the key, loop the hard bit, and record yourself over the top.</p>
       <div class="cta"><a class="btn primary" href="/contact?topic=GigPal%20early%20access">Get early access {I["arrow"]}</a><a class="btn ghost" href="#features">See what it does</a></div>

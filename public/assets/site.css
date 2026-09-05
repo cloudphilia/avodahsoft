@@ -91,3 +91,5 @@ footer .legal{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px
 .product-card .media .shot{position:absolute;right:8%;bottom:-18%;width:34%;border-radius:22px;border:5px solid #1B2148;box-shadow:0 20px 40px rgba(0,0,0,.5)}
 .product-card .body{padding:clamp(20px,2.4vw,30px)}.product-card .body h3{font-size:26px}.product-card .body p{margin-top:8px}.product-card .body .btn{margin-top:18px}
 .eyebrow-row{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+
+.appicon{width:64px;height:64px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.45);margin-right:6px}
