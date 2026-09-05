@@ -1,13 +1,10 @@
 # avodahsoft.com
 
-The studio site. Static HTML, no build step at deploy time — GitHub Pages serves
-these files as they are.
+Static site served by a Cloudflare Worker (Workers Assets) with a small contact API.
 
-- `assets/site.css` — the whole design system. One grotesk, one mono, cool paper,
-  a single deep green. Light and dark both defined at token level.
-- `build.py` — emits the pages so the shell, nav and footer cannot drift apart.
-  Edit the content in there, run `python3 build.py`, commit what it writes.
-- `legal.html` — Kilojo's privacy policy and terms. Placeholders are marked and
-  listed in a box at the top of the page; that box comes out before launch.
+- `build.py` generates the pages into `public/` (run `python3 build.py`).
+- `src/worker.js` handles redirects from legacy URLs, security headers, `www` → apex and `POST /api/contact` (Resend).
+- `wrangler.jsonc` — worker `avodah-site`, custom domain `avodahsoft.com`. Secret: `RESEND_API_KEY` (`npx wrangler secret put RESEND_API_KEY`).
+- Deploy: `python3 build.py && npx wrangler deploy`.
 
-Deployed from `main`, root folder.
+Photos are CC0 (StockSnap). App screenshots are our own.
