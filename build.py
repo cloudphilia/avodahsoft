@@ -193,15 +193,28 @@ GIGPAL = f'''
   <div class="photo" style="background-image:url(/img/photos/concert.jpg)"></div><div class="bg"></div>
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow-row"><img class="appicon" src="/img/gigpal/icon.png" alt="GigPal app icon" width="64" height="64"><span class="pill"><span class="dot"></span>In development · App Store {YEAR}</span><span class="pill">iPhone · iPad · Web</span></div>
+      <div class="eyebrow-row"><img class="appicon" src="/img/gigpal/icon.png" alt="GigPal app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming to the App Store · {YEAR}</span><span class="pill">iPhone · iPad · Web</span></div>
       <h1>Practice like <span class="accent">the band is in the room.</span></h1>
       <p class="lead mt-24">GigPal turns any song into a rehearsal. Pull the vocals, piano, bass and drums apart, follow the chords as they change, slow it down, move the key, loop the hard bit, and record yourself over the top.</p>
       <div class="cta"><a class="btn primary" href="/contact?topic=GigPal%20early%20access">Get early access {I["arrow"]}</a><a class="btn ghost" href="#features">See what it does</a></div>
       <div class="stats"><div><b>5</b>stems per song</div><div><b>3</b>chord notations</div><div><b>&plusmn;12</b>semitones of key change</div><div><b>0</b>ads or trackers</div></div>
     </div>
     <div class="phones"><div class="glow"></div>
-      <div class="phone back"><img src="/img/gigpal/profile.png" alt="GigPal profile and settings" loading="eager"></div>
+      <div class="phone back"><img src="/img/gigpal/mixer.png" alt="GigPal stem mixer with vocals, piano, bass, drums and other" loading="eager"></div>
       <div class="phone front"><img src="/img/gigpal/chords.png" alt="GigPal chords following the song" loading="eager"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">See it in action</span><h2 class="mt-8">Three minutes, start to finish.</h2><p class="lead">Signing in, adding a song, separating the stems, following the chords and building a setlist, recorded on an iPhone.</p></div>
+    <div class="video reveal"><video controls playsinline preload="metadata" poster="/img/gigpal/review-poster.jpg"><source src="/gigpal/review.mp4" type="video/mp4">Your browser cannot play this video. <a href="/gigpal/review.mp4">Open it directly.</a></video></div>
+    <div class="gallery reveal">
+      <img src="/img/gigpal/library.png" alt="GigPal library with demo songs, keys and tempos" loading="lazy">
+      <img src="/img/gigpal/tools.png" alt="GigPal tools: tuner, metronome, piano, chord finder and more" loading="lazy">
+      <img src="/img/gigpal/tuner.png" alt="GigPal chromatic tuner" loading="lazy">
+      <img src="/img/gigpal/setlists.png" alt="GigPal setlists" loading="lazy">
     </div>
   </div>
 </section>
@@ -210,7 +223,7 @@ GIGPAL = f'''
   <div class="wrap">
     <div class="section-head reveal"><span class="eyebrow">Everything a rehearsal needs</span><h2 class="mt-8">One app, the whole practice room.</h2><p class="lead">Built for gigging musicians, worship teams, choirs, students and anyone who learns songs by ear.</p></div>
     <div class="grid g3">
-      {feature("layers", "Stem mixer", "Separate a song into vocals, piano and keys, bass, drums and everything else. Solo the part you are learning, mute the part you play, or split the vocals into lead and backing.")}
+      {feature("layers", "Stem mixer", "Separate a song into vocals, piano and keys, bass, drums and everything else. Solo the part you are learning or mute the part you play.")}
       {feature("chord", "Chords that follow the song", "The chord progression is detected on your device and highlighted bar by bar as the song plays. Read it as letters, as numbers (1, 4, 5, 7&flat;) or as solfa.")}
       {feature("gauge", "Key and tempo", "Every song is analysed for key, tempo and beats the moment you add it. Re-analyse in a tap if you disagree, and see it laid out on a piano.")}
       {feature("speed", "Speed and pitch", "Slow a passage to half speed without changing the pitch, or move the whole song into your singing key. Both stay locked to the chords and lyrics.")}
@@ -240,7 +253,7 @@ GIGPAL = f'''
     <div class="grid g4 steps">
       <div class="step reveal"><h3>Add a song</h3><p class="mt-8 dim">From your files, your camera roll, a link, or a fresh recording. Demo songs are included so you can try everything first.</p></div>
       <div class="step reveal"><h3>Analysed on your phone</h3><p class="mt-8 dim">Key, tempo, beats, chords and sections are detected on the device itself. Nothing leaves your phone for this step.</p></div>
-      <div class="step reveal"><h3>Separate the stems</h3><p class="mt-8 dim">With GigPal Pro, the song is separated in the cloud using the same open-source model family the big apps rely on, then deleted from our servers.</p></div>
+      <div class="step reveal"><h3>Separate the stems</h3><p class="mt-8 dim">The song is separated in the cloud using the same open-source model family the big apps rely on, then deleted from our servers.</p></div>
       <div class="step reveal"><h3>Practise</h3><p class="mt-8 dim">Mix the parts, follow the chords, slow it down, loop it, record yourself. Then add it to the setlist for Sunday.</p></div>
     </div>
   </div>
@@ -249,16 +262,15 @@ GIGPAL = f'''
 <section class="section" style="padding-top:0">
   <div class="wrap">
     <div class="grid g2" style="align-items:start">
-      <div class="reveal"><span class="eyebrow">Free and Pro</span><h2 class="mt-8">Most of GigPal is free. Stems are Pro.</h2><p class="lead mt-16">Everything that runs on your phone stays free forever. Cloud stem separation costs real computing time, so it lives in a GigPal Pro subscription billed through the App Store. Pricing will be announced at launch and you can cancel any time in your Apple settings.</p></div>
+      <div class="reveal"><span class="eyebrow">Free at launch</span><h2 class="mt-8">GigPal is free. Stems included.</h2><p class="lead mt-16">Everything that runs on your phone is free. Cloud stem separation costs real computing time, so version 1.0 includes it with a fair-use limit of three songs a day per account. A GigPal Pro plan with a higher allowance is planned for a later update and will be billed through the App Store.</p></div>
       <div class="card reveal" style="padding:10px 18px">
         <table class="compare">
-          <tr><th>Feature</th><th>Free</th><th>Pro</th></tr>
+          <tr><th>Feature</th><th>Free</th><th>Pro (planned)</th></tr>
           <tr><td>Library, key, tempo, chords, sections</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
           <tr><td>Speed and pitch, loops, lyrics</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
           <tr><td>Metronome, tuner, piano, solfa, recorder</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
           <tr><td>Setlists, reminders, sync across devices</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
-          <tr><td>Stem separation (vocals, piano, bass, drums, other)</td><td class="no">&ndash;</td><td class="yes">&check;</td></tr>
-          <tr><td>Lead and backing vocal split</td><td class="no">&ndash;</td><td class="yes">&check;</td></tr>
+          <tr><td>Stem separation (vocals, piano, bass, drums, other)</td><td class="yes">3 a day</td><td class="yes">More</td></tr>
         </table>
       </div>
     </div>
@@ -455,12 +467,12 @@ GP_PRIVACY = f'''
 <ul>
   <li><b>Account details:</b> your email address, a random account identifier, and the dates you signed up and last signed in.</li>
   <li><b>Library metadata for sync:</b> song titles, artists, keys, tempos, chord and section data, setlists, reminders and preferences, so your library can be restored on another device. Audio files and recordings are not uploaded for sync.</li>
-  <li><b>Separation history:</b> the time, duration and size of each stem separation job, used to apply fair-use limits and to bill Pro subscriptions correctly. We do not keep the audio.</li>
+  <li><b>Separation history:</b> the time, duration and size of each stem separation job, used to apply fair-use limits. We do not keep the audio.</li>
 </ul>
 <p>Accounts and synced data are hosted on Supabase infrastructure, protected by per-user access rules so that one account can never read another&rsquo;s data.</p>
 
 <h2>Stem separation</h2>
-<p>When you ask GigPal to separate a song, the audio file is uploaded over HTTPS to our separation service, processed with an open-source source-separation model (Demucs), and the resulting stems are returned to your device. The uploaded audio and the generated stems are deleted from our servers automatically once your device has downloaded them, and in any case within 24 hours. We do not listen to, analyse for other purposes, or train models on your audio. Stem separation requires a signed-in account so that we can apply limits and subscriptions.</p>
+<p>When you ask GigPal to separate a song, the audio file is uploaded over HTTPS to our separation service, processed with an open-source source-separation model (Demucs), and the resulting stems are returned to your device. The uploaded audio and the generated stems are deleted from our servers automatically once your device has downloaded them, and in any case within 24 hours. We do not listen to, analyse for other purposes, or train models on your audio. Stem separation requires a signed-in account so that we can apply fair-use limits.</p>
 
 <h2>Third-party lookups you trigger</h2>
 <ul>
@@ -477,7 +489,7 @@ GP_PRIVACY = f'''
 </ul>
 
 <h2>Purchases</h2>
-<p>GigPal Pro is sold as an in-app subscription through Apple. Apple processes the payment and we never see your card details. We receive an anonymous subscription status (via RevenueCat) so that the app can unlock Pro features on your devices. Manage or cancel the subscription in your Apple ID settings.</p>
+<p>GigPal 1.0 is free and contains no in-app purchases. If we add a GigPal Pro subscription in a future update it will be sold through Apple, Apple will process the payment, we will never see your card details, and this policy will be updated before it goes live.</p>
 
 <h2>What we do not do</h2>
 <ul>
@@ -490,8 +502,7 @@ GP_PRIVACY = f'''
 <table><tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
 <tr><td>Supabase</td><td>Accounts, database and file storage</td><td>Email, account id, synced library metadata</td></tr>
 <tr><td>Our separation service (Fly.io hosting)</td><td>Stem separation</td><td>Uploaded audio, temporarily</td></tr>
-<tr><td>Apple</td><td>App distribution and in-app purchases</td><td>Handled under Apple&rsquo;s privacy policy</td></tr>
-<tr><td>RevenueCat</td><td>Subscription status</td><td>Anonymous app user id, purchase receipt</td></tr>
+<tr><td>Apple</td><td>App distribution</td><td>Handled under Apple&rsquo;s privacy policy</td></tr>
 <tr><td>Resend</td><td>Account emails (password resets)</td><td>Email address</td></tr>
 <tr><td>LRCLIB, Datamuse</td><td>Lyrics and rhyme lookups</td><td>Search terms only</td></tr></table>
 <p>These providers may process data in the United States and other countries. We choose providers that commit to industry-standard security and data-protection terms.</p>
@@ -519,7 +530,7 @@ GP_TERMS = f'''
 <p>These terms are an agreement between you and Avodahsoft (&ldquo;we&rdquo;, &ldquo;us&rdquo;) covering the GigPal app and the services behind it. By using GigPal you agree to them. If you do not agree, please do not use the app.</p>
 
 <h2>What GigPal is</h2>
-<p>GigPal is a practice tool for musicians. It analyses songs you add for key, tempo, chords and structure, lets you change speed and pitch, provides a metronome, tuner, piano, recorder, lyrics tools and setlists, and, with a Pro subscription, separates songs into stems in the cloud.</p>
+<p>GigPal is a practice tool for musicians. It analyses songs you add for key, tempo, chords and structure, lets you change speed and pitch, provides a metronome, tuner, piano, recorder, lyrics tools and setlists, and separates songs into stems in the cloud.</p>
 
 <h2>Your music and your responsibility</h2>
 <ul>
@@ -532,12 +543,10 @@ GP_TERMS = f'''
 <h2>Accounts</h2>
 <p>An account is optional for most of GigPal and required for sync and stem separation. Keep your credentials private; you are responsible for activity under your account. You can delete your account at any time from the Profile screen.</p>
 
-<h2>GigPal Pro and payments</h2>
+<h2>Stem separation and future paid features</h2>
 <ul>
-  <li>GigPal Pro is an auto-renewing subscription purchased through Apple&rsquo;s App Store. Prices are shown in the app before you buy and may vary by country.</li>
-  <li>The subscription renews automatically unless you cancel at least 24 hours before the end of the current period. Manage or cancel it in your Apple ID settings; deleting the app does not cancel a subscription.</li>
-  <li>Refunds are handled by Apple under its policies. Your statutory rights are not affected.</li>
-  <li>Stem separation is subject to fair-use limits shown in the app (for example a number of songs per day or per month) so that the service stays fast for everyone. We may adjust limits, features and prices over time, and will tell you in the app before a price change applies to you.</li>
+  <li>Cloud stem separation is currently free and subject to fair-use limits shown in the app (three songs a day per account) so that the service stays fast for everyone. We may adjust limits and features over time.</li>
+  <li>If we introduce a paid GigPal Pro plan it will be an auto-renewing subscription purchased through Apple&rsquo;s App Store. Prices will be shown in the app before you buy, renewals and refunds will be handled by Apple under its policies, and these terms will be updated before it launches. Your statutory rights are not affected.</li>
 </ul>
 
 <h2>Acceptable use</h2>
@@ -559,13 +568,13 @@ GP_TERMS = f'''
 <p>GigPal is provided &ldquo;as is&rdquo; to the extent permitted by law. Nothing in these terms excludes rights you have under the Australian Consumer Law or any other consumer protection law that cannot be excluded. Subject to those rights, we are not liable for indirect or consequential loss, and our total liability to you in connection with GigPal is limited to the amount you paid us for the service in the 12 months before the claim arose.</p>
 
 <h2>Termination</h2>
-<p>You can stop using GigPal and delete your account at any time. We may suspend or close accounts that breach these terms. On termination your right to use Pro features ends; content stored on your device remains yours.</p>
+<p>You can stop using GigPal and delete your account at any time. We may suspend or close accounts that breach these terms. On termination your access to the cloud services ends; content stored on your device remains yours.</p>
 
 <h2>Governing law</h2>
 <p>These terms are governed by the laws of Australia, without limiting any mandatory consumer protection you have where you live.</p>
 <p><b>Contact:</b> <a href="mailto:{MAIL}">{MAIL}</a></p>
 '''
-legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music stays yours, only add music you have the right to use, and stem separation is a Pro subscription billed by Apple that you can cancel any time.", GP_TERMS, "/img/photos/concert.jpg")
+legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music stays yours, only add music you have the right to use, and cloud stem separation is free with a daily fair-use limit.", GP_TERMS, "/img/photos/concert.jpg")
 
 # ---------------------------------------------------------------- 404, robots, sitemap, favicon
 NOTFOUND = f'''

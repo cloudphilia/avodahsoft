@@ -57,6 +57,33 @@ async function handleContact(request, env) {
   return json({ ok: true });
 }
 
+/**
+ * Keep free-tier Supabase projects from being paused for inactivity: a cron trigger runs a
+ * real (RLS-scoped, empty) query against each project every few hours.
+ * KEEPALIVE_TARGETS is a secret holding a JSON array of { name, url, key } (publishable/anon keys).
+ */
+async function keepAlive(env) {
+  let targets = [];
+  try { targets = JSON.parse(env.KEEPALIVE_TARGETS || '[]'); } catch { targets = []; }
+  const results = [];
+  for (const t of targets) {
+    if (!t?.url || !t?.key) continue;
+    const base = String(t.url).replace(/\/+$/, '');
+    try {
+      const res = await fetch(`${base}/rest/v1/${t.table || 'profiles'}?select=id&limit=1`, {
+        // Legacy anon keys are JWTs and go in Authorization too; new publishable keys (sb_publishable_…) only use apikey.
+        headers: { apikey: t.key, ...(String(t.key).startsWith('eyJ') ? { Authorization: `Bearer ${t.key}` } : {}), Accept: 'application/json', 'User-Agent': 'avodahsoft-keepalive/1.0' },
+        signal: AbortSignal.timeout(15000),
+      });
+      results.push({ name: t.name || base, status: res.status });
+    } catch (err) {
+      results.push({ name: t.name || base, error: String(err?.message || err) });
+    }
+  }
+  console.log('keepalive', JSON.stringify(results));
+  return results;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -68,5 +95,8 @@ export default {
     const headers = new Headers(res.headers);
     for (const [k, v] of Object.entries(SECURITY_HEADERS)) headers.set(k, v);
     return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
+  },
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(keepAlive(env));
   },
 };

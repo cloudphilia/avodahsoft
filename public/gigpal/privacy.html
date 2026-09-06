@@ -49,12 +49,12 @@
 <ul>
   <li><b>Account details:</b> your email address, a random account identifier, and the dates you signed up and last signed in.</li>
   <li><b>Library metadata for sync:</b> song titles, artists, keys, tempos, chord and section data, setlists, reminders and preferences, so your library can be restored on another device. Audio files and recordings are not uploaded for sync.</li>
-  <li><b>Separation history:</b> the time, duration and size of each stem separation job, used to apply fair-use limits and to bill Pro subscriptions correctly. We do not keep the audio.</li>
+  <li><b>Separation history:</b> the time, duration and size of each stem separation job, used to apply fair-use limits. We do not keep the audio.</li>
 </ul>
 <p>Accounts and synced data are hosted on Supabase infrastructure, protected by per-user access rules so that one account can never read another&rsquo;s data.</p>
 
 <h2>Stem separation</h2>
-<p>When you ask GigPal to separate a song, the audio file is uploaded over HTTPS to our separation service, processed with an open-source source-separation model (Demucs), and the resulting stems are returned to your device. The uploaded audio and the generated stems are deleted from our servers automatically once your device has downloaded them, and in any case within 24 hours. We do not listen to, analyse for other purposes, or train models on your audio. Stem separation requires a signed-in account so that we can apply limits and subscriptions.</p>
+<p>When you ask GigPal to separate a song, the audio file is uploaded over HTTPS to our separation service, processed with an open-source source-separation model (Demucs), and the resulting stems are returned to your device. The uploaded audio and the generated stems are deleted from our servers automatically once your device has downloaded them, and in any case within 24 hours. We do not listen to, analyse for other purposes, or train models on your audio. Stem separation requires a signed-in account so that we can apply fair-use limits.</p>
 
 <h2>Third-party lookups you trigger</h2>
 <ul>
@@ -71,7 +71,7 @@
 </ul>
 
 <h2>Purchases</h2>
-<p>GigPal Pro is sold as an in-app subscription through Apple. Apple processes the payment and we never see your card details. We receive an anonymous subscription status (via RevenueCat) so that the app can unlock Pro features on your devices. Manage or cancel the subscription in your Apple ID settings.</p>
+<p>GigPal 1.0 is free and contains no in-app purchases. If we add a GigPal Pro subscription in a future update it will be sold through Apple, Apple will process the payment, we will never see your card details, and this policy will be updated before it goes live.</p>
 
 <h2>What we do not do</h2>
 <ul>
@@ -84,8 +84,7 @@
 <table><tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
 <tr><td>Supabase</td><td>Accounts, database and file storage</td><td>Email, account id, synced library metadata</td></tr>
 <tr><td>Our separation service (Fly.io hosting)</td><td>Stem separation</td><td>Uploaded audio, temporarily</td></tr>
-<tr><td>Apple</td><td>App distribution and in-app purchases</td><td>Handled under Apple&rsquo;s privacy policy</td></tr>
-<tr><td>RevenueCat</td><td>Subscription status</td><td>Anonymous app user id, purchase receipt</td></tr>
+<tr><td>Apple</td><td>App distribution</td><td>Handled under Apple&rsquo;s privacy policy</td></tr>
 <tr><td>Resend</td><td>Account emails (password resets)</td><td>Email address</td></tr>
 <tr><td>LRCLIB, Datamuse</td><td>Lyrics and rhyme lookups</td><td>Search terms only</td></tr></table>
 <p>These providers may process data in the United States and other countries. We choose providers that commit to industry-standard security and data-protection terms.</p>

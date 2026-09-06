@@ -13,5 +13,6 @@
     { "pattern": "avodahsoft.com", "custom_domain": true }
   ],
   "vars": { "CONTACT_TO": "hello@avodahsoft.com" },
+  "triggers": { "crons": ["23 */6 * * *"] },
   "observability": { "enabled": true }
 }
