@@ -209,7 +209,7 @@ GIGPAL = f'''
 <section class="section" style="padding-top:0">
   <div class="wrap">
     <div class="section-head reveal"><span class="eyebrow">See it in action</span><h2 class="mt-8">Three minutes, start to finish.</h2><p class="lead">Signing in, adding a song, separating the stems, following the chords and building a setlist.</p></div>
-    <div class="video reveal"><video controls playsinline preload="metadata" poster="/img/gigpal/review-poster.jpg"><source src="/gigpal/review.mp4" type="video/mp4">Your browser cannot play this video. <a href="/gigpal/review.mp4">Open it directly.</a></video></div>
+    <div class="video reveal"><video controls playsinline preload="metadata" poster="/img/gigpal/review-poster.jpg"><source src="/gigpal/demo.mp4" type="video/mp4">Your browser cannot play this video. <a href="/gigpal/demo.mp4">Open it directly.</a></video></div>
     <div class="gallery reveal">
       <img src="/img/gigpal/library.png" alt="GigPal library with demo songs, keys and tempos" loading="lazy">
       <img src="/img/gigpal/tools.png" alt="GigPal tools: tuner, metronome, piano, chord finder and more" loading="lazy">
