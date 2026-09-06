@@ -70,11 +70,12 @@ async function keepAlive(env) {
     if (!t?.url || !t?.key) continue;
     const base = String(t.url).replace(/\/+$/, '');
     try {
-      const res = await fetch(`${base}/rest/v1/${t.table || 'profiles'}?select=id&limit=1`, {
-        // Legacy anon keys are JWTs and go in Authorization too; new publishable keys (sb_publishable_…) only use apikey.
-        headers: { apikey: t.key, ...(String(t.key).startsWith('eyJ') ? { Authorization: `Bearer ${t.key}` } : {}), Accept: 'application/json', 'User-Agent': 'avodahsoft-keepalive/1.0' },
-        signal: AbortSignal.timeout(15000),
-      });
+      // Legacy anon keys are JWTs and go in Authorization too; new publishable keys (sb_publishable_…) only use apikey.
+      const headers = { apikey: t.key, ...(String(t.key).startsWith('eyJ') ? { Authorization: `Bearer ${t.key}` } : {}), Accept: 'application/json', 'User-Agent': 'avodahsoft-keepalive/1.0' };
+      // Prefer an anon-callable RPC (a real Postgres round-trip that returns 200); fall back to a table select.
+      const res = t.rpc
+        ? await fetch(`${base}/rest/v1/rpc/${t.rpc}`, { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify(t.body || {}), signal: AbortSignal.timeout(15000) })
+        : await fetch(`${base}/rest/v1/${t.table || 'profiles'}?select=id&limit=1`, { headers, signal: AbortSignal.timeout(15000) });
       results.push({ name: t.name || base, status: res.status });
     } catch (err) {
       results.push({ name: t.name || base, error: String(err?.message || err) });
