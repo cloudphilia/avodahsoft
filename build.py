@@ -147,7 +147,7 @@ HOME = f'''
     <div class="section-head reveal"><span class="eyebrow">Our apps</span><h2 class="mt-8">Two products, one standard.</h2><p class="lead">Each one is built by the person who answers your email, and each ships when it is genuinely finished.</p></div>
     <div class="grid g2">
       <a class="card product-card reveal" href="/gigpal">
-        <div class="media"><img src="/img/photos/band.jpg" alt="A band rehearsing on stage" loading="lazy"><img class="shot" src="/img/gigpal/library.png" alt=""></div>
+        <div class="media media--grad"><img class="shot" src="/img/gigpal/library.png" alt=""></div>
         <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>In development</span><span class="pill">iOS · iPad · Web</span></div><h3>GigPal</h3><p>The practice room in your pocket. Split any song into vocals, piano, bass, drums and more, follow the chords as they play, change key and tempo, and rehearse with a metronome, tuner and recorder.</p><span class="btn primary">Explore GigPal {I["arrow"]}</span></div>
       </a>
       <a class="card product-card reveal" href="/kilojo">
@@ -190,7 +190,7 @@ page("/", "Avodahsoft · Apps for musicians and everyday life", "Avodahsoft is a
 # ---------------------------------------------------------------- gigpal
 GIGPAL = f'''
 <section class="hero">
-  <div class="photo" style="background-image:url(/img/photos/concert.jpg)"></div><div class="bg"></div>
+  <div class="bg"></div>
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow-row"><img class="appicon" src="/img/gigpal/icon.png" alt="GigPal app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming to the App Store · {YEAR}</span><span class="pill">iPhone · iPad · Web</span></div>
@@ -241,7 +241,7 @@ GIGPAL = f'''
 
 <section class="section" style="padding-top:0">
   <div class="wrap">
-    <div class="band reveal"><img src="/img/photos/singer.jpg" alt="A singer performing under stage lights" loading="lazy">
+    <div class="band band--grad reveal">
       <div><span class="eyebrow">Why we built it</span><h3 class="mt-8">Made by a musician who was tired of switching apps.</h3><p>Chords in one app, a metronome in another, a tuner in a third, and the actual song in a browser tab. GigPal puts them on one screen, keeps them in sync, and stays out of your way when you are playing.</p></div>
     </div>
   </div>
@@ -285,7 +285,7 @@ GIGPAL = f'''
   </div>
 </section>
 '''
-page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a music practice app for iPhone, iPad and the web: stem separation, chords that follow the song, key and tempo control, metronome, tuner, piano, recorder and setlists.", GIGPAL, current="/gigpal", image="/img/photos/concert.jpg")
+page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a music practice app for iPhone, iPad and the web: stem separation, chords that follow the song, key and tempo control, metronome, tuner, piano, recorder and setlists.", GIGPAL, current="/gigpal", image="/img/gigpal/icon.png")
 
 # ---------------------------------------------------------------- kilojo
 KILOJO = f'''
@@ -343,7 +343,7 @@ WORK = f'''
 </section>
 <section class="section">
   <div class="wrap grid g2">
-    <a class="card product-card reveal" href="/gigpal"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot" src="/img/gigpal/chords.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>In development</span><h3 class="mt-16">GigPal</h3><p>Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder, setlists.</p><span class="btn primary">View GigPal {I["arrow"]}</span></div></a>
+    <a class="card product-card reveal" href="/gigpal"><div class="media media--grad"><img class="shot" src="/img/gigpal/chords.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>In development</span><h3 class="mt-16">GigPal</h3><p>Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder, setlists.</p><span class="btn primary">View GigPal {I["arrow"]}</span></div></a>
     <a class="card product-card reveal" href="/kilojo"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kilojo/1-today.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Kilojo</h3><p>A food diary that reads your plate: photo estimates, barcode scanning, editable numbers.</p><span class="btn green">View Kilojo {I["arrow"]}</span></div></a>
   </div>
 </section>
@@ -523,7 +523,7 @@ GP_PRIVACY = f'''
 <p>If this policy changes in a way that matters, we will update the date at the top and tell you inside the app before the change takes effect.</p>
 <p><b>Contact:</b> <a href="mailto:{MAIL}">{MAIL}</a></p>
 '''
-legal_page("/gigpal/privacy", "GigPal", "privacy", "GigPal analyses your music on your own device, works without an account, and never shows ads or tracks you. This page explains the little we do hold, and how to delete it.", GP_PRIVACY, "/img/photos/concert.jpg")
+legal_page("/gigpal/privacy", "GigPal", "privacy", "GigPal analyses your music on your own device, works without an account, and never shows ads or tracks you. This page explains the little we do hold, and how to delete it.", GP_PRIVACY, "/img/gigpal/icon.png")
 
 GP_TERMS = f'''
 <p class="meta">Last updated {UPDATED} &middot; GigPal for iPhone, iPad and web &middot; Operated by Avodahsoft, Australia</p>
@@ -574,7 +574,7 @@ GP_TERMS = f'''
 <p>These terms are governed by the laws of Australia, without limiting any mandatory consumer protection you have where you live.</p>
 <p><b>Contact:</b> <a href="mailto:{MAIL}">{MAIL}</a></p>
 '''
-legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music stays yours, only add music you have the right to use, and cloud stem separation is free with a daily fair-use limit.", GP_TERMS, "/img/photos/concert.jpg")
+legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music stays yours, only add music you have the right to use, and cloud stem separation is free with a daily fair-use limit.", GP_TERMS, "/img/gigpal/icon.png")
 
 # ---------------------------------------------------------------- 404, robots, sitemap, favicon
 NOTFOUND = f'''
