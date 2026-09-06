@@ -26,6 +26,9 @@ I = {
     "list": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue)"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>',
     "bell": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange-2)"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>',
     "link": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M10 13a5 5 0 0 0 7 0l4-4a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-4 4a5 5 0 0 0 7 7l1-1"/></svg>',
+    "calendar": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3M13 14h3M8 18h3"/></svg>',
+    "leaf": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M20 4c-8 0-14 4-15 12 0 2 1 4 3 4 8-1 12-7 12-16Z"/><path d="M5 20c3-5 7-8 12-11"/></svg>',
+    "scale": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M12 3v18M5 21h14M6 7h12"/><path d="M6 7 3 13a3 3 0 0 0 6 0L6 7ZM18 7l-3 6a3 3 0 0 0 6 0l-3-6Z"/></svg>',
     "camera": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M3 8a2 2 0 0 1 2-2h2l2-3h6l2 3h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="4"/></svg>',
     "barcode": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--teal)"><path d="M4 5v14M8 5v14M11 5v14M15 5v14M18 5v14M21 5v14"/></svg>',
     "type": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple)"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>',
@@ -307,11 +310,16 @@ KILOJO = f'''
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow green">Three ways in</span><h2 class="mt-8">Photograph it, scan it, or just say it.</h2></div>
+    <div class="section-head reveal"><span class="eyebrow green">Three ways in, and a plan</span><h2 class="mt-8">Photograph it, scan it, say it &mdash; or plan the week.</h2></div>
     <div class="grid g3">
       {feature("camera", "Point at the plate", "For food that never had a label: a plate of rice, a takeaway, someone else&rsquo;s cooking. Kilojo itemises what it can see and shows its working, so you can see why a number came out as it did.")}
       {feature("barcode", "Read the packet", "A barcode gives the manufacturer&rsquo;s own figures, which beats any estimate from a photograph. Instant, and free to run.")}
       {feature("type", "Or just say it", "Sometimes you know. Type the name and the numbers, and log a repeat of it in one tap for as long as you keep eating it.")}
+    </div>
+    <div class="grid g3 mt-24">
+      {feature("calendar", "Plan the week", "Seven days, four slots each. Pick from meals you have logged or a cookbook of 216 everyday ones, or let Kilojo fill the empty slots to your target and edit what it picked.")}
+      {feature("leaf", "Your way of eating", "Vegetarian, vegan, pescatarian, gluten-free, dairy-free, keto, high-protein or low-carb &mdash; every filter has real options for every meal of the day.")}
+      {feature("scale", "Where you are heading", "A goal weight with the distance still to go, BMI on the WHO scale for context, and a weight trend that reads the line, not any one morning.")}
     </div>
   </div>
 </section>
