@@ -6,11 +6,13 @@ ROOT = pathlib.Path(__file__).parent
 PUB = ROOT / "public"
 SITE = "https://avodahsoft.com"
 MAIL = "hello@avodahsoft.com"
+APPSTORE = "https://apps.apple.com/app/id6809133057"
 UPDATED = "6 September 2026"
 YEAR = "2026"
 
 I = {
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M20 6 9 17l-5-5"/></svg>',
+    "apple": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.53c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.72-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.18-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.15.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.34-3.54zM14.88 5.6c.61-.74 1.02-1.77.91-2.8-.88.04-1.94.59-2.57 1.33-.56.65-1.05 1.7-.92 2.7.98.08 1.98-.5 2.58-1.23z"/></svg>',
     "arrow": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
     "music": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
     "layers": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><path d="m12 2 10 5-10 5L2 7l10-5Z"/><path d="m2 12 10 5 10-5"/><path d="m2 17 10 5 10-5"/></svg>',
@@ -92,7 +94,7 @@ FOOT = f'''</main>
       <p class="mt-16">An independent software studio in Australia. Apps for musicians and everyday life, built to be finished rather than merely working.</p>
       <p class="mt-8"><a href="mailto:{MAIL}">{MAIL}</a></p>
     </div>
-    <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/work">All work</a></div>
+    <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/kepta">Kepta</a><a href="/work">All work</a></div>
     <div><h4>Studio</h4><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
     <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a></div>
     <div class="legal"><span>&copy; <span data-year>{YEAR}</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store and iPhone are trademarks of Apple Inc.</span></div>
@@ -151,11 +153,15 @@ HOME = f'''
     <div class="grid g2">
       <a class="card product-card reveal" href="/gigpal">
         <div class="media"><img src="/img/photos/band.jpg" alt="A band rehearsing on stage" loading="lazy"><img class="shot" src="/img/gigpal/library.png" alt=""></div>
-        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>In development</span><span class="pill">iOS · iPad · Web</span></div><h3>GigPal</h3><p>The practice room in your pocket. Split any song into vocals, piano, bass, drums and more, follow the chords as they play, change key and tempo, and rehearse with a metronome, tuner and recorder.</p><span class="btn primary">Explore GigPal {I["arrow"]}</span></div>
+        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>On the App Store</span><span class="pill">iPhone</span></div><h3>GigPal</h3><p>The practice room in your pocket. Split any song into vocals, piano, bass, drums and more, follow the chords as they play, change key and tempo, and rehearse with a metronome, tuner and recorder.</p><span class="btn primary">Explore GigPal {I["arrow"]}</span></div>
       </a>
       <a class="card product-card reveal" href="/kilojo">
         <div class="media"><img src="/img/photos/night.jpg" alt="A table set for dinner in the evening" loading="lazy"><img class="shot" src="/img/kilojo/2-snap-your-meal.png" alt=""></div>
         <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iOS</span></div><h3>Kilojo</h3><p>A food diary that reads your plate. Photograph a meal for calories and macros, scan a barcode for the packet&rsquo;s own figures, or simply type it in. Every number stays editable.</p><span class="btn green">Explore Kilojo {I["arrow"]}</span></div>
+      </a>
+      <a class="card product-card reveal" href="/kepta">
+        <div class="media"><img src="/img/photos/night.jpg" alt="A quiet desk in the evening" loading="lazy"><img class="shot" src="/img/kepta/today.png" alt=""></div>
+        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span></div><h3>Kepta</h3><p>Habits worth keeping, and the notes that come with them. Track the day, write it down, scan a page, sign a PDF, and ask your own notes a question.</p><span class="btn primary">Explore Kepta {I["arrow"]}</span></div>
       </a>
     </div>
   </div>
@@ -188,7 +194,7 @@ HOME = f'''
   </div>
 </section>
 '''
-page("/", "Avodahsoft · Apps for musicians and everyday life", "Avodahsoft is an independent software studio in Australia building GigPal, the music practice app, and Kilojo, the food diary that reads your plate.", HOME)
+page("/", "Avodahsoft · Apps for musicians and everyday life", "Avodahsoft is an independent software studio in Australia building GigPal, the music practice app, Kilojo, the food diary that reads your plate, and Kepta, the habit tracker with notes built in.", HOME)
 
 # ---------------------------------------------------------------- gigpal
 GIGPAL = f'''
@@ -196,10 +202,10 @@ GIGPAL = f'''
   <div class="photo" style="background-image:url(/img/photos/concert.jpg)"></div><div class="bg"></div>
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow-row"><img class="appicon" src="/img/gigpal/icon.png" alt="GigPal app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming to the App Store · {YEAR}</span><span class="pill">iPhone · iPad · Web</span></div>
+      <div class="eyebrow-row"><img class="appicon" src="/img/gigpal/icon.png" alt="GigPal app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Now on the App Store</span><span class="pill">iPhone</span></div>
       <h1>Practice like <span class="accent">the band is in the room.</span></h1>
       <p class="lead mt-24">GigPal turns any song into a rehearsal. Pull the vocals, piano, bass and drums apart, follow the chords as they change, slow it down, move the key, loop the hard bit, and record yourself over the top.</p>
-      <div class="cta"><a class="btn primary" href="/contact?topic=GigPal%20early%20access">Get early access {I["arrow"]}</a><a class="btn ghost" href="#features">See what it does</a></div>
+      <div class="cta"><a class="btn primary" href="{APPSTORE}">{I["apple"]} Download on the App Store</a><a class="btn ghost" href="#features">See what it does</a></div>
       <div class="stats"><div><b>5</b>stems per song</div><div><b>3</b>chord notations</div><div><b>&plusmn;12</b>semitones of key change</div><div><b>0</b>ads or trackers</div></div>
     </div>
     <div class="phones"><div class="glow"></div>
@@ -216,7 +222,7 @@ GIGPAL = f'''
     <div class="gallery reveal">
       <img src="/img/gigpal/library.png" alt="GigPal library with demo songs, keys and tempos" loading="lazy">
       <img src="/img/gigpal/tools.png" alt="GigPal tools: tuner, metronome, piano, chord finder and more" loading="lazy">
-      <img src="/img/gigpal/tuner.png" alt="GigPal chromatic tuner" loading="lazy">
+      <img src="/img/gigpal/metronome.png" alt="GigPal metronome" loading="lazy">
       <img src="/img/gigpal/setlists.png" alt="GigPal setlists" loading="lazy">
     </div>
   </div>
@@ -265,7 +271,7 @@ GIGPAL = f'''
 <section class="section" style="padding-top:0">
   <div class="wrap">
     <div class="grid g2" style="align-items:start">
-      <div class="reveal"><span class="eyebrow">Free at launch</span><h2 class="mt-8">GigPal is free. Stems included.</h2><p class="lead mt-16">Everything that runs on your phone is free. Cloud stem separation costs real computing time, so version 1.0 includes it with a fair-use limit of three songs a day per account. A GigPal Pro plan with a higher allowance is planned for a later update and will be billed through the App Store.</p></div>
+      <div class="reveal"><span class="eyebrow">Pricing</span><h2 class="mt-8">GigPal is free. Stems included.</h2><p class="lead mt-16">Everything that runs on your phone is free. Cloud stem separation costs real computing time, so version 1.0 includes it with a fair-use limit of three songs a day per account. A GigPal Pro plan with a higher allowance is planned for a later update and will be billed through the App Store.</p></div>
       <div class="card reveal" style="padding:10px 18px">
         <table class="compare">
           <tr><th>Feature</th><th>Free</th><th>Pro (planned)</th></tr>
@@ -289,6 +295,48 @@ GIGPAL = f'''
 </section>
 '''
 page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a music practice app for iPhone, iPad and the web: stem separation, chords that follow the song, key and tempo control, metronome, tuner, piano, recorder and setlists.", GIGPAL, current="/gigpal", image="/img/photos/concert.jpg")
+
+# ---------------------------------------------------------------- kepta
+KEPTA = f'''
+<section class="hero">
+  <div class="photo" style="background-image:url(/img/photos/night.jpg)"></div><div class="bg" style="background:radial-gradient(900px 500px at 15% 10%,rgba(52,211,182,.22),transparent 60%),radial-gradient(700px 500px at 85% 20%,rgba(79,184,255,.16),transparent 60%)"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-row"><img class="appicon" src="/img/kepta/icon.png" alt="Kepta app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span></div>
+      <h1>Habits worth keeping, and the <span class="accent" style="background:linear-gradient(90deg,#34D3B6,#4FB8FF);-webkit-background-clip:text;background-clip:text">notes that come with them.</span></h1>
+      <p class="lead mt-24">Kepta is a habit tracker with a notebook built in. Tick off the day, keep a streak, put a habit on a future date, and write the note that goes with it &mdash; then scan a page, sign a PDF, or ask your own notes a question.</p>
+      <div class="cta"><a class="btn primary" href="/contact?topic=Kepta">Tell me when it launches {I["arrow"]}</a><a class="btn ghost" href="/work">All work</a></div>
+    </div>
+    <div class="phones"><div class="glow" style="background:radial-gradient(closest-side,rgba(52,211,182,.35),transparent)"></div>
+      <div class="phone back"><img src="/img/kepta/habits.png" alt="Kepta habits grid with streaks" loading="eager"></div>
+      <div class="phone front"><img src="/img/kepta/today.png" alt="Kepta Today screen with the week and today's habits" loading="eager"></div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">What it does</span><h2 class="mt-8">One place for the day.</h2><p class="lead">Most habit apps stop at the tick. Kepta keeps the notes, the documents and the questions beside it.</p></div>
+    <div class="grid g3">
+      {feature("check", "Habits and streaks", "Daily habits, counted targets and 7, 30, 60 or 90-day challenges. Streaks walk the days you actually scheduled, so a weekday habit does not break every weekend.")}
+      {feature("calendar", "A calendar that tells the truth", "Past days show what you logged. Future days show only what you put on them. Jump to any date from Today.")}
+      {feature("type", "Notes, in markdown", "Headings, checklists, links and photos. Folders come from the notes themselves. Export any note as text or as a PDF.")}
+      {feature("camera", "Scan and sign", "Apple&rsquo;s own document scanner, image-to-PDF, and a signature pad. Open a PDF, drop your signature on the page in black or blue ink, and export it signed.")}
+      {feature("lyrics", "Ask your notes", "Ask a question and get an answer drawn only from your own writing &mdash; it says so when your notes do not know.")}
+      {feature("shield", "Yours, on your phone", "Everything lives on the device. No account to make, nothing to sign in to, and no analytics.")}
+    </div>
+  </div>
+</section>
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="grid g3 shots reveal">
+      <img src="/img/kepta/today.png" alt="Kepta Today" loading="lazy">
+      <img src="/img/kepta/habits.png" alt="Kepta habits" loading="lazy">
+      <img src="/img/kepta/calendar.png" alt="Kepta calendar" loading="lazy">
+    </div>
+  </div>
+</section>
+'''
+page("/kepta", "Kepta · Habits worth keeping, and the notes that come with them", "Kepta is a habit tracker for iPhone with a notebook built in: streaks and challenges, a calendar, markdown notes with photos, document scanning, PDF signing, and questions answered from your own notes. Coming soon.", KEPTA, current="/kepta", image="/img/photos/night.jpg")
 
 # ---------------------------------------------------------------- kilojo
 KILOJO = f'''
@@ -351,8 +399,9 @@ WORK = f'''
 </section>
 <section class="section">
   <div class="wrap grid g2">
-    <a class="card product-card reveal" href="/gigpal"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot" src="/img/gigpal/chords.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>In development</span><h3 class="mt-16">GigPal</h3><p>Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder, setlists.</p><span class="btn primary">View GigPal {I["arrow"]}</span></div></a>
+    <a class="card product-card reveal" href="/gigpal"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot" src="/img/gigpal/chords.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>On the App Store</span><h3 class="mt-16">GigPal</h3><p>Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder, setlists.</p><span class="btn primary">View GigPal {I["arrow"]}</span></div></a>
     <a class="card product-card reveal" href="/kilojo"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kilojo/1-today.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Kilojo</h3><p>A food diary that reads your plate: photo estimates, barcode scanning, editable numbers.</p><span class="btn green">View Kilojo {I["arrow"]}</span></div></a>
+    <a class="card product-card reveal" href="/kepta"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kepta/habits.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Kepta</h3><p>A habit tracker with notes built in: streaks, a calendar, markdown notes, document scanning and PDF signing.</p><span class="btn primary">View Kepta {I["arrow"]}</span></div></a>
   </div>
 </section>
 <section class="section" style="padding-top:0">
@@ -590,7 +639,7 @@ NOTFOUND = f'''
 page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.html")
 
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
-paths = ["/", "/gigpal", "/kilojo", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms"]
+paths = ["/", "/gigpal", "/kilojo", "/kepta", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
 write("/favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FF5E62"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#g)"/><path d="M20 46 32 16l12 30h-6.6l-2.4-6.4H29l-2.4 6.4Zm10.6-12h6.8L34 24.6Z" fill="#0A0E1F"/></svg>')
 print("done")
