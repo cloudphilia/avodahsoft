@@ -302,36 +302,47 @@ KEPTA = f'''
   <div class="photo" style="background-image:url(/img/photos/night.jpg)"></div><div class="bg" style="background:radial-gradient(900px 500px at 15% 10%,rgba(52,211,182,.22),transparent 60%),radial-gradient(700px 500px at 85% 20%,rgba(79,184,255,.16),transparent 60%)"></div>
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow-row"><img class="appicon" src="/img/kepta/icon.png" alt="Kepta app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span></div>
+      <div class="eyebrow-row"><img class="appicon" src="/img/kepta/icon.png" alt="Kepta app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span><span class="pill">Free</span></div>
       <h1>Habits worth keeping, and the <span class="accent" style="background:linear-gradient(90deg,#34D3B6,#4FB8FF);-webkit-background-clip:text;background-clip:text">notes that come with them.</span></h1>
-      <p class="lead mt-24">Kepta is a habit tracker with a notebook built in. Tick off the day, keep a streak, put a habit on a future date, and write the note that goes with it &mdash; then scan a page, sign a PDF, or ask your own notes a question.</p>
-      <div class="cta"><a class="btn primary" href="/contact?topic=Kepta">Tell me when it launches {I["arrow"]}</a><a class="btn ghost" href="/work">All work</a></div>
+      <p class="lead mt-24">Tick off the day and keep the streak. Write the note that goes with it. Scan the page, sign the PDF, and ask your own notes what you said last month. Kepta keeps all of that in one place, and keeps it on your phone.</p>
+      <div class="cta"><a class="btn primary" href="/contact?topic=Kepta">Tell me when it launches {I["arrow"]}</a><a class="btn ghost" href="#features">What it does</a></div>
     </div>
     <div class="phones"><div class="glow" style="background:radial-gradient(closest-side,rgba(52,211,182,.35),transparent)"></div>
-      <div class="phone back"><img src="/img/kepta/habits.png" alt="Kepta habits grid with streaks" loading="eager"></div>
-      <div class="phone front"><img src="/img/kepta/today.png" alt="Kepta Today screen with the week and today's habits" loading="eager"></div>
+      <div class="phone back"><img src="/img/kepta/habits.png" alt="Kepta habits grid with streaks and challenges" loading="eager"></div>
+      <div class="phone front"><img src="/img/kepta/today.png" alt="Kepta Today screen: the week, the summary ring and today&rsquo;s habits" loading="eager"></div>
     </div>
   </div>
 </section>
-<section class="section">
+
+<section class="section" id="features">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">What it does</span><h2 class="mt-8">One place for the day.</h2><p class="lead">Most habit apps stop at the tick. Kepta keeps the notes, the documents and the questions beside it.</p></div>
+    <div class="section-head reveal"><span class="eyebrow">Habits, notes and documents</span><h2 class="mt-8">Track it, write it down, sign it.</h2></div>
     <div class="grid g3">
       {feature("check", "Habits and streaks", "Daily habits, counted targets and 7, 30, 60 or 90-day challenges. Streaks walk the days you actually scheduled, so a weekday habit does not break every weekend.")}
       {feature("calendar", "A calendar that tells the truth", "Past days show what you logged. Future days show only what you put on them. Jump to any date from Today.")}
-      {feature("type", "Notes, in markdown", "Headings, checklists, links and photos. Folders come from the notes themselves. Export any note as text or as a PDF.")}
-      {feature("camera", "Scan and sign", "Apple&rsquo;s own document scanner, image-to-PDF, and a signature pad. Open a PDF, drop your signature on the page in black or blue ink, and export it signed.")}
-      {feature("lyrics", "Ask your notes", "Ask a question and get an answer drawn only from your own writing &mdash; it says so when your notes do not know.")}
-      {feature("shield", "Yours, on your phone", "Everything lives on the device. No account to make, nothing to sign in to, and no analytics.")}
+      {feature("type", "Notes, in plain markdown", "Headings, checklists, links and photos. Folders come from the notes themselves, so there is never an empty one. Export any note as text or PDF.")}
+    </div>
+    <div class="grid g3 mt-24">
+      {feature("camera", "Scan", "Apple&rsquo;s own document scanner &mdash; edges, perspective and all &mdash; plus image to PDF for the pages you already have.")}
+      {feature("hand", "Sign", "Open a PDF, draw your signature once, drop it on the page in black or blue ink, and export it signed.")}
+      {feature("lyrics", "Ask your notes", "Ask a question and get an answer drawn only from your own writing. When your notes do not know, it says so instead of making something up.")}
     </div>
   </div>
 </section>
+
 <section class="section" style="padding-top:0">
   <div class="wrap">
-    <div class="grid g3 shots reveal">
-      <img src="/img/kepta/today.png" alt="Kepta Today" loading="lazy">
-      <img src="/img/kepta/habits.png" alt="Kepta habits" loading="lazy">
-      <img src="/img/kepta/calendar.png" alt="Kepta calendar" loading="lazy">
+    <div class="product card reveal">
+      <div class="copy"><span class="eyebrow">Honestly</span><h2 class="mt-8" style="font-size:clamp(26px,3vw,38px)">A streak is not the point.</h2><p class="lead mt-16" style="font-size:17px">Most habit apps stop at the tick, and a row of ticks says nothing about why a habit is sticking or slipping. Kepta keeps the note beside the habit &mdash; what you tried, what worked &mdash; and measures the week rather than the day, because one day is only ever 0, 50 or 100 percent. The number it shows you is the one that means something.</p></div>
+      <div class="shots"><div class="phone"><img src="/img/kepta/calendar.png" alt="Kepta monthly calendar and streak board" loading="lazy"></div><div class="phone"><img src="/img/kepta/today.png" alt="Kepta Today" loading="lazy"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="card reveal" style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start"><div class="icon" style="margin:0">{I["shield"]}</div>
+      <div><h3>Yours, on your phone.</h3>{check_list(["No account to create and nothing to sign in to. Your habits and notes live on the device.", "No advertising, no analytics, no tracking software of any kind.", "Scans and signatures are made on the phone and shared only when you choose to share them.", "Questions you ask your notes are answered by a language model and not stored there; nothing else ever leaves the device."])}<p class="mt-16"><a class="btn ghost" href="/contact?topic=Kepta">Ask about Kepta</a></p></div>
     </div>
   </div>
 </section>
@@ -460,7 +471,7 @@ CONTACT = f'''
     <div class="card reveal">
       <form class="form" data-contact novalidate>
         <div class="row"><input name="name" placeholder="Your name" autocomplete="name" required minlength="2"><input name="email" type="email" placeholder="Email address" autocomplete="email" required></div>
-        <select name="topic" id="topic"><option>Support · GigPal</option><option>Support · Kilojo</option><option>GigPal early access</option><option>Kilojo</option><option>New project</option><option>Acquisition</option><option>Other</option></select>
+        <select name="topic" id="topic"><option>Support · GigPal</option><option>Support · Kilojo</option><option>GigPal early access</option><option>Kilojo</option><option>Kepta</option><option>New project</option><option>Acquisition</option><option>Other</option></select>
         <textarea name="message" placeholder="Say which app and which phone if it is support. For a project, the idea, who it is for and roughly when it needs to be live." required minlength="10"></textarea>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><button class="btn primary" type="submit">Send message {I["arrow"]}</button><span class="status" role="status"></span></div>
