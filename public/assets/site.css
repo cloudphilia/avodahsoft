@@ -100,3 +100,12 @@ footer .legal{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px}
 .gallery img{width:100%;height:auto;border-radius:22px;border:3px solid rgba(200,206,222,.75);box-shadow:0 20px 50px rgba(0,0,0,.35)}
 @media(max-width:800px){.gallery{grid-template-columns:repeat(2,1fr);gap:12px}}
+
+/* A Mac app's screen, where the phones stand for the iPhone apps. */
+.screens{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;min-height:420px;justify-content:center}
+.screen{width:min(560px,92vw);aspect-ratio:16/10;border-radius:14px;background:#0b1024;border:6px solid #C8CEDE;box-shadow:0 40px 80px rgba(0,0,0,.55),inset 0 0 0 1px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.35);overflow:hidden;position:relative;transition:transform .6s var(--ease)}
+.screen img{width:100%;height:100%;object-fit:cover;object-position:top left}
+.screen.back{transform:translateY(-6px) scale(.86);opacity:.9;z-index:0;margin-bottom:-24%}.screen.front{z-index:1}
+.screens .glow{position:absolute;inset:auto 6% -12% 6%;height:52%;background:radial-gradient(closest-side,rgba(226,185,90,.45),transparent);filter:blur(34px);z-index:-1}
+.product .shots .screen{width:min(420px,88vw)}
+.product-card .media .shot.wide{width:58%;right:6%;bottom:-24%;border-radius:10px;border-width:4px}

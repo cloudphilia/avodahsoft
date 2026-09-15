@@ -41,7 +41,7 @@ I = {
     "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
 }
 
-NAV = [("/gigpal", "GigPal"), ("/kilojo", "Kilojo"), ("/work", "Work"), ("/studio", "Studio"), ("/contact", "Contact")]
+NAV = [("/gigpal", "GigPal"), ("/kilojo", "Kilojo"), ("/lector", "Lector"), ("/work", "Work"), ("/studio", "Studio"), ("/contact", "Contact")]
 
 
 def head(title, desc, path, image):
@@ -94,7 +94,7 @@ FOOT = f'''</main>
       <p class="mt-16">An independent software studio in Australia. Apps for musicians and everyday life, built to be finished rather than merely working.</p>
       <p class="mt-8"><a href="mailto:{MAIL}">{MAIL}</a></p>
     </div>
-    <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/kepta">Kepta</a><a href="/work">All work</a></div>
+    <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/kepta">Kepta</a><a href="/lector">Lector</a><a href="/work">All work</a></div>
     <div><h4>Studio</h4><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
     <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a></div>
     <div class="legal"><span>&copy; <span data-year>{YEAR}</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store and iPhone are trademarks of Apple Inc.</span></div>
@@ -149,7 +149,7 @@ HOME = f'''
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Our apps</span><h2 class="mt-8">Two products, one standard.</h2><p class="lead">Each one is built by the person who answers your email, and each ships when it is genuinely finished.</p></div>
+    <div class="section-head reveal"><span class="eyebrow">Our apps</span><h2 class="mt-8">Four apps, one standard.</h2><p class="lead">Each one is built by the person who answers your email, and each ships when it is genuinely finished.</p></div>
     <div class="grid g2">
       <a class="card product-card reveal" href="/gigpal">
         <div class="media"><img src="/img/photos/band.jpg" alt="A band rehearsing on stage" loading="lazy"><img class="shot" src="/img/gigpal/library.png" alt=""></div>
@@ -162,6 +162,10 @@ HOME = f'''
       <a class="card product-card reveal" href="/kepta">
         <div class="media"><img src="/img/photos/night.jpg" alt="A quiet desk in the evening" loading="lazy"><img class="shot" src="/img/kepta/today.png" alt=""></div>
         <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span></div><h3>Kepta</h3><p>Habits worth keeping, and the notes that come with them. Track the day, write it down, scan a page, sign a PDF, and ask your own notes a question.</p><span class="btn primary">Explore Kepta {I["arrow"]}</span></div>
+      </a>
+      <a class="card product-card reveal" href="/lector">
+        <div class="media"><img src="/img/photos/stage.jpg" alt="A church stage under lights" loading="lazy"><img class="shot wide" src="/img/lector/screen.png" alt=""></div>
+        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">Mac</span></div><h3>Lector</h3><p>The verse, the moment it is spoken. Lector listens to the preacher and puts the scripture on the screens as it is read &mdash; with songs, slides, videos, four screens and a stage display for the rest of the service.</p><span class="btn primary">Explore Lector {I["arrow"]}</span></div>
       </a>
     </div>
   </div>
@@ -194,7 +198,7 @@ HOME = f'''
   </div>
 </section>
 '''
-page("/", "Avodahsoft · Apps for musicians and everyday life", "Avodahsoft is an independent software studio in Australia building GigPal, the music practice app, Kilojo, the food diary that reads your plate, and Kepta, the habit tracker with notes built in.", HOME)
+page("/", "Avodahsoft · Apps for musicians, churches and everyday life", "Avodahsoft is an independent software studio in Australia building GigPal, the music practice app, Kilojo, the food diary that reads your plate, Kepta, the habit tracker with notes built in, and Lector, the church presentation app that puts the verse on screen as it is spoken.", HOME)
 
 # ---------------------------------------------------------------- gigpal
 GIGPAL = f'''
@@ -295,6 +299,59 @@ GIGPAL = f'''
 </section>
 '''
 page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a music practice app for iPhone, iPad and the web: stem separation, chords that follow the song, key and tempo control, metronome, tuner, piano, recorder and setlists.", GIGPAL, current="/gigpal", image="/img/photos/concert.jpg")
+
+# ---------------------------------------------------------------- lector
+LECTOR = f'''
+<section class="hero">
+  <div class="photo" style="background-image:url(/img/photos/stage.jpg)"></div><div class="bg" style="background:radial-gradient(900px 500px at 15% 10%,rgba(226,185,90,.22),transparent 60%),radial-gradient(700px 500px at 85% 20%,rgba(255,138,61,.14),transparent 60%)"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-row"><img class="appicon" src="/img/lector/icon.png" alt="Lector app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">Mac</span><span class="pill">Windows to follow</span></div>
+      <h1>The verse, <span class="accent" style="background:linear-gradient(90deg,#E2B95A,#FF8A3D);-webkit-background-clip:text;background-clip:text">the moment it is spoken.</span></h1>
+      <p class="lead mt-24">Lector listens to the preacher and puts the scripture on the screens as it is read &mdash; no typing, no hunting, no verse three sentences late. Then it runs the rest of the service: songs with arrangements, slides, videos, announcements for the lobby, a stage display for the preacher and a remote for a phone. Recognition happens on the Mac; nothing leaves the room.</p>
+      <div class="cta"><a class="btn primary" href="/contact?topic=Lector">Tell me when it launches {I["arrow"]}</a><a class="btn ghost" href="#features">What it does</a></div>
+    </div>
+    <div class="screens"><div class="glow"></div>
+      <div class="screen back"><img src="/img/lector/operator.png" alt="Lector&rsquo;s operator window: the live transcript, the queue, the verses it heard, and the preview" loading="eager"></div>
+      <div class="screen front"><img src="/img/lector/screen.png" alt="Philippians 4:13 on the projector in Lector&rsquo;s Gold Leaf theme" loading="eager"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">For the media desk</span><h2 class="mt-8">Built for a volunteer on a Sunday morning.</h2></div>
+    <div class="grid g3">
+      {feature("mic", "Hears the reference", "&ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is queued before the page is found. Confident references go straight to the screen if you ask; the rest wait for one key.")}
+      {feature("lyrics", "Follows the reading", "As the passage is read, the verse being read lights up and the page turns itself. Nineteen translations are built in; licensed ones link in with a key.")}
+      {feature("layers", "Four screens, one service", "The projector, the choir&rsquo;s monitor, the stream and the lobby each take a look &mdash; what to show, what to leave out &mdash; and every screen sees the same service.")}
+    </div>
+    <div class="grid g3 mt-24">
+      {feature("music", "Songs, slides and videos", "Lyrics with arrangements, PowerPoint, Keynote and PDF decks, videos, a camera behind the words, a memory stick of walk-in music, and a loop of announcements for the foyer.")}
+      {feature("list", "A stage that tells the truth", "The preacher&rsquo;s screen shows the verse, what is next, the notes, a countdown and a word from the desk &mdash; on a display, or an iPad on the music stand.")}
+      {feature("bell", "One key, several things", "Moments fire the logo, the countdown and the loop together; schedules fire them by the clock; a phone remote and a Stream Deck do the rest from anywhere in the room.")}
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="product card reveal">
+      <div class="copy"><span class="eyebrow">Honestly</span><h2 class="mt-8" style="font-size:clamp(26px,3vw,38px)">The verse should not be late.</h2><p class="lead mt-16" style="font-size:17px">Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screen still keeps up.</p></div>
+      <div class="shots"><div class="screen"><img src="/img/lector/operator.png" alt="Lector operator window" loading="lazy"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="card reveal" style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start"><div class="icon" style="margin:0">{I["shield"]}</div>
+      <div><h3>Nothing leaves the room.</h3>{check_list(["Speech recognition runs on the Mac. The sermon is never sent anywhere to be understood.", "The Bibles are on the disk: nineteen public-domain translations work with no internet at all. Licensed translations fetch a verse at a time with the church&rsquo;s own key.", "The phone remote and the stage display run over the church&rsquo;s own Wi-Fi, with a PIN.", "No account, no analytics, no tracking. A sermon summary uses a language model only if the church adds its own key and asks for it."])}<p class="mt-16"><a class="btn ghost" href="/contact?topic=Lector">Ask about Lector</a></p></div>
+    </div>
+  </div>
+</section>
+'''
+page("/lector", "Lector · The verse, the moment it is spoken", "Lector is a church presentation app for Mac that listens to the preacher and puts the scripture on the screens as it is read, then runs the rest of the service: songs, slides, videos, four screens, announcements, a stage display and a phone remote. Coming soon.", LECTOR, current="/lector", image="/img/photos/stage.jpg")
 
 # ---------------------------------------------------------------- kepta
 KEPTA = f'''
@@ -413,6 +470,7 @@ WORK = f'''
     <a class="card product-card reveal" href="/gigpal"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot" src="/img/gigpal/chords.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>On the App Store</span><h3 class="mt-16">GigPal</h3><p>Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder, setlists.</p><span class="btn primary">View GigPal {I["arrow"]}</span></div></a>
     <a class="card product-card reveal" href="/kilojo"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kilojo/1-today.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Kilojo</h3><p>A food diary that reads your plate: photo estimates, barcode scanning, editable numbers.</p><span class="btn green">View Kilojo {I["arrow"]}</span></div></a>
     <a class="card product-card reveal" href="/kepta"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kepta/habits.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Kepta</h3><p>A habit tracker with notes built in: streaks, a calendar, markdown notes, document scanning and PDF signing.</p><span class="btn primary">View Kepta {I["arrow"]}</span></div></a>
+    <a class="card product-card reveal" href="/lector"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot wide" src="/img/lector/screen.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Lector</h3><p>Church presentation for Mac that hears the preacher and puts the verse on screen as it is spoken; songs, slides, videos, four screens and a stage display for the rest.</p><span class="btn primary">View Lector {I["arrow"]}</span></div></a>
   </div>
 </section>
 <section class="section" style="padding-top:0">
@@ -471,7 +529,7 @@ CONTACT = f'''
     <div class="card reveal">
       <form class="form" data-contact novalidate>
         <div class="row"><input name="name" placeholder="Your name" autocomplete="name" required minlength="2"><input name="email" type="email" placeholder="Email address" autocomplete="email" required></div>
-        <select name="topic" id="topic"><option>Support · GigPal</option><option>Support · Kilojo</option><option>GigPal early access</option><option>Kilojo</option><option>Kepta</option><option>New project</option><option>Acquisition</option><option>Other</option></select>
+        <select name="topic" id="topic"><option>Support · GigPal</option><option>Support · Kilojo</option><option>GigPal early access</option><option>Kilojo</option><option>Kepta</option><option>Lector</option><option>New project</option><option>Acquisition</option><option>Other</option></select>
         <textarea name="message" placeholder="Say which app and which phone if it is support. For a project, the idea, who it is for and roughly when it needs to be live." required minlength="10"></textarea>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><button class="btn primary" type="submit">Send message {I["arrow"]}</button><span class="status" role="status"></span></div>
@@ -650,7 +708,7 @@ NOTFOUND = f'''
 page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.html")
 
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
-paths = ["/", "/gigpal", "/kilojo", "/kepta", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms"]
+paths = ["/", "/gigpal", "/kilojo", "/kepta", "/lector", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
 write("/favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FF5E62"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#g)"/><path d="M20 46 32 16l12 30h-6.6l-2.4-6.4H29l-2.4 6.4Zm10.6-12h6.8L34 24.6Z" fill="#0A0E1F"/></svg>')
 print("done")
