@@ -90,6 +90,19 @@ export default {
     const url = new URL(request.url);
     if (url.hostname.startsWith('www.')) return Response.redirect(`https://${url.hostname.slice(4)}${url.pathname}${url.search}`, 301);
     const path = url.pathname.replace(/\/+$/, '') || '/';
+    // Auth links in Kilojo's emails point here, on our own domain, and are forwarded to
+    // Supabase's verify endpoint. Only the three fields the template writes are passed on;
+    // the token is single-use and expires, so the link is safe to carry in the open.
+    if (path === '/auth/kilojo') {
+      const p = url.searchParams;
+      const token = p.get('token') || '';
+      const type = p.get('type') || '';
+      const redirectTo = p.get('redirect_to') || '';
+      if (!/^[A-Za-z0-9_-]{8,}$/.test(token) || !/^[a-z_]{1,32}$/.test(type)) return new Response('Bad link', { status: 400 });
+      const q = new URLSearchParams({ token, type });
+      if (redirectTo) q.set('redirect_to', redirectTo);
+      return Response.redirect(`https://axruyecaabpyddxwzfbz.supabase.co/auth/v1/verify?${q}`, 302);
+    }
     if (REDIRECTS[path]) return Response.redirect(`${url.origin}${REDIRECTS[path]}`, 301);
     if (path === '/api/contact') return handleContact(request, env);
     const res = await env.ASSETS.fetch(request);
