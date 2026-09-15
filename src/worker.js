@@ -60,7 +60,10 @@ async function handleContact(request, env) {
 /**
  * Keep free-tier Supabase projects from being paused for inactivity: a cron trigger runs a
  * real (RLS-scoped, empty) query against each project every few hours.
- * KEEPALIVE_TARGETS is a secret holding a JSON array of { name, url, key } (publishable/anon keys).
+ * KEEPALIVE_TARGETS is a secret holding a JSON array of { name, url, key, rpc } (publishable
+ * keys). Each project carries a `public.keepalive()` function granted to anon — a no-op
+ * returning now(), so the ping is a real Postgres round trip that answers 200. Leaning on a
+ * function the app owns instead would tie the cron to a signature the app may change.
  */
 async function keepAlive(env) {
   let targets = [];
