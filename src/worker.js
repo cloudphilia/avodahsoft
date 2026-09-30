@@ -61,7 +61,103 @@ function authCallbackPage() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Kilojo</title>
-<style>
+${KILOJO_PAGE_STYLE}
+</head>
+<body>
+  <main class="card">
+    <div class="mark" aria-hidden="true"></div>
+    <h1 id="title">Checking your link…</h1>
+    <p id="body"></p>
+    <a class="btn" id="open" href="kilojo://auth/callback" hidden>Open Kilojo</a>
+    <p class="foot">Kilojo — photograph a meal, get the calories back.</p>
+  </main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var h = new URLSearchParams(location.hash.replace(/^#/, ''));
+  var failed = q.get('error_description') || h.get('error_description') || q.get('error') || h.get('error');
+  var title = document.getElementById('title');
+  var body = document.getElementById('body');
+  var open = document.getElementById('open');
+
+  // Whatever the link carried, hand the whole thing to the app unchanged. A build from
+  // before Universal Links still reads its confirmation out of this custom-scheme URL.
+  open.href = 'kilojo://auth/callback' + location.search + location.hash;
+  // Only where there could be a Kilojo to open. On a laptop the button is a dead end, and
+  // a dead end is exactly what this page exists to replace.
+  open.hidden = !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  if (failed) {
+    title.textContent = 'This link has already been used';
+    body.innerHTML = 'Links in email are single-use, and mail apps often follow them before you do \\u2014 ' +
+      'which usually means your address <strong>is</strong> already confirmed. ' +
+      'Open Kilojo on your phone and log in. If it still says you are not confirmed, ask for a fresh link there.';
+  } else {
+    title.textContent = 'Your email is confirmed';
+    body.innerHTML = 'That is the account done. Go back to Kilojo on your phone \\u2014 it carries on ' +
+      'by itself. If it does not, log in with the email and password you chose.';
+  }
+})();
+</script>
+</body>
+</html>`;
+}
+
+/**
+ * The page an emailed confirmation link lands on first, before anything is spent.
+ *
+ * It used to be a 302 straight to Supabase's verify endpoint, and mail providers follow
+ * every URL in an inbox within seconds of delivery — so the single-use token was gone
+ * before the person ever tapped it. Scanners fetch; they do not press buttons. The verify
+ * call now waits for a tap.
+ *
+ * Where it sends people afterwards is fixed here, not taken from the link: builds already
+ * in the App Store ask for `kilojo://auth/callback`, which is a dead end on any device
+ * without Kilojo — a laptop, or the other phone the inbox lives on. Confirmation is
+ * recorded server-side either way, so the callback page can honestly say it is done.
+ *
+ * As with the callback page, the button is built in the browser from `location`, so no
+ * part of the link is interpolated into this HTML on the server.
+ */
+function authConfirmPage() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kilojo</title>
+${KILOJO_PAGE_STYLE}
+</head>
+<body>
+  <main class="card">
+    <div class="mark" aria-hidden="true"></div>
+    <h1>Confirm your email</h1>
+    <p>One tap and your Kilojo account is ready. You can do this on any device.</p>
+    <a class="btn" id="confirm" href="#">Confirm my email</a>
+    <p class="foot">Kilojo — photograph a meal, get the calories back.</p>
+  </main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var verify = new URLSearchParams({
+    token: q.get('token') || '',
+    type: q.get('type') || '',
+    redirect_to: '${AUTH_CALLBACK_URL}',
+  });
+  document.getElementById('confirm').href = '${SUPABASE_VERIFY_URL}?' + verify.toString();
+})();
+</script>
+</body>
+</html>`;
+}
+
+const AUTH_CALLBACK_URL = 'https://avodahsoft.com/auth/callback';
+const SUPABASE_VERIFY_URL = 'https://axruyecaabpyddxwzfbz.supabase.co/auth/v1/verify';
+/** Link types that only confirm an address, and so can finish on any device. */
+const CONFIRM_TYPES = new Set(['signup', 'email_change']);
+
+const KILOJO_PAGE_STYLE = `<style>
   :root { color-scheme: dark; --bg:#0A0C11; --surface:#141821; --line:#222838; --text:#F2F4F8; --muted:#9AA3B5; --ember:#FF6A3D; }
   * { box-sizing:border-box; }
   body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px;
@@ -77,44 +173,7 @@ function authCallbackPage() {
          background:var(--ember); color:#11131A; font-weight:700; text-decoration:none; }
   .foot { margin:18px 0 0; font-size:0.8rem; color:var(--muted); }
   a.plain { color:var(--ember); }
-</style>
-</head>
-<body>
-  <main class="card">
-    <div class="mark" aria-hidden="true"></div>
-    <h1 id="title">Checking your link…</h1>
-    <p id="body"></p>
-    <a class="btn" id="open" href="kilojo://auth/callback">Open Kilojo</a>
-    <p class="foot">Kilojo — photograph a meal, get the calories back.</p>
-  </main>
-<script>
-(function () {
-  var q = new URLSearchParams(location.search);
-  var h = new URLSearchParams(location.hash.replace(/^#/, ''));
-  var failed = q.get('error_description') || h.get('error_description') || q.get('error') || h.get('error');
-  var title = document.getElementById('title');
-  var body = document.getElementById('body');
-  var open = document.getElementById('open');
-
-  // Whatever the link carried, hand the whole thing to the app unchanged. A build from
-  // before Universal Links still reads its confirmation out of this custom-scheme URL.
-  open.href = 'kilojo://auth/callback' + location.search + location.hash;
-
-  if (failed) {
-    title.textContent = 'This link has already been used';
-    body.innerHTML = 'Links in email are single-use, and mail apps often follow them before you do \u2014 ' +
-      'which usually means your address <strong>is</strong> already confirmed. ' +
-      'Open Kilojo on your phone and log in. If it still says you are not confirmed, ask for a fresh link there.';
-  } else {
-    title.textContent = 'Your email is confirmed';
-    body.innerHTML = 'That is the account done. Open Kilojo on your phone and log in with the ' +
-      'email and password you chose.';
-  }
-})();
-</script>
-</body>
-</html>`;
-}
+</style>`;
 
 const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...SECURITY_HEADERS } });
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -212,6 +271,12 @@ export default {
       const type = p.get('type') || '';
       const redirectTo = p.get('redirect_to') || '';
       if (!/^[A-Za-z0-9_-]{8,}$/.test(token) || !/^[a-z_]{1,32}$/.test(type)) return new Response('Bad link', { status: 400 });
+      if (CONFIRM_TYPES.has(type)) {
+        return new Response(authConfirmPage(), {
+          headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', ...SECURITY_HEADERS },
+        });
+      }
+      // A password reset has to finish where the app is, so it still goes straight through.
       const q = new URLSearchParams({ token, type });
       if (redirectTo) q.set('redirect_to', redirectTo);
       return Response.redirect(`https://axruyecaabpyddxwzfbz.supabase.co/auth/v1/verify?${q}`, 302);
