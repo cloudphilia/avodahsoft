@@ -68,6 +68,7 @@ ${KILOJO_PAGE_STYLE}
     <div class="mark" aria-hidden="true"></div>
     <h1 id="title">Checking your link…</h1>
     <p id="body"></p>
+    <noscript><p>This page needs JavaScript to read your link. Open Kilojo on your phone and log in with your email and password.</p></noscript>
     <a class="btn" id="open" href="kilojo://auth/callback" hidden>Open Kilojo</a>
     <p class="foot">Kilojo — photograph a meal, get the calories back.</p>
   </main>
@@ -76,26 +77,46 @@ ${KILOJO_PAGE_STYLE}
   var q = new URLSearchParams(location.search);
   var h = new URLSearchParams(location.hash.replace(/^#/, ''));
   var failed = q.get('error_description') || h.get('error_description') || q.get('error') || h.get('error');
+  var code = q.get('error_code') || h.get('error_code');
   var title = document.getElementById('title');
   var body = document.getElementById('body');
   var open = document.getElementById('open');
 
-  // Whatever the link carried, hand the whole thing to the app unchanged. A build from
-  // before Universal Links still reads its confirmation out of this custom-scheme URL.
-  open.href = 'kilojo://auth/callback' + location.search + location.hash;
-  // Only where there could be a Kilojo to open. On a laptop the button is a dead end, and
-  // a dead end is exactly what this page exists to replace.
-  open.hidden = !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  // Set by the confirm page when its button was tapped, in this same tab. It is what
+  // separates "you just confirmed your email" from a password-reset link, which lands on
+  // this same page and has confirmed nothing.
+  var confirming = false;
+  try {
+    confirming = sessionStorage.getItem('kilojo-confirming') === '1';
+    sessionStorage.removeItem('kilojo-confirming');
+  } catch (e) {}
 
-  if (failed) {
-    title.textContent = 'This link has already been used';
-    body.innerHTML = 'Links in email are single-use, and mail apps often follow them before you do \\u2014 ' +
-      'which usually means your address <strong>is</strong> already confirmed. ' +
-      'Open Kilojo on your phone and log in. If it still says you are not confirmed, ask for a fresh link there.';
-  } else {
+  // Only the query goes to the app — a PKCE ?code=, useless on any phone but the one
+  // that asked, or the reason a link was refused. Never the fragment: a session in the
+  // fragment is exactly what a crafted link would use to sign someone into another account.
+  open.href = 'kilojo://auth/callback' + location.search;
+  // Only where there could be a Kilojo to open. On a laptop the button is a dead end, and
+  // a dead end is exactly what this page exists to replace. iPadOS reports itself as a
+  // Mac, so a touch screen counts too.
+  open.hidden = !(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || navigator.maxTouchPoints > 1);
+
+  if (failed && code === 'otp_expired' && confirming) {
+    title.textContent = 'This link has expired';
+    body.innerHTML = 'Confirmation links last an hour. Open Kilojo on your phone and tap ' +
+      '\\u201cResend the confirmation email\\u201d for a fresh one, or log in \\u2014 if you confirmed ' +
+      'already, that is all it takes.';
+  } else if (failed) {
+    title.textContent = 'This link no longer works';
+    body.innerHTML = 'Links in email work once and expire after an hour. Open Kilojo on your phone and log in. ' +
+      'If it says you are not confirmed yet, ask for a fresh email there.';
+  } else if (confirming) {
     title.textContent = 'Your email is confirmed';
     body.innerHTML = 'That is the account done. Go back to Kilojo on your phone \\u2014 it carries on ' +
       'by itself. If it does not, log in with the email and password you chose.';
+  } else {
+    title.textContent = 'Open Kilojo to carry on';
+    body.innerHTML = 'Finish this on the phone that asked for the email: open Kilojo there. ' +
+      'A password reset only works on that phone.';
   }
 })();
 </script>
@@ -134,6 +155,7 @@ ${KILOJO_PAGE_STYLE}
     <div class="mark" aria-hidden="true"></div>
     <h1>Confirm your email</h1>
     <p>One tap and your Kilojo account is ready. You can do this on any device.</p>
+    <noscript><p>This page needs JavaScript to confirm your address. Turn it on, or open the email on your phone.</p></noscript>
     <a class="btn" id="confirm" href="#">Confirm my email</a>
     <p class="foot">Kilojo — photograph a meal, get the calories back.</p>
   </main>
@@ -145,7 +167,12 @@ ${KILOJO_PAGE_STYLE}
     type: q.get('type') || '',
     redirect_to: '${AUTH_CALLBACK_URL}',
   });
-  document.getElementById('confirm').href = '${SUPABASE_VERIFY_URL}?' + verify.toString();
+  var button = document.getElementById('confirm');
+  button.href = '${SUPABASE_VERIFY_URL}?' + verify.toString();
+  // Tells the callback page, in this tab, that it is showing the end of a confirmation.
+  button.addEventListener('click', function () {
+    try { sessionStorage.setItem('kilojo-confirming', '1'); } catch (e) {}
+  });
 })();
 </script>
 </body>
