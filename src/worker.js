@@ -17,7 +17,7 @@ const SECURITY_HEADERS = {
 };
 
 /**
- * Universal Links for Kilojo.
+ * Universal Links for Kilojo and GigPal (each app has its own path, so they can't collide).
  *
  * Served from the worker rather than as a static asset so the content type is certainly
  * `application/json` and the path is certainly un-redirected — iOS fetches this file once,
@@ -35,6 +35,13 @@ const APPLE_APP_SITE_ASSOCIATION = {
         components: [
           { '/': '/auth/callback', comment: 'Kilojo email confirmation and password reset' },
           { '/': '/auth/callback/*', comment: 'the same, with a trailing path' },
+        ],
+      },
+      {
+        appIDs: ['7MG7R3644S.com.gigpal.app'],
+        components: [
+          { '/': '/gigpal/auth/callback', comment: 'GigPal email confirmation, change of address and password reset' },
+          { '/': '/gigpal/auth/callback/', comment: 'the same, with a trailing slash' },
         ],
       },
     ],
@@ -274,6 +281,104 @@ async function keepAlive(env) {
   return results;
 }
 
+/**
+ * GigPal's auth emails link straight to its Universal Link, https://avodahsoft.com/gigpal/auth/callback.
+ * On an iPhone with GigPal the app takes it (and verifies the token itself). Anywhere else this one
+ * route plays both parts: from the email (token_hash + type) it waits for a tap before verifying
+ * anything, since mail scanners fetch links but don't press buttons; after Supabase verifies, it is
+ * where Supabase sends people back, and says what happened. Everything is built in the browser from
+ * `location`; nothing from the link is interpolated on the server.
+ */
+const GIGPAL_VERIFY_URL = 'https://therszyqjgwyaxhcjvmt.supabase.co/auth/v1/verify';
+const GIGPAL_CALLBACK_URL = 'https://avodahsoft.com/gigpal/auth/callback';
+
+function gigpalAuthPage() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GigPal</title>
+<style>
+  :root { color-scheme: dark; --bg:#0E1230; --surface:#141A3D; --line:rgba(255,255,255,0.08); --text:#F5F6FF; --muted:#AEB4DA; --accent:#FF8A3D; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px; background:var(--bg); color:var(--text);
+         font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .card { width:100%; max-width:26rem; background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:32px 26px; text-align:center; }
+  .mark { width:56px; height:56px; border-radius:16px; margin:0 auto 18px; background:linear-gradient(145deg,#FFB061,#FF5E62); }
+  h1 { font-size:1.35rem; margin:0 0 10px; }
+  p { margin:0 0 14px; color:var(--muted); }
+  .btn { display:block; margin:22px 0 0; padding:14px 18px; border-radius:999px; background:var(--accent); color:#0E1230; font-weight:700; text-decoration:none; }
+  .foot { margin:18px 0 0; font-size:0.8rem; color:var(--muted); }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark" aria-hidden="true"></div>
+    <h1 id="title">Checking your link…</h1>
+    <p id="body"></p>
+    <noscript><p>This page needs JavaScript to read your link. Open GigPal on your phone and sign in with your email and password.</p></noscript>
+    <a class="btn" id="go" href="#" hidden></a>
+    <p class="foot">GigPal — the practice room in your pocket.</p>
+  </main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var h = new URLSearchParams(location.hash.replace(/^#/, ''));
+  var title = document.getElementById('title'), body = document.getElementById('body'), go = document.getElementById('go');
+  var phone = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || navigator.maxTouchPoints > 1;
+  function show(t, b, label, href, onTap) {
+    title.textContent = t; body.textContent = b;
+    if (label) { go.textContent = label; go.href = href; go.hidden = false; if (onTap) go.addEventListener('click', onTap); }
+  }
+  function verify(redirect) {
+    return '${GIGPAL_VERIFY_URL}?' + new URLSearchParams({ token: q.get('token_hash') || '', type: q.get('type') || '', redirect_to: redirect }).toString();
+  }
+
+  // 1. Straight from the email: wait for a tap.
+  if (q.get('token_hash')) {
+    var type = q.get('type');
+    if (type === 'signup' || type === 'email_change') {
+      show(type === 'signup' ? 'Confirm your email' : 'Confirm your new email',
+        'One tap and your GigPal account is ready. This works on any device — GigPal on your phone signs you in by itself a moment later.',
+        type === 'signup' ? 'Confirm my email' : 'Confirm new email', verify('${GIGPAL_CALLBACK_URL}'),
+        function () { try { sessionStorage.setItem('gigpal-confirming', '1'); } catch (e) {} });
+    } else if (type === 'recovery' && phone) {
+      // Builds from before this change exchange the PKCE code on the phone that asked.
+      show('Choose a new password', 'Open GigPal to set a new password. This only works on the phone that asked for the reset.',
+        'Open GigPal', verify('gigpal://auth-callback'));
+    } else {
+      show('Open this on your phone', 'Password resets finish in GigPal. Open this email on the iPhone with GigPal installed and tap the button there.');
+    }
+    return;
+  }
+
+  // 2. Supabase sending people back after verifying.
+  var failed = q.get('error_description') || h.get('error_description') || q.get('error') || h.get('error');
+  var code = q.get('error_code') || h.get('error_code');
+  var confirming = false;
+  try { confirming = sessionStorage.getItem('gigpal-confirming') === '1'; sessionStorage.removeItem('gigpal-confirming'); } catch (e) {}
+  // Only the query goes to the app (a PKCE ?code=, useless on any phone but the one that asked),
+  // never the fragment: a session in the fragment is what a crafted link would use.
+  var open = phone && q.get('code') ? 'gigpal://auth-callback?' + new URLSearchParams({ code: q.get('code') }).toString() : null;
+
+  if (failed && code === 'otp_expired' && confirming) {
+    show('This link has expired', 'Confirmation links last an hour. Open GigPal on your phone and tap “Send it again” for a fresh one — or just sign in: if you confirmed already, that is all it takes.');
+  } else if (failed) {
+    show('This link no longer works', 'Links in email work once and expire after an hour. Open GigPal on your phone and sign in; if it says you are not confirmed yet, ask for a fresh email there.');
+  } else if (confirming) {
+    show('Your email is confirmed', 'That is the account done. Go back to GigPal on your phone — it carries on by itself. If it does not, sign in with the email and password you chose.',
+      open && 'Open GigPal', open);
+  } else {
+    show('Open GigPal to carry on', 'Finish this on the phone that asked for the email: open GigPal there.', open && 'Open GigPal', open);
+  }
+})();
+</script>
+</body>
+</html>`;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -307,6 +412,17 @@ export default {
       const q = new URLSearchParams({ token, type });
       if (redirectTo) q.set('redirect_to', redirectTo);
       return Response.redirect(`https://axruyecaabpyddxwzfbz.supabase.co/auth/v1/verify?${q}`, 302);
+    }
+    if (path === '/gigpal/auth/callback') {
+      const p = url.searchParams;
+      const tokenHash = p.get('token_hash');
+      // A link from the email carries token_hash + type; anything else is Supabase sending people back.
+      if (tokenHash !== null && (!/^[A-Za-z0-9_-]{8,}$/.test(tokenHash) || !/^[a-z_]{1,32}$/.test(p.get('type') || ''))) {
+        return new Response('Bad link', { status: 400 });
+      }
+      return new Response(gigpalAuthPage(), {
+        headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', ...SECURITY_HEADERS, 'Referrer-Policy': 'no-referrer' },
+      });
     }
     if (REDIRECTS[path]) return Response.redirect(`${url.origin}${REDIRECTS[path]}`, 301);
     if (path === '/api/contact') return handleContact(request, env);
