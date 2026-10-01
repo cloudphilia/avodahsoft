@@ -7,7 +7,7 @@ PUB = ROOT / "public"
 SITE = "https://avodahsoft.com"
 MAIL = "hello@avodahsoft.com"
 APPSTORE = "https://apps.apple.com/app/id6809133057"
-UPDATED = "6 September 2026"
+UPDATED = "2 October 2026"
 YEAR = "2026"
 
 I = {
@@ -241,13 +241,13 @@ GIGPAL = f'''
       {feature("gauge", "Key and tempo", "Every song is analysed for key, tempo and beats the moment you add it. Re-analyse in a tap if you disagree, and see it laid out on a piano.")}
       {feature("speed", "Speed and pitch", "Slow a passage to half speed without changing the pitch, or move the whole song into your singing key. Both stay locked to the chords and lyrics.")}
       {feature("loop", "Sections and loops", "GigPal finds the intro, verses and choruses. Tap a section to jump to it or loop it until it is under your fingers.")}
-      {feature("lyrics", "Lyrics finder", "Pull in synced lyrics for the song you are working on, follow them as they scroll, and translate chord symbols in your own charts to numbers or solfa.")}
+      {feature("lyrics", "Lyrics finder", "Pull in synced lyrics for the song you are working on and follow them as they scroll. Save any lyrics you find, or paste ones you read elsewhere, and edit them later.")}
       {feature("metro", "Metronome", "A rock-solid metronome with tap tempo, count-in, accents and subdivisions, designed to be heard over a full band.")}
-      {feature("tuner", "Tuner", "A chromatic tuner with a clear needle and cents readout. Works for voice, guitar, bass, brass and strings.")}
-      {feature("piano", "Piano and solfa", "A sampled grand piano to check a note or find a starting pitch, plus a solfa trainer for singers who read do-re-mi.")}
+      {feature("tuner", "Tuner", "A chromatic tuner with a clear needle and cents readout, accurate to the cent on guitar and bass, low strings included. Works for voice, brass and strings too.")}
+      {feature("piano", "Piano and chord keys", "A sampled grand piano on iPhone and iPad. One key plays a whole chord in your key, with pads 1&ndash;8, passing chords and a soft synth pad underneath. Turn the phone sideways for a full keyboard, and solo over chords in two rows.")}
       {feature("mic", "Recorder", "Record yourself over the mix or on its own. Every take is analysed for key and tempo too, so you can see how the rehearsal went.")}
-      {feature("list", "Setlists", "Group songs into setlists for a gig or a service, reorder them by drag, and move through the set without leaving the player.")}
-      {feature("bell", "Reminders and links", "Set practice reminders, and add songs from your files, camera roll, a direct link, or play along with YouTube, Spotify and Apple Music.")}
+      {feature("list", "Setlists", "Group songs into setlists for a gig or a service, give each set a date and each song a note, reorder by drag, and Play set runs through them in order.")}
+      {feature("link", "Play Along", "Paste a YouTube, Spotify, Apple Music or SoundCloud link and play along with the tuner, metronome and piano on top. Every link you play is kept, ready to name.")}
     </div>
   </div>
 </section>
@@ -281,8 +281,8 @@ GIGPAL = f'''
           <tr><th>Feature</th><th>Free</th><th>Pro (planned)</th></tr>
           <tr><td>Library, key, tempo, chords, sections</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
           <tr><td>Speed and pitch, loops, lyrics</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
-          <tr><td>Metronome, tuner, piano, solfa, recorder</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
-          <tr><td>Setlists, reminders, sync across devices</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
+          <tr><td>Metronome, tuner, piano and chord keys, solfa, recorder, Play Along</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
+          <tr><td>Setlists, saved lyrics, sync across devices</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
           <tr><td>Stem separation (vocals, piano, bass, drums, other)</td><td class="yes">3 a day</td><td class="yes">More</td></tr>
         </table>
       </div>
@@ -586,36 +586,42 @@ GP_PRIVACY = f'''
 <p>GigPal is made and operated by Avodahsoft, an independent software studio based in Australia. You can reach us at <a href="mailto:{MAIL}">{MAIL}</a>. We are the data controller for the personal information described here.</p>
 
 <h2>What GigPal stores on your device</h2>
-<p>Your library lives on your device: the songs and recordings you add, the analysis results (key, tempo, beats, chords, sections and lyrics timing), any separated stems, your setlists, reminders and settings. This information stays on the device unless you sign in and turn on sync, or unless you choose to share something. Deleting a song in the app deletes it and its stems from the device.</p>
+<p>Your library lives on your device: the songs and recordings you add, the analysis results (key, tempo, beats, chords, sections and lyrics timing), any separated stems, your setlists (with their dates and the notes you add to songs), lyrics you save, the streaming links you play in Play Along, and your settings. This information stays on the device unless you sign in and sync, or unless you choose to share something. Saved lyrics, Play Along links, setlist dates and song notes are never uploaded. Deleting a song in the app deletes it and its stems from the device.</p>
 
 <h2>Information we collect when you sign in</h2>
 <p>An account is optional. Without one, GigPal does not send us any personal information. If you create an account (by email and password) we store:</p>
 <ul>
-  <li><b>Account details:</b> your email address, a random account identifier, and the dates you signed up and last signed in.</li>
-  <li><b>Library metadata for sync:</b> song titles, artists, keys, tempos, chord and section data, setlists, reminders and preferences, so your library can be restored on another device. Audio files and recordings are not uploaded for sync.</li>
-  <li><b>Separation history:</b> the time, duration and size of each stem separation job, used to apply fair-use limits. We do not keep the audio.</li>
+  <li><b>Account details:</b> your email address, a random account identifier, a display name if you give one, the dates you signed up and last signed in, and a random one-time key used only to let your phone notice that you have confirmed your email.</li>
+  <li><b>Library metadata for sync:</b> song titles, artists, keys, tempos, chord, lyrics and section data, setlists (names, notes and running order) and practice settings such as key and speed changes, so your library can be restored on another device. Audio files and recordings are not uploaded for sync. Songs and setlists you delete are removed from sync and marked deleted on our servers; they are erased completely when you delete your account.</li>
+  <li><b>Separation usage:</b> how many stem separations each account has run per day, kept for two days to apply the daily fair-use limit. We do not keep the audio.</li>
 </ul>
 <p>Accounts and synced data are hosted on Supabase infrastructure, protected by per-user access rules so that one account can never read another&rsquo;s data.</p>
 
-<h2>Stem separation</h2>
-<p>When you ask GigPal to separate a song, the audio file is uploaded over HTTPS to our separation service, processed with an open-source source-separation model (Demucs), and the resulting stems are returned to your device. The uploaded audio and the generated stems are deleted from our servers automatically once your device has downloaded them, and in any case within 24 hours. We do not listen to, analyse for other purposes, or train models on your audio. Stem separation requires a signed-in account so that we can apply fair-use limits.</p>
+<h2>Account emails</h2>
+<p>Confirmation, change-of-address and password-reset emails are sent through Resend. Their links open GigPal, or on another device a page on avodahsoft.com that confirms your address when you tap its button. That page sets no cookies and keeps nothing once you close it.</p>
 
-<h2>Third-party lookups you trigger</h2>
+<h2>Stem separation</h2>
+<p>When you ask GigPal to separate a song, the audio file is uploaded over HTTPS to our separation service, processed with an open-source source-separation model (Demucs), and the resulting stems are returned to your device. The uploaded file is deleted as soon as processing ends; the stems are deleted once your device has downloaded them, and in any case within 24 hours. We do not listen to, analyse for other purposes, or train models on your audio. Stem separation requires a signed-in account so that we can apply fair-use limits.</p>
+
+<h2>Third-party services you choose to use</h2>
 <ul>
-  <li><b>Lyrics.</b> When you search for lyrics, the song title and artist you provide are sent to LRCLIB (lrclib.net), an open lyrics database. No account information is included.</li>
-  <li><b>Rhymes.</b> In the lyric writer, the word you look up is sent to the Datamuse API to fetch rhymes and related words.</li>
-  <li><b>Play-along links.</b> If you paste a YouTube, Spotify or Apple Music link, the content is played inside an embedded player provided by that service. Those services may set cookies or collect data under their own privacy policies. GigPal does not download or store that content.</li>
+  <li><b>Lyrics.</b> When you search for lyrics, the song title and artist you type are sent to LRCLIB (lrclib.net), an open lyrics database. No account information is included.</li>
+  <li><b>Google search.</b> &ldquo;Search on Google&rdquo; opens Google in an in-app Safari window. What you search there is between you and Google, under Google&rsquo;s privacy policy; GigPal does not read or collect that page. Lyrics you copy from it and paste into GigPal stay on your device.</li>
+  <li><b>Play Along.</b> When you play a YouTube, Spotify, Apple Music or SoundCloud link, it plays inside that service&rsquo;s own embedded player, and GigPal asks the service for the title of the link (its public &ldquo;oEmbed&rdquo; lookup). Those services may set cookies or collect data under their own privacy policies. GigPal does not download, record or store their content.</li>
 </ul>
+
+<h2>App updates</h2>
+<p>When it starts, GigPal checks Expo&rsquo;s update service for fixes to the app and downloads them. The check includes the app&rsquo;s version and platform; like any web request it reveals your IP address to Expo. It contains no account details or personal information.</p>
 
 <h2>Device permissions</h2>
 <ul>
-  <li><b>Microphone</b> is used only while the tuner, live chords or recorder screens are open. Audio from the microphone is processed on the device and is not sent anywhere unless you explicitly separate or share a recording you made.</li>
-  <li><b>Photo library and files</b> are accessed only when you choose a video or audio file to import, and only for the item you pick.</li>
-  <li><b>Notifications</b> are used for practice reminders you set. They are scheduled on the device; we do not operate a push-notification server.</li>
+  <li><b>Microphone</b> is used only while the tuner, live chords or recorder screens are open, and stops when you leave them or the app goes to the background. Audio from the microphone is processed on the device and is not sent anywhere unless you separate a recording you made.</li>
+  <li><b>Photo library and files</b> are accessed only when you choose a video, an audio file or a profile picture, and only for the item you pick.</li>
+  <li><b>Notifications:</b> GigPal does not send notifications. Practice reminders from earlier versions have been retired, and any still scheduled on your device are cancelled.</li>
 </ul>
 
 <h2>Purchases</h2>
-<p>GigPal 1.0 is free and contains no in-app purchases. If we add a GigPal Pro subscription in a future update it will be sold through Apple, Apple will process the payment, we will never see your card details, and this policy will be updated before it goes live.</p>
+<p>GigPal is free and contains no in-app purchases. If we add a GigPal Pro subscription in a future update it will be sold through Apple, Apple will process the payment, we will never see your card details, and this policy will be updated before it goes live.</p>
 
 <h2>What we do not do</h2>
 <ul>
@@ -626,18 +632,21 @@ GP_PRIVACY = f'''
 
 <h2>Service providers</h2>
 <table><tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
-<tr><td>Supabase</td><td>Accounts, database and file storage</td><td>Email, account id, synced library metadata</td></tr>
-<tr><td>Our separation service (Fly.io hosting)</td><td>Stem separation</td><td>Uploaded audio, temporarily</td></tr>
+<tr><td>Supabase</td><td>Accounts and database</td><td>Email, account id, synced library metadata</td></tr>
+<tr><td>Our separation service (Fly.io hosting)</td><td>Stem separation</td><td>Uploaded audio, temporarily; daily usage counts</td></tr>
+<tr><td>Resend</td><td>Account emails (confirmation, change of address, password reset)</td><td>Email address</td></tr>
+<tr><td>Cloudflare</td><td>Hosting avodahsoft.com, including the email confirmation page</td><td>Standard web request data</td></tr>
+<tr><td>Expo</td><td>App updates</td><td>App version and platform, IP address</td></tr>
 <tr><td>Apple</td><td>App distribution</td><td>Handled under Apple&rsquo;s privacy policy</td></tr>
-<tr><td>Resend</td><td>Account emails (password resets)</td><td>Email address</td></tr>
-<tr><td>LRCLIB, Datamuse</td><td>Lyrics and rhyme lookups</td><td>Search terms only</td></tr></table>
+<tr><td>LRCLIB</td><td>Lyrics lookups</td><td>Search terms only</td></tr>
+<tr><td>YouTube, Spotify, Apple Music, SoundCloud, Google</td><td>Only when you use Play Along or Search on Google</td><td>Under each service&rsquo;s own privacy policy</td></tr></table>
 <p>These providers may process data in the United States and other countries. We choose providers that commit to industry-standard security and data-protection terms.</p>
 
 <h2>Retention and deletion</h2>
-<p>You can delete songs, recordings and stems at any time on the device. You can delete your account from the Profile screen inside the app; this removes your account, synced library data and separation history from our servers, normally immediately and in all cases within 30 days. Uploaded audio for separation is deleted within 24 hours as described above. If you would rather email us to request deletion or a copy of your data, write to <a href="mailto:{MAIL}">{MAIL}</a>.</p>
+<p>You can delete songs, recordings, stems, saved lyrics and Play Along links at any time on the device. You can delete your account from the Profile screen inside the app; this removes your account, synced library data and separation history from our servers, normally immediately and in all cases within 30 days. Uploaded audio for separation is deleted within 24 hours as described above. If you would rather email us to request deletion or a copy of your data, write to <a href="mailto:{MAIL}">{MAIL}</a>.</p>
 
 <h2>Security</h2>
-<p>All traffic between the app and our services is encrypted with HTTPS. Sign-in tokens are stored in the device&rsquo;s secure keychain. Database access is restricted with row-level security so that requests are always scoped to the signed-in account. No system is perfectly secure, and we will notify affected users if we become aware of a breach involving their personal information.</p>
+<p>All traffic between the app and our services is encrypted with HTTPS. Your sign-in session is kept in the app&rsquo;s private storage on your device, which other apps cannot read. Database access is restricted with row-level security so that requests are always scoped to the signed-in account, and email links can only sign a phone into the account it asked for. No system is perfectly secure, and we will notify affected users if we become aware of a breach involving their personal information.</p>
 
 <h2>Children</h2>
 <p>GigPal is not directed at children under 13 and we do not knowingly collect personal information from them. If you believe a child has created an account, contact us and we will delete it.</p>
@@ -656,7 +665,7 @@ GP_TERMS = f'''
 <p>These terms are an agreement between you and Avodahsoft (&ldquo;we&rdquo;, &ldquo;us&rdquo;) covering the GigPal app and the services behind it. By using GigPal you agree to them. If you do not agree, please do not use the app.</p>
 
 <h2>What GigPal is</h2>
-<p>GigPal is a practice tool for musicians. It analyses songs you add for key, tempo, chords and structure, lets you change speed and pitch, provides a metronome, tuner, piano, recorder, lyrics tools and setlists, and separates songs into stems in the cloud.</p>
+<p>GigPal is a practice tool for musicians. It analyses songs you add for key, tempo, chords and structure, lets you change speed and pitch, provides a metronome, tuner, sampled piano with chord keys and a synth pad, recorder, chord finder, sol-fa tools, vocal warm-ups, a lyrics finder, Play Along for streaming links and setlists, and separates songs into stems in the cloud.</p>
 
 <h2>Your music and your responsibility</h2>
 <ul>
@@ -671,15 +680,15 @@ GP_TERMS = f'''
 
 <h2>Stem separation and future paid features</h2>
 <ul>
-  <li>Cloud stem separation is currently free and subject to fair-use limits shown in the app (three songs a day per account) so that the service stays fast for everyone. We may adjust limits and features over time.</li>
+  <li>Cloud stem separation is currently free and subject to fair-use limits shown in the app (three songs a day per account, each up to 12 minutes long) so that the service stays fast for everyone. A separation that fails or is cancelled after it starts may still count towards the day&rsquo;s limit. We may adjust limits and features over time.</li>
   <li>If we introduce a paid GigPal Pro plan it will be an auto-renewing subscription purchased through Apple&rsquo;s App Store. Prices will be shown in the app before you buy, renewals and refunds will be handled by Apple under its policies, and these terms will be updated before it launches. Your statutory rights are not affected.</li>
 </ul>
 
 <h2>Acceptable use</h2>
 <p>Do not attempt to reverse engineer, bypass limits, disrupt or overload the service, access another user&rsquo;s data, or use GigPal for anything unlawful. Automated or bulk use of the separation service is not permitted without our written agreement.</p>
 
-<h2>Third-party services</h2>
-<p>GigPal can open YouTube, Spotify and Apple Music content in embedded players and look up lyrics and rhymes from third-party databases. Those services are governed by their own terms, and we do not control their availability or content. GigPal does not download or store third-party streamed content.</p>
+<h2>Third-party services and lyrics</h2>
+<p>GigPal can play YouTube, Spotify, Apple Music and SoundCloud links in those services&rsquo; own embedded players, look up lyrics from LRCLIB, and open Google search in an in-app browser. Those services are governed by their own terms, and we do not control their availability or content. GigPal does not download, record or store third-party streamed content. Lyrics you save or paste into GigPal are kept on your device for your personal practice; song lyrics are usually protected by copyright, so do not republish them.</p>
 
 <h2>Accuracy and safety</h2>
 <ul>
@@ -687,8 +696,8 @@ GP_TERMS = f'''
   <li>Protect your hearing: keep playback and headphone volumes at safe levels, especially when using the metronome or looping loud passages.</li>
 </ul>
 
-<h2>Availability and changes</h2>
-<p>We aim to keep the cloud services running but cannot promise uninterrupted availability. We may change, suspend or discontinue features, and we may update these terms. When a change is significant we will tell you in the app; continuing to use GigPal after that means you accept the updated terms.</p>
+<h2>Availability, updates and changes</h2>
+<p>We aim to keep the cloud services running but cannot promise uninterrupted availability. GigPal may download fixes and improvements automatically when it starts. We may change, suspend or discontinue features, and we may update these terms. When a change is significant we will tell you in the app; continuing to use GigPal after that means you accept the updated terms.</p>
 
 <h2>Disclaimer and liability</h2>
 <p>GigPal is provided &ldquo;as is&rdquo; to the extent permitted by law. Nothing in these terms excludes rights you have under the Australian Consumer Law or any other consumer protection law that cannot be excluded. Subject to those rights, we are not liable for indirect or consequential loss, and our total liability to you in connection with GigPal is limited to the amount you paid us for the service in the 12 months before the claim arose.</p>
