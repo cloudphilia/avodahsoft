@@ -96,7 +96,7 @@ FOOT = f'''</main>
     </div>
     <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/kepta">Kepta</a><a href="/lector">Lector</a><a href="/work">All work</a></div>
     <div><h4>Studio</h4><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
-    <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a></div>
+    <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a><a href="/kepta/privacy">Kepta privacy</a><a href="/kepta/terms">Kepta terms</a></div>
     <div class="legal"><span>&copy; <span data-year>{YEAR}</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store and iPhone are trademarks of Apple Inc.</span></div>
   </div>
 </footer>
@@ -711,13 +711,145 @@ GP_TERMS = f'''
 '''
 legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music stays yours, only add music you have the right to use, and cloud stem separation is free with a daily fair-use limit.", GP_TERMS, "/img/photos/concert.jpg")
 
+
+# ---------------------------------------------------------------- kepta legal
+KEPTA_UPDATED = "4 October 2026"
+
+KP_PRIVACY = f'''
+<p class="meta">Last updated {KEPTA_UPDATED} &middot; Kepta for iPhone &middot; Operated by Avodahsoft, Australia</p>
+<div class="callout"><b>In one paragraph.</b> Kepta works without an account, and your notes, PDFs, scans, signatures, photos, reminders and habits are kept on your iPhone. If you choose to sign in with Apple, the text of your notes and your habits are synced to your account so they are backed up and on your other devices; photos and PDFs stay on the phone. If you use Ask AI or the writing tools, the text needed for that request is sent to our server and to Anthropic to produce the answer, and is not kept. There is no advertising, no analytics and no tracking, and you can delete your account and everything synced with it from inside the app.</div>
+
+<h2>Who we are</h2>
+<p>Kepta is made and operated by Avodahsoft, an independent software studio based in Australia. You can reach us at <a href="mailto:{MAIL}">{MAIL}</a>. We are the data controller for the personal information described here.</p>
+
+<h2>What Kepta keeps on your device</h2>
+<p>Your notes and folders, reminders, habits and their history, diary entries, PDFs you scan, import or save, signatures you draw, photos you attach to notes and your settings are stored in the app&rsquo;s own storage on your iPhone. iOS encrypts that storage whenever the phone is locked. Unless you sign in, none of it leaves the device, except in iPhone backups (iCloud or a computer) that you control.</p>
+<p><b>Locked notes</b> open with Face ID, Touch ID or your passcode through iOS. Kepta never receives biometric data. A lock hides a note inside Kepta; it is not separate encryption, and a locked note is kept out of exports, search previews, notifications and Ask AI.</p>
+
+<h2>If you sign in</h2>
+<p>An account is optional and uses Sign in with Apple. When you sign in we store:</p>
+<ul>
+  <li><b>Account details:</b> the email address Apple shares with us (which can be Apple&rsquo;s private relay address if you choose to hide yours), your name if you share it or have set one in Kepta, an emoji avatar if you choose one, and a random account identifier. A profile photo you choose stays on your device and is not uploaded.</li>
+  <li><b>What syncs:</b> the text of your notes (title, body, folder, colour, icon, pin and lock status, dates), your habits, completions and diary entries, and your settings, so they are backed up and available on your other devices.</li>
+  <li><b>What does not sync:</b> photos, scans, PDFs and signatures stay on the device. Reminder alerts are scheduled on each device.</li>
+</ul>
+<p>When you first sign in, what you wrote on the phone before signing in joins your account. Accounts and synced data are held by our database provider, Supabase, on servers in South Korea, protected by per-account access rules so that one account can never read another&rsquo;s data.</p>
+
+<h2>Ask AI and the writing tools</h2>
+<p>These features are optional and part of Kepta Pro. When you use one, the text needed for that request is sent over HTTPS to our server and from there to Anthropic, whose Claude model writes the answer. That text is your question or instruction, the passage you selected, and, for questions about your notes, the notes most relevant to it. Locked notes and the pictures in your notes are never included. To count requests against your monthly allowance, our server records how many requests an identifier made each day; that identifier is a random one the app creates for you, or your account if you have signed in. We do not store the content of your requests or the answers. Anthropic processes them under its commercial terms, which do not allow it to train models on them, and keeps them only briefly for abuse monitoring.</p>
+<p>AI answers can be wrong. Kepta never applies one to your notes by itself: it is shown to you first, and nothing changes until you choose.</p>
+
+<h2>Kepta Pro and purchases</h2>
+<p>Kepta Pro is an auto-renewing subscription sold through Apple. Apple processes the payment and we never see your card details. We use RevenueCat to confirm whether a subscription is active: it receives your purchase records from Apple and the app&rsquo;s random identifier, and tells our server whether Pro is active.</p>
+
+<h2>App updates</h2>
+<p>When it starts, Kepta checks Expo&rsquo;s update service for fixes and downloads them. The check includes the app&rsquo;s version and platform and, like any web request, your IP address. It contains no account details or note content. Updates are signed, and the app refuses one that is not.</p>
+
+<h2>Device permissions</h2>
+<ul>
+  <li><b>Camera:</b> to scan documents and take photos, only when you choose to.</li>
+  <li><b>Photos:</b> to add pictures to a note or turn them into a PDF, only the ones you pick.</li>
+  <li><b>Notifications:</b> for the reminders you set. They are scheduled on your device; a locked note&rsquo;s reminder shows only &ldquo;Note&rdquo;.</li>
+  <li><b>Face ID or Touch ID:</b> to open notes you have locked.</li>
+</ul>
+<p>Kepta does not use the microphone or your location.</p>
+
+<h2>What we do not do</h2>
+<ul>
+  <li>No advertising, no advertising identifiers.</li>
+  <li>No analytics or tracking SDKs. We do not track you across apps or websites.</li>
+  <li>No selling, renting or sharing of personal information with data brokers.</li>
+  <li>We do not use your notes to train AI models, and neither does Anthropic.</li>
+</ul>
+
+<h2>Service providers</h2>
+<table><tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
+<tr><td>Supabase</td><td>Accounts, sync and the server behind Ask AI</td><td>Account details, synced notes and habits, daily AI request counts</td></tr>
+<tr><td>Anthropic</td><td>AI answers and writing help</td><td>The text of each request, briefly</td></tr>
+<tr><td>Apple</td><td>Sign in with Apple, App Store distribution and payments</td><td>Handled under Apple&rsquo;s privacy policy</td></tr>
+<tr><td>RevenueCat</td><td>Subscription status</td><td>Purchase records and a random identifier</td></tr>
+<tr><td>Expo</td><td>App updates</td><td>App version and platform, IP address</td></tr>
+<tr><td>Cloudflare</td><td>Hosting avodahsoft.com</td><td>Standard web request data; no app data</td></tr></table>
+<p>These providers may process data in the United States, South Korea and other countries. We choose providers that commit to industry-standard security and data-protection terms.</p>
+
+<h2>Retention and deletion</h2>
+<p>Notes go to Recently Deleted and are removed after 30 days, or straight away if you empty it. You can delete your account from the Profile screen; this permanently removes your account and everything synced with it from our servers at once. Deleting your account does not cancel a Kepta Pro subscription: cancel it in your iPhone&rsquo;s Settings, under your name and Subscriptions. What is on the phone is removed when you delete the app; export your notes first if you want a copy. To ask for deletion or a copy of your data by email, write to <a href="mailto:{MAIL}">{MAIL}</a>.</p>
+
+<h2>Security</h2>
+<p>All traffic between the app and our services is encrypted with HTTPS. Your sign-in session is kept in the iPhone&rsquo;s keychain, on that device only. Database access is restricted with row-level security so that every request is limited to the signed-in account, and the keys to the AI service never leave our server. No system is perfectly secure, and we will notify affected users if we become aware of a breach involving their personal information.</p>
+
+<h2>Children</h2>
+<p>Kepta is not directed at children under 13 and we do not knowingly collect personal information from them. If you believe a child has created an account, contact us and we will delete it.</p>
+
+<h2>Your rights</h2>
+<p>Depending on where you live you may have rights to access, correct, export or delete your personal information, or to object to certain processing. Australian users are covered by the Privacy Act 1988; users in the EU and UK by the GDPR. Most of these rights can be exercised directly in the app; for anything else, email us and we will respond within 30 days.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes in a way that matters, we will update the date at the top and tell you inside the app before the change takes effect.</p>
+<p><b>Contact:</b> <a href="mailto:{MAIL}">{MAIL}</a></p>
+'''
+legal_page("/kepta/privacy", "Kepta", "privacy", "Kepta holds your notes, documents and habits, so this page says plainly what stays on your iPhone, what leaves it when you choose, and how to delete it.", KP_PRIVACY, "/img/photos/night.jpg")
+
+KP_TERMS = f'''
+<p class="meta">Last updated {KEPTA_UPDATED} &middot; Kepta for iPhone &middot; Operated by Avodahsoft, Australia</p>
+<p>These terms are an agreement between you and Avodahsoft (&ldquo;we&rdquo;, &ldquo;us&rdquo;) covering the Kepta app and the services behind it. By using Kepta you agree to them. If you do not agree, please do not use the app.</p>
+
+<h2>What Kepta is</h2>
+<p>Kepta is a notebook for iPhone: notes with photos, reminders and folders; a PDF hub for scanning, converting, merging, filling in, marking up and signing documents; a habit tracker with streaks, challenges and a calendar; and, with Kepta Pro, an AI assistant that answers questions about your notes and helps you write.</p>
+
+<h2>Your content</h2>
+<ul>
+  <li>Everything you write, scan, sign or attach stays yours. We only handle it to provide the service to you, as described in the <a href="/kepta/privacy">privacy policy</a>.</li>
+  <li>Only scan, import or sign documents you are entitled to use.</li>
+  <li>Kepta keeps your content on your device unless you sign in. Keep backups of anything important, for example with iPhone backups or Export notes. A locked note is hidden behind Face ID; it is not separately encrypted.</li>
+</ul>
+
+<h2>Accounts</h2>
+<p>An account is optional and uses Sign in with Apple. It adds backup and sync of your notes and habits. You are responsible for activity under your account, and you can delete it at any time from the Profile screen.</p>
+
+<h2>Kepta Pro</h2>
+<ul>
+  <li>Kepta Pro is an auto-renewing subscription, monthly or yearly, purchased through Apple&rsquo;s App Store. The price is shown in the app before you buy, and any free trial and its length are shown with it.</li>
+  <li>Payment is charged to your Apple ID when you confirm the purchase, or when a free trial ends. The subscription renews automatically unless you turn it off at least 24 hours before the end of the current period, in your iPhone&rsquo;s Settings under your name and Subscriptions. Refunds are handled by Apple under its policies.</li>
+  <li>Deleting your account does not cancel a subscription. Your statutory rights are not affected.</li>
+  <li>Pro includes a monthly allowance of AI requests, with a daily ceiling, both shown in the app. We may adjust allowances and features over time and will say so in the app.</li>
+</ul>
+
+<h2>AI features</h2>
+<ul>
+  <li>Answers and writing suggestions are produced by an AI model and can be wrong, incomplete or out of date. Check anything that matters before you rely on it. They are not medical, legal, financial or other professional advice.</li>
+  <li>Kepta shows a suggestion before it changes anything; you decide what to keep.</li>
+  <li>Do not use the AI features to create unlawful, harmful or abusive content, or to try to get around their limits.</li>
+</ul>
+
+<h2>Signing documents</h2>
+<p>Kepta lets you draw a signature and place it on a document. It is not a certified electronic-signature service and does not verify identity. Whether a signature made this way is valid for a particular document is for you and the other parties to decide.</p>
+
+<h2>Acceptable use</h2>
+<p>Do not attempt to reverse engineer, bypass limits, disrupt or overload the service, access another user&rsquo;s data, or use Kepta for anything unlawful. Automated or bulk use of the AI service is not permitted.</p>
+
+<h2>Availability, updates and changes</h2>
+<p>We aim to keep the online services running but cannot promise uninterrupted availability; everything on your device keeps working without them. Kepta may download fixes and improvements automatically when it starts. We may change, suspend or discontinue features, and we may update these terms. When a change is significant we will tell you in the app; continuing to use Kepta after that means you accept the updated terms.</p>
+
+<h2>Disclaimer and liability</h2>
+<p>Kepta is provided &ldquo;as is&rdquo; to the extent permitted by law. Nothing in these terms excludes rights you have under the Australian Consumer Law or any other consumer protection law that cannot be excluded. Subject to those rights, we are not liable for indirect or consequential loss, including lost notes or documents, and our total liability to you in connection with Kepta is limited to the amount you paid us for the service in the 12 months before the claim arose.</p>
+
+<h2>Termination</h2>
+<p>You can stop using Kepta and delete your account at any time. We may suspend or close accounts that breach these terms. On termination your access to the online services ends; content stored on your device remains yours.</p>
+
+<h2>Governing law</h2>
+<p>These terms are governed by the laws of Australia, without limiting any mandatory consumer protection you have where you live.</p>
+<p><b>Contact:</b> <a href="mailto:{MAIL}">{MAIL}</a></p>
+'''
+legal_page("/kepta/terms", "Kepta", "terms", "The short version: your notes and documents stay yours, Pro is a subscription you can cancel through Apple at any time, and AI answers are suggestions you check.", KP_TERMS, "/img/photos/night.jpg")
+
 # ---------------------------------------------------------------- 404, robots, sitemap, favicon
 NOTFOUND = f'''
 <section class="hero"><div class="bg"></div><div class="wrap center"><span class="eyebrow">404</span><h1 class="mt-16">That page is not here.</h1><p class="lead mt-24" style="margin-inline:auto">The link may be old. Try the home page, or write to us if you were looking for something specific.</p><p class="mt-24"><a class="btn primary" href="/">Go home {I["arrow"]}</a> &nbsp; <a class="btn ghost" href="/contact">Contact</a></p></div></section>'''
 page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.html")
 
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
-paths = ["/", "/gigpal", "/kilojo", "/kepta", "/lector", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms"]
+paths = ["/", "/gigpal", "/kilojo", "/kepta", "/lector", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/kepta/privacy", "/kepta/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
 write("/favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FF5E62"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#g)"/><path d="M20 46 32 16l12 30h-6.6l-2.4-6.4H29l-2.4 6.4Zm10.6-12h6.8L34 24.6Z" fill="#0A0E1F"/></svg>')
 print("done")
