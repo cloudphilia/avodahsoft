@@ -94,9 +94,9 @@ FOOT = f'''</main>
       <p class="mt-16">An independent software studio in Australia. Apps for musicians and everyday life, built to be finished rather than merely working.</p>
       <p class="mt-8"><a href="mailto:{MAIL}">{MAIL}</a></p>
     </div>
-    <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/kepta">Kepta</a><a href="/lector">Lector</a><a href="/work">All work</a></div>
+    <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/papersuite">Papersuite</a><a href="/lector">Lector</a><a href="/work">All work</a></div>
     <div><h4>Studio</h4><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
-    <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a><a href="/kepta/privacy">Kepta privacy</a><a href="/kepta/terms">Kepta terms</a></div>
+    <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a><a href="/papersuite/privacy">Papersuite privacy</a><a href="/papersuite/terms">Papersuite terms</a></div>
     <div class="legal"><span>&copy; <span data-year>{YEAR}</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store and iPhone are trademarks of Apple Inc.</span></div>
   </div>
 </footer>
@@ -159,9 +159,9 @@ HOME = f'''
         <div class="media"><img src="/img/photos/night.jpg" alt="A table set for dinner in the evening" loading="lazy"><img class="shot" src="/img/kilojo/2-snap-your-meal.png" alt=""></div>
         <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iOS</span></div><h3>Kilojo</h3><p>A food diary that reads your plate. Photograph a meal for calories and macros, scan a barcode for the packet&rsquo;s own figures, or simply type it in. Every number stays editable.</p><span class="btn green">Explore Kilojo {I["arrow"]}</span></div>
       </a>
-      <a class="card product-card reveal" href="/kepta">
+      <a class="card product-card reveal" href="/papersuite">
         <div class="media"><img src="/img/photos/night.jpg" alt="A quiet desk in the evening" loading="lazy"><img class="shot" src="/img/kepta/today.png" alt=""></div>
-        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span></div><h3>Kepta</h3><p>Habits worth keeping, and the notes that come with them. Track the day, write it down, scan a page, sign a PDF, and ask your own notes a question.</p><span class="btn primary">Explore Kepta {I["arrow"]}</span></div>
+        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span></div><h3>Papersuite</h3><p>Every document, in one place. Write notes, scan pages, fill in and sign PDFs, merge and convert them, ask your own notes a question, and keep your habits beside it all.</p><span class="btn primary">Explore Papersuite {I["arrow"]}</span></div>
       </a>
       <a class="card product-card reveal" href="/lector">
         <div class="media"><img src="/img/photos/stage.jpg" alt="A church stage under lights" loading="lazy"><img class="shot wide" src="/img/lector/screen.png" alt=""></div>
@@ -198,7 +198,7 @@ HOME = f'''
   </div>
 </section>
 '''
-page("/", "Avodahsoft · Apps for musicians, churches and everyday life", "Avodahsoft is an independent software studio in Australia building GigPal, the music practice app, Kilojo, the food diary that reads your plate, Kepta, the habit tracker with notes built in, and Lector, the church presentation app that puts the verse on screen as it is spoken.", HOME)
+page("/", "Avodahsoft · Apps for musicians, churches and everyday life", "Avodahsoft is an independent software studio in Australia building GigPal, the music practice app, Kilojo, the food diary that reads your plate, Papersuite, the habit tracker with notes built in, and Lector, the church presentation app that puts the verse on screen as it is spoken.", HOME)
 
 # ---------------------------------------------------------------- gigpal
 GIGPAL = f'''
@@ -353,27 +353,27 @@ LECTOR = f'''
 '''
 page("/lector", "Lector · The verse, the moment it is spoken", "Lector is a church presentation app for Mac that listens to the preacher and puts the scripture on the screens as it is read, then runs the rest of the service: songs, slides, videos, four screens, announcements, a stage display and a phone remote. Coming soon.", LECTOR, current="/lector", image="/img/photos/stage.jpg")
 
-# ---------------------------------------------------------------- kepta
-KEPTA = f'''
+# ---------------------------------------------------------------- papersuite
+PAPERSUITE = f'''
 <section class="hero">
   <div class="photo" style="background-image:url(/img/photos/night.jpg)"></div><div class="bg" style="background:radial-gradient(900px 500px at 15% 10%,rgba(52,211,182,.22),transparent 60%),radial-gradient(700px 500px at 85% 20%,rgba(79,184,255,.16),transparent 60%)"></div>
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow-row"><img class="appicon" src="/img/kepta/icon.png" alt="Kepta app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span><span class="pill">Free</span></div>
-      <h1>Habits worth keeping, and the <span class="accent" style="background:linear-gradient(90deg,#34D3B6,#4FB8FF);-webkit-background-clip:text;background-clip:text">notes that come with them.</span></h1>
-      <p class="lead mt-24">Tick off the day and keep the streak. Write the note that goes with it. Scan the page, sign the PDF, and ask your own notes what you said last month. Kepta keeps all of that in one place, and keeps it on your phone.</p>
-      <div class="cta"><a class="btn primary" href="/contact?topic=Kepta">Tell me when it launches {I["arrow"]}</a><a class="btn ghost" href="#features">What it does</a></div>
+      <div class="eyebrow-row"><img class="appicon" src="/img/kepta/icon.png" alt="Papersuite app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span><span class="pill">Free</span></div>
+      <h1>Every document, <span class="accent" style="background:linear-gradient(90deg,#34D3B6,#4FB8FF);-webkit-background-clip:text;background-clip:text">in one place.</span></h1>
+      <p class="lead mt-24">Write the note. Scan the page, fill in the form, sign the PDF, and ask your own notes what you said last month. Keep your habits and streaks beside it all. Papersuite holds every document in one place, and keeps it on your phone.</p>
+      <div class="cta"><a class="btn primary" href="/contact?topic=Papersuite">Tell me when it launches {I["arrow"]}</a><a class="btn ghost" href="#features">What it does</a></div>
     </div>
     <div class="phones"><div class="glow" style="background:radial-gradient(closest-side,rgba(52,211,182,.35),transparent)"></div>
-      <div class="phone back"><img src="/img/kepta/habits.png" alt="Kepta habits grid with streaks and challenges" loading="eager"></div>
-      <div class="phone front"><img src="/img/kepta/today.png" alt="Kepta Today screen: the week, the summary ring and today&rsquo;s habits" loading="eager"></div>
+      <div class="phone back"><img src="/img/kepta/habits.png" alt="Papersuite habits grid with streaks and challenges" loading="eager"></div>
+      <div class="phone front"><img src="/img/kepta/today.png" alt="Papersuite Today screen: the week, the summary ring and today&rsquo;s habits" loading="eager"></div>
     </div>
   </div>
 </section>
 
 <section class="section" id="features">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Habits, notes and documents</span><h2 class="mt-8">Track it, write it down, sign it.</h2></div>
+    <div class="section-head reveal"><span class="eyebrow">Notes, documents and habits</span><h2 class="mt-8">Write it, scan it, sign it.</h2></div>
     <div class="grid g3">
       {feature("check", "Habits and streaks", "Daily habits, counted targets and 7, 30, 60 or 90-day challenges. Streaks walk the days you actually scheduled, so a weekday habit does not break every weekend.")}
       {feature("calendar", "A calendar that tells the truth", "Past days show what you logged. Future days show only what you put on them. Jump to any date from Today.")}
@@ -390,8 +390,8 @@ KEPTA = f'''
 <section class="section" style="padding-top:0">
   <div class="wrap">
     <div class="product card reveal">
-      <div class="copy"><span class="eyebrow">Honestly</span><h2 class="mt-8" style="font-size:clamp(26px,3vw,38px)">A streak is not the point.</h2><p class="lead mt-16" style="font-size:17px">Most habit apps stop at the tick, and a row of ticks says nothing about why a habit is sticking or slipping. Kepta keeps the note beside the habit &mdash; what you tried, what worked &mdash; and measures the week rather than the day, because one day is only ever 0, 50 or 100 percent. The number it shows you is the one that means something.</p></div>
-      <div class="shots"><div class="phone"><img src="/img/kepta/calendar.png" alt="Kepta monthly calendar and streak board" loading="lazy"></div><div class="phone"><img src="/img/kepta/today.png" alt="Kepta Today" loading="lazy"></div></div>
+      <div class="copy"><span class="eyebrow">Honestly</span><h2 class="mt-8" style="font-size:clamp(26px,3vw,38px)">A streak is not the point.</h2><p class="lead mt-16" style="font-size:17px">Most habit apps stop at the tick, and a row of ticks says nothing about why a habit is sticking or slipping. Papersuite keeps the note beside the habit &mdash; what you tried, what worked &mdash; and measures the week rather than the day, because one day is only ever 0, 50 or 100 percent. The number it shows you is the one that means something.</p></div>
+      <div class="shots"><div class="phone"><img src="/img/kepta/calendar.png" alt="Papersuite monthly calendar and streak board" loading="lazy"></div><div class="phone"><img src="/img/kepta/today.png" alt="Papersuite Today" loading="lazy"></div></div>
     </div>
   </div>
 </section>
@@ -399,12 +399,12 @@ KEPTA = f'''
 <section class="section" style="padding-top:0">
   <div class="wrap">
     <div class="card reveal" style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start"><div class="icon" style="margin:0">{I["shield"]}</div>
-      <div><h3>Yours, on your phone.</h3>{check_list(["No account to create and nothing to sign in to. Your habits and notes live on the device.", "No advertising, no analytics, no tracking software of any kind.", "Scans and signatures are made on the phone and shared only when you choose to share them.", "Questions you ask your notes are answered by a language model and not stored there; nothing else ever leaves the device."])}<p class="mt-16"><a class="btn ghost" href="/contact?topic=Kepta">Ask about Kepta</a></p></div>
+      <div><h3>Yours, on your phone.</h3>{check_list(["No account to create and nothing to sign in to. Your habits and notes live on the device.", "No advertising, no analytics, no tracking software of any kind.", "Scans and signatures are made on the phone and shared only when you choose to share them.", "Questions you ask your notes are answered by a language model and not stored there; nothing else ever leaves the device."])}<p class="mt-16"><a class="btn ghost" href="/contact?topic=Papersuite">Ask about Papersuite</a></p></div>
     </div>
   </div>
 </section>
 '''
-page("/kepta", "Kepta · Habits worth keeping, and the notes that come with them", "Kepta is a habit tracker for iPhone with a notebook built in: streaks and challenges, a calendar, markdown notes with photos, document scanning, PDF signing, and questions answered from your own notes. Coming soon.", KEPTA, current="/kepta", image="/img/photos/night.jpg")
+page("/papersuite", "Papersuite · Every document, in one place", "Papersuite is an iPhone app for everything on paper: notes with photos and reminders, document scanning, filling in, signing, merging and converting PDFs, questions answered from your own notes, and habits with streaks. Coming soon.", PAPERSUITE, current="/papersuite", image="/img/photos/night.jpg")
 
 # ---------------------------------------------------------------- kilojo
 KILOJO = f'''
@@ -469,7 +469,7 @@ WORK = f'''
   <div class="wrap grid g2">
     <a class="card product-card reveal" href="/gigpal"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot" src="/img/gigpal/chords.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>On the App Store</span><h3 class="mt-16">GigPal</h3><p>Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder, setlists.</p><span class="btn primary">View GigPal {I["arrow"]}</span></div></a>
     <a class="card product-card reveal" href="/kilojo"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kilojo/1-today.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Kilojo</h3><p>A food diary that reads your plate: photo estimates, barcode scanning, editable numbers.</p><span class="btn green">View Kilojo {I["arrow"]}</span></div></a>
-    <a class="card product-card reveal" href="/kepta"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kepta/habits.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Kepta</h3><p>A habit tracker with notes built in: streaks, a calendar, markdown notes, document scanning and PDF signing.</p><span class="btn primary">View Kepta {I["arrow"]}</span></div></a>
+    <a class="card product-card reveal" href="/papersuite"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kepta/habits.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Papersuite</h3><p>Notes, scans and PDFs in one app: fill in, sign, merge and convert documents, with habits and streaks beside them.</p><span class="btn primary">View Papersuite {I["arrow"]}</span></div></a>
     <a class="card product-card reveal" href="/lector"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot wide" src="/img/lector/screen.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Lector</h3><p>Church presentation for Mac that hears the preacher and puts the verse on screen as it is spoken; songs, slides, videos, four screens and a stage display for the rest.</p><span class="btn primary">View Lector {I["arrow"]}</span></div></a>
   </div>
 </section>
@@ -529,7 +529,7 @@ CONTACT = f'''
     <div class="card reveal">
       <form class="form" data-contact novalidate>
         <div class="row"><input name="name" placeholder="Your name" autocomplete="name" required minlength="2"><input name="email" type="email" placeholder="Email address" autocomplete="email" required></div>
-        <select name="topic" id="topic"><option>Support · GigPal</option><option>Support · Kilojo</option><option>GigPal early access</option><option>Kilojo</option><option>Kepta</option><option>Lector</option><option>New project</option><option>Acquisition</option><option>Other</option></select>
+        <select name="topic" id="topic"><option>Support · GigPal</option><option>Support · Kilojo</option><option>GigPal early access</option><option>Kilojo</option><option>Papersuite</option><option>Lector</option><option>New project</option><option>Acquisition</option><option>Other</option></select>
         <textarea name="message" placeholder="Say which app and which phone if it is support. For a project, the idea, who it is for and roughly when it needs to be live." required minlength="10"></textarea>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><button class="btn primary" type="submit">Send message {I["arrow"]}</button><span class="status" role="status"></span></div>
@@ -712,38 +712,38 @@ GP_TERMS = f'''
 legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music stays yours, only add music you have the right to use, and cloud stem separation is free with a daily fair-use limit.", GP_TERMS, "/img/photos/concert.jpg")
 
 
-# ---------------------------------------------------------------- kepta legal
-KEPTA_UPDATED = "4 October 2026"
+# ---------------------------------------------------------------- papersuite legal
+PAPERSUITE_UPDATED = "4 October 2026"
 
 KP_PRIVACY = f'''
-<p class="meta">Last updated {KEPTA_UPDATED} &middot; Kepta for iPhone &middot; Operated by Avodahsoft, Australia</p>
-<div class="callout"><b>In one paragraph.</b> Kepta works without an account, and your notes, PDFs, scans, signatures, photos, reminders and habits are kept on your iPhone. If you choose to sign in with Apple, the text of your notes and your habits are synced to your account so they are backed up and on your other devices; photos and PDFs stay on the phone. If you use Ask AI or the writing tools, the text needed for that request is sent to our server and to Anthropic to produce the answer, and is not kept. There is no advertising, no analytics and no tracking, and you can delete your account and everything synced with it from inside the app.</div>
+<p class="meta">Last updated {PAPERSUITE_UPDATED} &middot; Papersuite for iPhone &middot; Operated by Avodahsoft, Australia</p>
+<div class="callout"><b>In one paragraph.</b> Papersuite works without an account, and your notes, PDFs, scans, signatures, photos, reminders and habits are kept on your iPhone. If you choose to sign in with Apple, the text of your notes and your habits are synced to your account so they are backed up and on your other devices; photos and PDFs stay on the phone. If you use Ask AI or the writing tools, the text needed for that request is sent to our server and to Anthropic to produce the answer, and is not kept. There is no advertising, no analytics and no tracking, and you can delete your account and everything synced with it from inside the app.</div>
 
 <h2>Who we are</h2>
-<p>Kepta is made and operated by Avodahsoft, an independent software studio based in Australia. You can reach us at <a href="mailto:{MAIL}">{MAIL}</a>. We are the data controller for the personal information described here.</p>
+<p>Papersuite is made and operated by Avodahsoft, an independent software studio based in Australia. You can reach us at <a href="mailto:{MAIL}">{MAIL}</a>. We are the data controller for the personal information described here.</p>
 
-<h2>What Kepta keeps on your device</h2>
+<h2>What Papersuite keeps on your device</h2>
 <p>Your notes and folders, reminders, habits and their history, diary entries, PDFs you scan, import or save, signatures you draw, photos you attach to notes and your settings are stored in the app&rsquo;s own storage on your iPhone. iOS encrypts that storage whenever the phone is locked. Unless you sign in, none of it leaves the device, except in iPhone backups (iCloud or a computer) that you control.</p>
-<p><b>Locked notes</b> open with Face ID, Touch ID or your passcode through iOS. Kepta never receives biometric data. A lock hides a note inside Kepta; it is not separate encryption, and a locked note is kept out of exports, search previews, notifications and Ask AI.</p>
+<p><b>Locked notes</b> open with Face ID, Touch ID or your passcode through iOS. Papersuite never receives biometric data. A lock hides a note inside Papersuite; it is not separate encryption, and a locked note is kept out of exports, search previews, notifications and Ask AI.</p>
 
 <h2>If you sign in</h2>
 <p>An account is optional and uses Sign in with Apple. When you sign in we store:</p>
 <ul>
-  <li><b>Account details:</b> the email address Apple shares with us (which can be Apple&rsquo;s private relay address if you choose to hide yours), your name if you share it or have set one in Kepta, an emoji avatar if you choose one, and a random account identifier. A profile photo you choose stays on your device and is not uploaded.</li>
+  <li><b>Account details:</b> the email address Apple shares with us (which can be Apple&rsquo;s private relay address if you choose to hide yours), your name if you share it or have set one in Papersuite, an emoji avatar if you choose one, and a random account identifier. A profile photo you choose stays on your device and is not uploaded.</li>
   <li><b>What syncs:</b> the text of your notes (title, body, folder, colour, icon, pin and lock status, dates), your habits, completions and diary entries, and your settings, so they are backed up and available on your other devices.</li>
   <li><b>What does not sync:</b> photos, scans, PDFs and signatures stay on the device. Reminder alerts are scheduled on each device.</li>
 </ul>
 <p>When you first sign in, what you wrote on the phone before signing in joins your account. Accounts and synced data are held by our database provider, Supabase, on servers in South Korea, protected by per-account access rules so that one account can never read another&rsquo;s data.</p>
 
 <h2>Ask AI and the writing tools</h2>
-<p>These features are optional and part of Kepta Pro. When you use one, the text needed for that request is sent over HTTPS to our server and from there to Anthropic, whose Claude model writes the answer. That text is your question or instruction, the passage you selected, and, for questions about your notes, the notes most relevant to it. Locked notes and the pictures in your notes are never included. To count requests against your monthly allowance, our server records how many requests an identifier made each day; that identifier is a random one the app creates for you, or your account if you have signed in. We do not store the content of your requests or the answers. Anthropic processes them under its commercial terms, which do not allow it to train models on them, and keeps them only briefly for abuse monitoring.</p>
-<p>AI answers can be wrong. Kepta never applies one to your notes by itself: it is shown to you first, and nothing changes until you choose.</p>
+<p>These features are optional and part of Papersuite Pro. When you use one, the text needed for that request is sent over HTTPS to our server and from there to Anthropic, whose Claude model writes the answer. That text is your question or instruction, the passage you selected, and, for questions about your notes, the notes most relevant to it. Locked notes and the pictures in your notes are never included. To count requests against your monthly allowance, our server records how many requests an identifier made each day; that identifier is a random one the app creates for you, or your account if you have signed in. We do not store the content of your requests or the answers. Anthropic processes them under its commercial terms, which do not allow it to train models on them, and keeps them only briefly for abuse monitoring.</p>
+<p>AI answers can be wrong. Papersuite never applies one to your notes by itself: it is shown to you first, and nothing changes until you choose.</p>
 
-<h2>Kepta Pro and purchases</h2>
-<p>Kepta Pro is an auto-renewing subscription sold through Apple. Apple processes the payment and we never see your card details. We use RevenueCat to confirm whether a subscription is active: it receives your purchase records from Apple and the app&rsquo;s random identifier, and tells our server whether Pro is active.</p>
+<h2>Papersuite Pro and purchases</h2>
+<p>Papersuite Pro is an auto-renewing subscription sold through Apple. Apple processes the payment and we never see your card details. We use RevenueCat to confirm whether a subscription is active: it receives your purchase records from Apple and the app&rsquo;s random identifier, and tells our server whether Pro is active.</p>
 
 <h2>App updates</h2>
-<p>When it starts, Kepta checks Expo&rsquo;s update service for fixes and downloads them. The check includes the app&rsquo;s version and platform and, like any web request, your IP address. It contains no account details or note content. Updates are signed, and the app refuses one that is not.</p>
+<p>When it starts, Papersuite checks Expo&rsquo;s update service for fixes and downloads them. The check includes the app&rsquo;s version and platform and, like any web request, your IP address. It contains no account details or note content. Updates are signed, and the app refuses one that is not.</p>
 
 <h2>Device permissions</h2>
 <ul>
@@ -752,7 +752,7 @@ KP_PRIVACY = f'''
   <li><b>Notifications:</b> for the reminders you set. They are scheduled on your device; a locked note&rsquo;s reminder shows only &ldquo;Note&rdquo;.</li>
   <li><b>Face ID or Touch ID:</b> to open notes you have locked.</li>
 </ul>
-<p>Kepta does not use the microphone or your location.</p>
+<p>Papersuite does not use the microphone or your location.</p>
 
 <h2>What we do not do</h2>
 <ul>
@@ -773,13 +773,13 @@ KP_PRIVACY = f'''
 <p>These providers may process data in the United States, South Korea and other countries. We choose providers that commit to industry-standard security and data-protection terms.</p>
 
 <h2>Retention and deletion</h2>
-<p>Notes go to Recently Deleted and are removed after 30 days, or straight away if you empty it. You can delete your account from the Profile screen; this permanently removes your account and everything synced with it from our servers at once. Deleting your account does not cancel a Kepta Pro subscription: cancel it in your iPhone&rsquo;s Settings, under your name and Subscriptions. What is on the phone is removed when you delete the app; export your notes first if you want a copy. To ask for deletion or a copy of your data by email, write to <a href="mailto:{MAIL}">{MAIL}</a>.</p>
+<p>Notes go to Recently Deleted and are removed after 30 days, or straight away if you empty it. You can delete your account from the Profile screen; this permanently removes your account and everything synced with it from our servers at once. Deleting your account does not cancel a Papersuite Pro subscription: cancel it in your iPhone&rsquo;s Settings, under your name and Subscriptions. What is on the phone is removed when you delete the app; export your notes first if you want a copy. To ask for deletion or a copy of your data by email, write to <a href="mailto:{MAIL}">{MAIL}</a>.</p>
 
 <h2>Security</h2>
 <p>All traffic between the app and our services is encrypted with HTTPS. Your sign-in session is kept in the iPhone&rsquo;s keychain, on that device only. Database access is restricted with row-level security so that every request is limited to the signed-in account, and the keys to the AI service never leave our server. No system is perfectly secure, and we will notify affected users if we become aware of a breach involving their personal information.</p>
 
 <h2>Children</h2>
-<p>Kepta is not directed at children under 13 and we do not knowingly collect personal information from them. If you believe a child has created an account, contact us and we will delete it.</p>
+<p>Papersuite is not directed at children under 13 and we do not knowingly collect personal information from them. If you believe a child has created an account, contact us and we will delete it.</p>
 
 <h2>Your rights</h2>
 <p>Depending on where you live you may have rights to access, correct, export or delete your personal information, or to object to certain processing. Australian users are covered by the Privacy Act 1988; users in the EU and UK by the GDPR. Most of these rights can be exercised directly in the app; for anything else, email us and we will respond within 30 days.</p>
@@ -788,28 +788,28 @@ KP_PRIVACY = f'''
 <p>If this policy changes in a way that matters, we will update the date at the top and tell you inside the app before the change takes effect.</p>
 <p><b>Contact:</b> <a href="mailto:{MAIL}">{MAIL}</a></p>
 '''
-legal_page("/kepta/privacy", "Kepta", "privacy", "Kepta holds your notes, documents and habits, so this page says plainly what stays on your iPhone, what leaves it when you choose, and how to delete it.", KP_PRIVACY, "/img/photos/night.jpg")
+legal_page("/papersuite/privacy", "Papersuite", "privacy", "Papersuite holds your notes, documents and habits, so this page says plainly what stays on your iPhone, what leaves it when you choose, and how to delete it.", KP_PRIVACY, "/img/photos/night.jpg")
 
 KP_TERMS = f'''
-<p class="meta">Last updated {KEPTA_UPDATED} &middot; Kepta for iPhone &middot; Operated by Avodahsoft, Australia</p>
-<p>These terms are an agreement between you and Avodahsoft (&ldquo;we&rdquo;, &ldquo;us&rdquo;) covering the Kepta app and the services behind it. By using Kepta you agree to them. If you do not agree, please do not use the app.</p>
+<p class="meta">Last updated {PAPERSUITE_UPDATED} &middot; Papersuite for iPhone &middot; Operated by Avodahsoft, Australia</p>
+<p>These terms are an agreement between you and Avodahsoft (&ldquo;we&rdquo;, &ldquo;us&rdquo;) covering the Papersuite app and the services behind it. By using Papersuite you agree to them. If you do not agree, please do not use the app.</p>
 
-<h2>What Kepta is</h2>
-<p>Kepta is a notebook for iPhone: notes with photos, reminders and folders; a PDF hub for scanning, converting, merging, filling in, marking up and signing documents; a habit tracker with streaks, challenges and a calendar; and, with Kepta Pro, an AI assistant that answers questions about your notes and helps you write.</p>
+<h2>What Papersuite is</h2>
+<p>Papersuite is a notebook for iPhone: notes with photos, reminders and folders; a PDF hub for scanning, converting, merging, filling in, marking up and signing documents; a habit tracker with streaks, challenges and a calendar; and, with Papersuite Pro, an AI assistant that answers questions about your notes and helps you write.</p>
 
 <h2>Your content</h2>
 <ul>
-  <li>Everything you write, scan, sign or attach stays yours. We only handle it to provide the service to you, as described in the <a href="/kepta/privacy">privacy policy</a>.</li>
+  <li>Everything you write, scan, sign or attach stays yours. We only handle it to provide the service to you, as described in the <a href="/papersuite/privacy">privacy policy</a>.</li>
   <li>Only scan, import or sign documents you are entitled to use.</li>
-  <li>Kepta keeps your content on your device unless you sign in. Keep backups of anything important, for example with iPhone backups or Export notes. A locked note is hidden behind Face ID; it is not separately encrypted.</li>
+  <li>Papersuite keeps your content on your device unless you sign in. Keep backups of anything important, for example with iPhone backups or Export notes. A locked note is hidden behind Face ID; it is not separately encrypted.</li>
 </ul>
 
 <h2>Accounts</h2>
 <p>An account is optional and uses Sign in with Apple. It adds backup and sync of your notes and habits. You are responsible for activity under your account, and you can delete it at any time from the Profile screen.</p>
 
-<h2>Kepta Pro</h2>
+<h2>Papersuite Pro</h2>
 <ul>
-  <li>Kepta Pro is an auto-renewing subscription, monthly or yearly, purchased through Apple&rsquo;s App Store. The price is shown in the app before you buy, and any free trial and its length are shown with it.</li>
+  <li>Papersuite Pro is an auto-renewing subscription, monthly or yearly, purchased through Apple&rsquo;s App Store. The price is shown in the app before you buy, and any free trial and its length are shown with it.</li>
   <li>Payment is charged to your Apple ID when you confirm the purchase, or when a free trial ends. The subscription renews automatically unless you turn it off at least 24 hours before the end of the current period, in your iPhone&rsquo;s Settings under your name and Subscriptions. Refunds are handled by Apple under its policies.</li>
   <li>Deleting your account does not cancel a subscription. Your statutory rights are not affected.</li>
   <li>Pro includes a monthly allowance of AI requests, with a daily ceiling, both shown in the app. We may adjust allowances and features over time and will say so in the app.</li>
@@ -818,30 +818,30 @@ KP_TERMS = f'''
 <h2>AI features</h2>
 <ul>
   <li>Answers and writing suggestions are produced by an AI model and can be wrong, incomplete or out of date. Check anything that matters before you rely on it. They are not medical, legal, financial or other professional advice.</li>
-  <li>Kepta shows a suggestion before it changes anything; you decide what to keep.</li>
+  <li>Papersuite shows a suggestion before it changes anything; you decide what to keep.</li>
   <li>Do not use the AI features to create unlawful, harmful or abusive content, or to try to get around their limits.</li>
 </ul>
 
 <h2>Signing documents</h2>
-<p>Kepta lets you draw a signature and place it on a document. It is not a certified electronic-signature service and does not verify identity. Whether a signature made this way is valid for a particular document is for you and the other parties to decide.</p>
+<p>Papersuite lets you draw a signature and place it on a document. It is not a certified electronic-signature service and does not verify identity. Whether a signature made this way is valid for a particular document is for you and the other parties to decide.</p>
 
 <h2>Acceptable use</h2>
-<p>Do not attempt to reverse engineer, bypass limits, disrupt or overload the service, access another user&rsquo;s data, or use Kepta for anything unlawful. Automated or bulk use of the AI service is not permitted.</p>
+<p>Do not attempt to reverse engineer, bypass limits, disrupt or overload the service, access another user&rsquo;s data, or use Papersuite for anything unlawful. Automated or bulk use of the AI service is not permitted.</p>
 
 <h2>Availability, updates and changes</h2>
-<p>We aim to keep the online services running but cannot promise uninterrupted availability; everything on your device keeps working without them. Kepta may download fixes and improvements automatically when it starts. We may change, suspend or discontinue features, and we may update these terms. When a change is significant we will tell you in the app; continuing to use Kepta after that means you accept the updated terms.</p>
+<p>We aim to keep the online services running but cannot promise uninterrupted availability; everything on your device keeps working without them. Papersuite may download fixes and improvements automatically when it starts. We may change, suspend or discontinue features, and we may update these terms. When a change is significant we will tell you in the app; continuing to use Papersuite after that means you accept the updated terms.</p>
 
 <h2>Disclaimer and liability</h2>
-<p>Kepta is provided &ldquo;as is&rdquo; to the extent permitted by law. Nothing in these terms excludes rights you have under the Australian Consumer Law or any other consumer protection law that cannot be excluded. Subject to those rights, we are not liable for indirect or consequential loss, including lost notes or documents, and our total liability to you in connection with Kepta is limited to the amount you paid us for the service in the 12 months before the claim arose.</p>
+<p>Papersuite is provided &ldquo;as is&rdquo; to the extent permitted by law. Nothing in these terms excludes rights you have under the Australian Consumer Law or any other consumer protection law that cannot be excluded. Subject to those rights, we are not liable for indirect or consequential loss, including lost notes or documents, and our total liability to you in connection with Papersuite is limited to the amount you paid us for the service in the 12 months before the claim arose.</p>
 
 <h2>Termination</h2>
-<p>You can stop using Kepta and delete your account at any time. We may suspend or close accounts that breach these terms. On termination your access to the online services ends; content stored on your device remains yours.</p>
+<p>You can stop using Papersuite and delete your account at any time. We may suspend or close accounts that breach these terms. On termination your access to the online services ends; content stored on your device remains yours.</p>
 
 <h2>Governing law</h2>
 <p>These terms are governed by the laws of Australia, without limiting any mandatory consumer protection you have where you live.</p>
 <p><b>Contact:</b> <a href="mailto:{MAIL}">{MAIL}</a></p>
 '''
-legal_page("/kepta/terms", "Kepta", "terms", "The short version: your notes and documents stay yours, Pro is a subscription you can cancel through Apple at any time, and AI answers are suggestions you check.", KP_TERMS, "/img/photos/night.jpg")
+legal_page("/papersuite/terms", "Papersuite", "terms", "The short version: your notes and documents stay yours, Pro is a subscription you can cancel through Apple at any time, and AI answers are suggestions you check.", KP_TERMS, "/img/photos/night.jpg")
 
 # ---------------------------------------------------------------- 404, robots, sitemap, favicon
 NOTFOUND = f'''
@@ -849,7 +849,7 @@ NOTFOUND = f'''
 page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.html")
 
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
-paths = ["/", "/gigpal", "/kilojo", "/kepta", "/lector", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/kepta/privacy", "/kepta/terms"]
+paths = ["/", "/gigpal", "/kilojo", "/papersuite", "/lector", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/papersuite/privacy", "/papersuite/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
 write("/favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FF5E62"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#g)"/><path d="M20 46 32 16l12 30h-6.6l-2.4-6.4H29l-2.4 6.4Zm10.6-12h6.8L34 24.6Z" fill="#0A0E1F"/></svg>')
 print("done")
