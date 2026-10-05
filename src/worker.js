@@ -6,7 +6,7 @@ const REDIRECTS = {
   '/index.html': '/', '/work.html': '/work', '/studio.html': '/studio', '/contact.html': '/contact', '/kilojo.html': '/kilojo',
   '/legal.html': '/kilojo/privacy', '/legal/privacy': '/kilojo/privacy', '/legal/terms': '/kilojo/terms', '/legal/support': '/contact',
   '/legal': '/kilojo/privacy', '/work/kilojo': '/kilojo', '/work/gigpal': '/gigpal', '/privacy': '/gigpal/privacy', '/terms': '/gigpal/terms',
-  // Papersuite was Kepta until 2026-10-04.
+  // PaperSuite was Kepta until 2026-10-04.
   '/kepta': '/papersuite', '/kepta/privacy': '/papersuite/privacy', '/kepta/terms': '/papersuite/terms',
 };
 
