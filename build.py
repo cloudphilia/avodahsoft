@@ -713,7 +713,7 @@ legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music st
 
 
 # ---------------------------------------------------------------- papersuite legal
-PAPERSUITE_UPDATED = "4 October 2026"
+PAPERSUITE_UPDATED = "5 October 2026"
 
 KP_PRIVACY = f'''
 <p class="meta">Last updated {PAPERSUITE_UPDATED} &middot; PaperSuite for iPhone &middot; Operated by Avodahsoft, Australia</p>
@@ -736,7 +736,7 @@ KP_PRIVACY = f'''
 <p>When you first sign in, what you wrote on the phone before signing in joins your account. Accounts and synced data are held by our database provider, Supabase, on servers in South Korea, protected by per-account access rules so that one account can never read another&rsquo;s data.</p>
 
 <h2>Ask AI and the writing tools</h2>
-<p>These features are optional and part of PaperSuite Pro. When you use one, the text needed for that request is sent over HTTPS to our server and from there to Anthropic, whose Claude model writes the answer. That text is your question or instruction, the passage you selected, and, for questions about your notes, the notes most relevant to it. Locked notes and the pictures in your notes are never included. To count requests against your monthly allowance, our server records how many requests an identifier made each day; that identifier is a random one the app creates for you, or your account if you have signed in. We do not store the content of your requests or the answers. Anthropic processes them under its commercial terms, which do not allow it to train models on them, and keeps them only briefly for abuse monitoring.</p>
+<p>These features are optional and part of PaperSuite Pro. When you use one, the text needed for that request is sent over HTTPS to our server and from there to Anthropic, whose Claude model writes the answer. For a question, that is the question, the notes most relevant to it, the names and daily targets of your habits, and the last few questions and answers of the conversation. For the writing tools, it is the note you are working in, or the passage you selected, and your instruction. Ask never includes locked notes, and the pictures in your notes are never included. The first time you use one of these features, PaperSuite asks your permission before anything is sent, and you can withdraw it at any time in Profile (&ldquo;Share with Anthropic&rdquo;). To count requests against your monthly allowance, our server records how many requests an identifier made each day; that identifier is a random one the app creates for you, or your account if you have signed in. We do not store the content of your requests or the answers. Anthropic processes them under its commercial terms, which do not allow it to train models on them, and keeps them only briefly for abuse monitoring.</p>
 <p>AI answers can be wrong. PaperSuite never applies one to your notes by itself: it is shown to you first, and nothing changes until you choose.</p>
 
 <h2>PaperSuite Pro and purchases</h2>
