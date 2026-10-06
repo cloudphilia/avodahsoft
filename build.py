@@ -713,7 +713,7 @@ legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music st
 
 
 # ---------------------------------------------------------------- papersuite legal
-PAPERSUITE_UPDATED = "5 October 2026"
+PAPERSUITE_UPDATED = "6 October 2026"
 
 KP_PRIVACY = f'''
 <p class="meta">Last updated {PAPERSUITE_UPDATED} &middot; PaperSuite for iPhone &middot; Operated by Avodahsoft, Australia</p>
@@ -736,7 +736,7 @@ KP_PRIVACY = f'''
 <p>When you first sign in, what you wrote on the phone before signing in joins your account. Accounts and synced data are held by our database provider, Supabase, on servers in South Korea, protected by per-account access rules so that one account can never read another&rsquo;s data.</p>
 
 <h2>Ask AI and the writing tools</h2>
-<p>These features are optional and part of PaperSuite Pro. When you use one, the text needed for that request is sent over HTTPS to our server and from there to Anthropic, whose Claude model writes the answer. For a question, that is the question, the notes most relevant to it, the names and daily targets of your habits, and the last few questions and answers of the conversation. For the writing tools, it is the note you are working in, or the passage you selected, and your instruction. Ask never includes locked notes, and the pictures in your notes are never included. The first time you use one of these features, PaperSuite asks your permission before anything is sent, and you can withdraw it at any time in Profile (&ldquo;Share with Anthropic&rdquo;). To count requests against your monthly allowance, our server records how many requests an identifier made each day; that identifier is a random one the app creates for you, or your account if you have signed in. We do not store the content of your requests or the answers. Anthropic processes them under its commercial terms, which do not allow it to train models on them, and keeps them only briefly for abuse monitoring.</p>
+<p>These features are optional and part of PaperSuite Pro. When you use one, the text needed for that request is sent over HTTPS to our server and from there to Anthropic, whose Claude model writes the answer. For a question, that is the question, up to 12 of your notes (the ones most relevant to it, or your most recent), the names and daily targets of your habits, and the last few questions and answers of the conversation. For the writing tools, it is the note you are working in, any words you selected in it, and your instruction. Ask never includes locked notes; the writing tools send a locked note only when you have opened it and ask them to. The pictures in your notes are never included. The first time you use one of these features, PaperSuite asks your permission before anything is sent, and you can withdraw it at any time in Profile (&ldquo;Allow Ask AI&rdquo;). To count requests against your monthly allowance, our server records how many requests an identifier made each day; that identifier is a random one the app creates for you, or your account if you have signed in. So that one subscription cannot be used to get around the allowance, the server also keeps a daily count for each subscription, identified by the store, the product and the date it was first bought; that count is not linked to an account. We do not store the content of your requests or the answers. Anthropic processes them under its commercial terms, which do not allow it to train models on them, and keeps them only briefly for abuse monitoring.</p>
 <p>AI answers can be wrong. PaperSuite never applies one to your notes by itself: it is shown to you first, and nothing changes until you choose.</p>
 
 <h2>PaperSuite Pro and purchases</h2>
@@ -764,7 +764,7 @@ KP_PRIVACY = f'''
 
 <h2>Service providers</h2>
 <table><tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
-<tr><td>Supabase</td><td>Accounts, sync and the server behind Ask AI</td><td>Account details, synced notes and habits, daily AI request counts</td></tr>
+<tr><td>Supabase</td><td>Accounts, sync and the server behind Ask AI</td><td>Account details, synced notes and habits, daily AI request counts per identifier and per subscription</td></tr>
 <tr><td>Anthropic</td><td>AI answers and writing help</td><td>The text of each request, briefly</td></tr>
 <tr><td>Apple</td><td>Sign in with Apple, App Store distribution and payments</td><td>Handled under Apple&rsquo;s privacy policy</td></tr>
 <tr><td>RevenueCat</td><td>Subscription status</td><td>Purchase records and a random identifier</td></tr>
@@ -773,7 +773,7 @@ KP_PRIVACY = f'''
 <p>These providers may process data in the United States, South Korea and other countries. We choose providers that commit to industry-standard security and data-protection terms.</p>
 
 <h2>Retention and deletion</h2>
-<p>Notes go to Recently Deleted and are removed after 30 days, or straight away if you empty it. You can delete your account from the Profile screen; this permanently removes your account and everything synced with it from our servers at once. Deleting your account does not cancel a PaperSuite Pro subscription: cancel it in your iPhone&rsquo;s Settings, under your name and Subscriptions. What is on the phone is removed when you delete the app; export your notes first if you want a copy. To ask for deletion or a copy of your data by email, write to <a href="mailto:{MAIL}">{MAIL}</a>.</p>
+<p>Notes go to Recently Deleted and are removed after 30 days, or straight away if you empty it. You can delete your account from the Profile screen; this permanently removes your account and everything synced with it from our servers at once. If you signed in with Apple, it also revokes PaperSuite&rsquo;s access to your Apple ID, and it asks RevenueCat to delete its record of your identifier. The daily per-subscription AI counts described above, which are not linked to an account, are kept so that deleting an account cannot reset the allowance. Deleting your account does not cancel a PaperSuite Pro subscription: cancel it in your iPhone&rsquo;s Settings, under your name and Subscriptions. What is on the phone is removed when you delete the app; export your notes first if you want a copy. To ask for deletion or a copy of your data by email, write to <a href="mailto:{MAIL}">{MAIL}</a>.</p>
 
 <h2>Security</h2>
 <p>All traffic between the app and our services is encrypted with HTTPS. Your sign-in session is kept in the iPhone&rsquo;s keychain, on that device only. Database access is restricted with row-level security so that every request is limited to the signed-in account, and the keys to the AI service never leave our server. No system is perfectly secure, and we will notify affected users if we become aware of a breach involving their personal information.</p>
