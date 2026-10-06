@@ -713,7 +713,7 @@ legal_page("/gigpal/terms", "GigPal", "terms", "The short version: your music st
 
 
 # ---------------------------------------------------------------- papersuite legal
-PAPERSUITE_UPDATED = "6 October 2026"
+PAPERSUITE_UPDATED = "7 October 2026"
 
 KP_PRIVACY = f'''
 <p class="meta">Last updated {PAPERSUITE_UPDATED} &middot; PaperSuite for iPhone &middot; Operated by Avodahsoft, Australia</p>
@@ -747,7 +747,7 @@ KP_PRIVACY = f'''
 
 <h2>Device permissions</h2>
 <ul>
-  <li><b>Camera:</b> to scan documents and take photos, only when you choose to.</li>
+  <li><b>Camera:</b> to scan documents, to read the text on a page into a note (Scan text), and to take photos, only when you choose to. Scan text recognises the words on your iPhone; the page is not sent anywhere and is deleted once read.</li>
   <li><b>Photos:</b> to add pictures to a note or turn them into a PDF, only the ones you pick.</li>
   <li><b>Notifications:</b> for the reminders you set. They are scheduled on your device; a locked note&rsquo;s reminder shows only &ldquo;Note&rdquo;.</li>
   <li><b>Face ID or Touch ID:</b> to open notes you have locked.</li>
