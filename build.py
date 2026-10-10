@@ -755,7 +755,7 @@ GP_PRIVACY = f'''
 <div class="callout"><b>In one paragraph.</b> GigPal works without an account, and everything that analyses your music (key, tempo, beats, chords, sections) runs on your own device. If you sign in, we hold your email address and a copy of your library metadata so you can sync it. If you use stem separation, the song is uploaded over an encrypted connection, processed, returned to you and deleted from our servers. There is no advertising, no analytics SDK and no tracking, and you can delete your account and everything attached to it from inside the app.</div>
 
 <h2>Who we are</h2>
-<p>GigPal is made and operated by Avodahsoft, an independent software studio based in Australia. You can reach us at <a href="mailto:{MAIL}">{MAIL}</a>. We are the data controller for the personal information described here.</p>
+<p>GigPal is made and operated by Avodahsoft, a software company based in Australia. You can reach us at <a href="mailto:{MAIL}">{MAIL}</a>. We are the data controller for the personal information described here.</p>
 
 <h2>What GigPal stores on your device</h2>
 <p>Your library lives on your device: the songs and recordings you add, the analysis results (key, tempo, beats, chords, sections and lyrics timing), any separated stems, your setlists (with their dates and the notes you add to songs), lyrics you save, the streaming links you play in Play Along, and your settings. This information stays on the device unless you sign in and sync, or unless you choose to share something. Saved lyrics, Play Along links, setlist dates and song notes are never uploaded. Deleting a song in the app deletes it and its stems from the device.</p>
@@ -892,7 +892,7 @@ KP_PRIVACY = f'''
 <div class="callout"><b>In one paragraph.</b> PaperSuite works without an account, and your notes, PDFs, scans, signatures, photos, reminders and habits are kept on your iPhone. If you choose to sign in with Apple, the text of your notes and your habits are synced to your account so they are backed up and on your other devices; photos and PDFs stay on the phone. If you use Ask AI or the writing tools, the text needed for that request is sent to our server and to Anthropic to produce the answer. We do not keep it, and Anthropic keeps it only briefly for abuse monitoring. There is no advertising, no analytics and no tracking, and you can delete your account and everything synced with it from inside the app.</div>
 
 <h2>Who we are</h2>
-<p>PaperSuite is made and operated by Avodahsoft, an independent software studio based in Australia. You can reach us at <a href="mailto:{MAIL}">{MAIL}</a>. We are the data controller for the personal information described here.</p>
+<p>PaperSuite is made and operated by Avodahsoft, a software company based in Australia. You can reach us at <a href="mailto:{MAIL}">{MAIL}</a>. We are the data controller for the personal information described here.</p>
 
 <h2>What PaperSuite keeps on your device</h2>
 <p>Your notes and folders, reminders, habits and their history, diary entries, PDFs you scan, import or save, signatures you draw, photos you attach to notes and your settings are stored in the app&rsquo;s own storage on your iPhone. iOS encrypts that storage whenever the phone is locked. Unless you sign in, none of it leaves the device, except in iPhone backups (iCloud or a computer) that you control.</p>
