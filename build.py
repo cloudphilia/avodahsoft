@@ -7,6 +7,7 @@ PUB = ROOT / "public"
 SITE = "https://avodahsoft.com"
 MAIL = "hello@avodahsoft.com"
 APPSTORE = "https://apps.apple.com/app/id6809133057"
+KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
 ASSET_VERSION = "20261010"
@@ -56,7 +57,7 @@ NAV = [("/work", "Apps"), ("/services", "Services"), ("/studio", "Company"), ("/
 APPS = {
     "gigpal": {"name": "GigPal", "href": "/gigpal", "icon": "/img/gigpal/icon.png", "live": True, "dark": True,
                "tagline": "The practice room in your pocket.", "shot": ("/img/gigpal/chords.png", "GigPal following the chords of a song")},
-    "kilojo": {"name": "Kilojo", "href": "/kilojo", "icon": "/img/kilojo/icon.png", "live": False, "dark": False,
+    "kilojo": {"name": "Kilojo", "href": "/kilojo", "icon": "/img/kilojo/icon.png", "live": True, "dark": False,
                "tagline": "A food diary that reads your plate.", "shot": ("/img/kilojo/2-snap-your-meal.png", "Kilojo photographing a meal")},
     "papersuite": {"name": "PaperSuite", "href": "/papersuite", "icon": "/img/papersuite/icon.png", "live": False, "dark": False,
                    "tagline": "Every document, in one place.", "shot": ("/img/papersuite/03-notes.png", "PaperSuite notes: due today, pinned and today&rsquo;s reminders")},
@@ -68,7 +69,7 @@ APPS = {
 def head(title, desc, path, image, theme="", extra=""):
     full = title if "Avodahsoft" in title else f"{title} · Avodahsoft"
     ld = json.dumps({"@context": "https://schema.org", "@type": "Organization", "name": "Avodahsoft", "url": SITE, "email": MAIL, "logo": f"{SITE}/favicon.svg",
-                     "description": "Software company: custom apps for clients, our own apps on the App Store, apps for sale outright, and training in software development."})
+                     "description": "Avodahsoft designs and builds software for iPhone, iPad, Mac and the web: custom development for clients, its own apps on the App Store, app acquisitions and training."})
     body = f' class="{theme}"' if theme else ""
     return f'''<!doctype html>
 <html lang="en">
@@ -119,7 +120,7 @@ FOOT = f'''</main>
     <div class="cols">
       <div class="about">
         <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span>Avodahsoft</span></a>
-        <p>We design and build apps for clients, ship our own on the App Store, sell them outright, and teach the craft.</p>
+        <p>Avodahsoft designs and builds software for iPhone, iPad, Mac and the web, for clients and under its own name.</p>
         <a class="mail" href="mailto:{MAIL}">{MAIL}</a>
       </div>
       <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/papersuite">PaperSuite</a><a href="/lector">Lector</a><a href="/work">All apps</a></div>
@@ -279,24 +280,24 @@ def closing(kicker, title, lead, actions):
 
 
 def offers(cls=""):
-    """The four ways to work with Avodahsoft, the first three leading."""
+    """What Avodahsoft does: client work, its own products and acquisitions first, then training."""
     return f'''<div class="offers{" " + cls if cls else ""}" data-stagger>
-      <a class="offer reveal" href="/services#build"><span class="n">01</span><div><h3>We build your software</h3><p>You bring the idea and know the market. We take it from first sketch to the App Store: product design, engineering, accounts and payments, submission and launch. Fixed scope, fixed price, and a working build on your phone every week.</p>{more("Start a project")}</div></a>
-      <a class="offer reveal" href="/work"><span class="n">02</span><div><h3>We ship our own apps</h3><p>GigPal is on the App Store, and Kilojo, PaperSuite and Lector are on the way. Every one is designed, built and supported in-house, to the same standard as the work we do for clients.</p>{more("See the apps")}</div></a>
-      <a class="offer reveal" href="/services#acquire"><span class="n">03</span><div><h3>We sell apps outright</h3><p>When one of our apps would grow faster with a new owner, it is for sale: a clean codebase, a documented handover, the revenue history that exists, and a transition long enough that nothing breaks on your watch.</p>{more("Ask about buying")}</div></a>
+      <a class="offer reveal" href="/services#build"><span class="n">01</span><div><h3>Custom software development</h3><p>We design and engineer apps for iPhone, iPad, Mac and the web: product strategy, interface design, engineering, backend services and App Store release. Every engagement has a written scope, a fixed price and a working build every week.</p>{more("Start a project")}</div></a>
+      <a class="offer reveal" href="/work"><span class="n">02</span><div><h3>Our products</h3><p>We publish our own apps on the App Store. GigPal and Kilojo are available now, and PaperSuite and Lector are on the way. Each is designed, built and supported in-house, to the same standard as our client work.</p>{more("View our apps")}</div></a>
+      <a class="offer reveal" href="/services#acquire"><span class="n">03</span><div><h3>App acquisitions</h3><p>Our apps are available to acquire, in whole or in part. Each sale includes the codebase, documentation, store listings and revenue history where it exists, with a managed transition for existing users.</p>{more("Enquire about acquisitions")}</div></a>
     </div>
-    <a class="learn reveal" href="/services#training"><span class="n">04</span><div><h3>We teach the craft</h3><p>Training in software development for people who want to build apps themselves, taught from real products that ship.</p></div>{more("Learn with us")}</a>'''
+    <a class="learn reveal" href="/services#training"><span class="n">04</span><div><h3>Training</h3><p>Practical training in app development for individuals and teams, taught from production apps: design, engineering and App Store release.</p></div>{more("Ask about training")}</a>'''
 
 
 # ---------------------------------------------------------------- home
 HOME = f'''
 <section class="hero">
   <div class="wrap">
-    <p class="kicker reveal">Software company</p>
-    <h1 class="display words">Software that feels finished.</h1>
+    <p class="kicker reveal">Avodahsoft</p>
+    <h1 class="display words">We design, build and ship software.</h1>
     <div class="hero-row">
-      <p class="lead reveal" style="--i:2">We design, build and ship apps for iPhone, iPad, Mac and the web: for clients, for the App Store under our own name, and for anyone who would rather buy one outright.</p>
-      <div class="actions reveal" style="--i:3"><a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="/work">See our apps</a></div>
+      <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac and the web. We build products for clients, publish our own apps on the App Store, and offer them for acquisition.</p>
+      <div class="actions reveal" style="--i:3"><a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="/work">View our apps</a></div>
     </div>
   </div>
 </section>
@@ -304,25 +305,25 @@ HOME = f'''
 <section>
   <div class="wrap">
     {stage(phones(("/img/gigpal/library.png", "GigPal library screen"), ("/img/gigpal/chords.png", "GigPal chord view following a song"), ("/img/gigpal/mixer.png", "GigPal stem mixer with vocals, piano, bass, drums and other")), app="gigpal", theme="t-gigpal")}
-    {facts(("4", "apps designed and built in-house"), ("4 platforms", "iPhone, iPad, Mac and the web"), ("Fixed price", "agreed against a written scope"), ("Weekly", "builds, installed on your own device"))}
+    {facts(("2", "apps available on the App Store"), ("4", "products designed and built in-house"), ("4", "platforms: iPhone, iPad, Mac and the web"), ("End to end", "from first design to App Store release"))}
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    {section_head("What we do", "One company. <em>Four ways to work with us.</em>", "Most people come to us for one of the first three. All four are held to the same standard: nothing ships until it is genuinely finished.")}
+    {section_head("Services", "Product development, <em>end to end.</em>", "We take software from first design to App Store release, for our clients and for ourselves, and the apps we build are available to acquire.")}
     {offers()}
   </div>
 </section>
 
 <section class="section flush-top">
   <div class="wrap">
-    {section_head("Our apps", "Four apps. <em>One standard.</em>", "Designed, built and supported in-house. An app is marked released only once it is on the App Store.")}
+    {section_head("Products", "Our apps. <em>Designed and built in-house.</em>", "GigPal and Kilojo are available on the App Store. PaperSuite is in App Review, and Lector is in development.")}
     <div class="tiles" data-stagger>
       {tile("gigpal", "Split any song into vocals, piano, bass, drums and more, follow the chords as they play, change key and tempo, and rehearse with a metronome, tuner and recorder.")}
-      {tile("kilojo", "Photograph a meal for calories and macros, scan a barcode for the packet&rsquo;s own figures, or simply type it in. Every number stays editable.")}
-      {tile("papersuite", "Write notes, scan pages, fill in and sign PDFs, merge and convert them, ask your own notes a question, and keep your habits beside it all.")}
-      {tile("lector", "Lector listens to the preacher and puts the scripture on the screens as it is read, with songs, slides, videos, four screens and a stage display for the rest of the service.")}
+      {tile("kilojo", "Photograph a meal for calories and macros, scan a barcode for the manufacturer&rsquo;s figures, or enter it by hand. Every number stays editable.")}
+      {tile("papersuite", "Notes, scanning, PDF filling and signing, conversion and merging, answers drawn from your own notes, and habits, in one app.")}
+      {tile("lector", "Church presentation software for Mac that recognises scripture references as they are spoken and puts the verse on screen, with songs, slides, video and a stage display.")}
     </div>
   </div>
 </section>
@@ -330,20 +331,20 @@ HOME = f'''
 <section class="section alt">
   <div class="wrap">
     <p class="kicker reveal">How we work</p>
-    <p class="statement words">Most software ships when it stops erroring. <em>Ours ships when it is finished.</em></p>
-    <p class="lead reveal statement-lead">The copy that says what it means, the state nobody planned for, the second tap that should have been one. That is the part we are interested in, and it is done in the open.</p>
+    <p class="statement words">A written scope. A working build every week. <em>Everything handed over at the end.</em></p>
+    <p class="lead reveal statement-lead">Every engagement follows the same process, whether the product is ours or yours.</p>
     {features(
-        ("mail", "Straight to engineering", "No account managers and no game of telephone. Your questions go directly to the people writing the code, and so do your answers."),
-        ("build", "Scope in writing, price fixed to it", "Screens, states and what is deliberately left out. The price moves only when the document does, and then you decide."),
-        ("ship", "Working software every week", "On your own device, not in a slide deck, so you can say something is wrong while it is still cheap to change."),
-        ("hand", "Everything handed over", "Repository, accounts, signing keys and notes explaining every decision. You are never held hostage by whoever wrote it."),
+        ("mail", "Direct access", "You deal directly with engineering, without account managers or intermediaries, so decisions are quick and nothing is lost in translation."),
+        ("build", "Fixed scope and price", "Screens, states and exclusions are agreed in writing before work begins. The price changes only if the scope does, and only with your approval."),
+        ("ship", "Weekly builds", "A working build on your own device every week, so feedback arrives while changes are still inexpensive."),
+        ("hand", "Full ownership", "You own the code, accounts and signing keys, with documentation thorough enough for any developer to continue the work."),
         cls="four")}
-    <p class="reveal">{more("How a project runs", "/services")}</p>
+    <p class="reveal">{more("Our process", "/services")}</p>
   </div>
 </section>
-{closing("Start a conversation", "Have something in mind? <em>Let&rsquo;s talk.</em>", "A product to build, an app to buy, a skill to learn, or help with one of ours. Every message reaches the same inbox and gets a considered reply, usually the same day.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="mailto:{MAIL}">{MAIL}</a>')}
+{closing("Contact", "Have a project in mind? <em>Let&rsquo;s talk.</em>", "New products, acquisitions, training or support. Every enquiry receives a considered reply, usually within one business day.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="mailto:{MAIL}">{MAIL}</a>')}
 '''
-page("/", "Avodahsoft · Software for iPhone, iPad, Mac and the web", "Avodahsoft is a software company. We build apps for clients, ship our own on the App Store (GigPal, Kilojo, PaperSuite and Lector), sell apps outright and teach software development.", HOME)
+page("/", "Avodahsoft · Software for iPhone, iPad, Mac and the web", "Avodahsoft is a software company. We design and build apps for clients, publish our own on the App Store (GigPal, Kilojo, PaperSuite and Lector), and offer them for acquisition.", HOME)
 
 # ---------------------------------------------------------------- gigpal
 GIGPAL = f'''{app_hero("gigpal", "Practice like the band is in the room.",
@@ -360,7 +361,7 @@ GIGPAL = f'''{app_hero("gigpal", "Practice like the band is in the room.",
 <section class="section dark on-stage" id="film" style="margin-top:clamp(88px,11vw,168px)">
   <div class="wrap">
     <div class="film">
-      <div><p class="kicker reveal">See it in action</p><h2 class="words">Three minutes. <em>Start to finish.</em></h2><p class="lead reveal">Signing in, adding a song, separating the stems, following the chords and building a setlist.</p></div>
+      <div><p class="kicker reveal">See it in action</p><h2 class="words">GigPal <em>in three minutes.</em></h2><p class="lead reveal">Signing in, adding a song, separating the stems, following the chords and building a setlist.</p></div>
       <div class="device film-device reveal"><div class="screen"><video controls playsinline preload="metadata" poster="/img/gigpal/review-poster.jpg"><source src="/gigpal/demo.mp4" type="video/mp4">Your browser cannot play this video. <a href="/gigpal/demo.mp4">Open it directly.</a></video><button class="play" type="button" aria-label="Play the GigPal demo" hidden>{I["play"]}</button></div></div>
     </div>
     <ul class="gallery" data-stagger>
@@ -374,7 +375,7 @@ GIGPAL = f'''{app_hero("gigpal", "Practice like the band is in the room.",
 
 <section class="section" id="features">
   <div class="wrap">
-    {section_head("Everything a rehearsal needs", "One app. <em>The whole practice room.</em>", "Built for gigging musicians, worship teams, choirs, students and anyone who learns songs by ear.")}
+    {section_head("Features", "One app. <em>The whole practice room.</em>", "Built for gigging musicians, worship teams, choirs, students and anyone who learns songs by ear.")}
     {features(
         ("layers", "Stem mixer", "Separate a song into vocals, piano and keys, bass, drums and everything else. Solo the part you are learning or mute the part you play."),
         ("chord", "Chords that follow the song", "The chord progression is detected on your device and highlighted bar by bar as the song plays. Read it as letters, as numbers (1, 4, 5, 7&flat;) or as solfa."),
@@ -390,8 +391,8 @@ GIGPAL = f'''{app_hero("gigpal", "Practice like the band is in the room.",
         ("link", "Play Along", "Paste a YouTube, Spotify, Apple Music or SoundCloud link and play along with the tuner, metronome and piano on top. Every link you play is kept, ready to name."))}
   </div>
 </section>
-{story("Why we built it", "Made by a musician. <em>Tired of switching apps.</em>",
-    "<p>Chords in one app, a metronome in another, a tuner in a third, and the actual song in a browser tab. GigPal puts them on one screen, keeps them in sync, and stays out of your way when you are playing.</p>",
+{story("Why GigPal", "Every practice tool. <em>One app.</em>",
+    "<p>Musicians usually rehearse with a chord app, a metronome, a tuner and the song open in a browser tab. GigPal brings them together on one screen, keeps them in sync, and stays out of the way while you play.</p>",
     f'<div class="devices">{phone("/img/gigpal/tools.png", "GigPal tools: tuner, metronome, piano, chord finder and more")}{phone("/img/gigpal/tuner.png", "GigPal chromatic tuner")}</div>')}
 
 <section class="section">
@@ -429,7 +430,7 @@ page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a 
 # ---------------------------------------------------------------- lector
 LECTOR = f'''{app_hero("lector", "The verse, the moment it is spoken.",
     "Lector listens to the preacher and puts the scripture on the screens as it is read &mdash; no typing, no hunting, no verse three sentences late. Then it runs the rest of the service: songs with arrangements, slides, videos, announcements for the lobby, a stage display for the preacher and a remote for a phone. Recognition happens on the Mac; nothing leaves the room.",
-    f'<a class="btn btn-dark" href="/contact?topic=Lector">Tell me when it launches {ARR}</a><a class="btn btn-line" href="#features">What it does</a>', ["Mac", "Windows to follow"])}
+    f'<a class="btn btn-dark" href="/contact?topic=Lector">Notify me at launch {ARR}</a><a class="btn btn-line" href="#features">What it does</a>', ["Mac", "Windows to follow"])}
 
 <section>
   <div class="wrap">
@@ -449,7 +450,7 @@ LECTOR = f'''{app_hero("lector", "The verse, the moment it is spoken.",
         ("bell", "One key, several things", "Moments fire the logo, the countdown and the loop together; schedules fire them by the clock; a phone remote and a Stream Deck do the rest from anywhere in the room."))}
   </div>
 </section>
-{story("Our view", "The verse should not be late.",
+{story("Why Lector", "The verse should not be late.",
     "<p>Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screen still keeps up.</p>",
     mac("/img/lector/screen.png", "A verse on the projector in Lector"))}
 {trust("Private by design. <em>Nothing leaves the room.</em>",
@@ -461,7 +462,7 @@ page("/lector", "Lector · The verse, the moment it is spoken", "Lector is a chu
 # ---------------------------------------------------------------- papersuite
 PAPERSUITE = f'''{app_hero("papersuite", "Every document, in one place.",
     "Write the note. Scan the page, fill in the form, sign the PDF, and ask your own notes what you said last month. Set the reminder beside it, and keep your habits there too. PaperSuite holds every document in one place, on your iPhone and iPad.",
-    f'<a class="btn btn-dark" href="/contact?topic=PaperSuite">Tell me when it launches {ARR}</a><a class="btn btn-line" href="#features">What it does</a>', ["iPhone", "iPad"])}
+    f'<a class="btn btn-dark" href="/contact?topic=PaperSuite">Notify me at launch {ARR}</a><a class="btn btn-line" href="#features">What it does</a>', ["iPhone", "iPad"])}
 
 <section>
   <div class="wrap">
@@ -481,7 +482,7 @@ PAPERSUITE = f'''{app_hero("papersuite", "Every document, in one place.",
         ("check", "Habits and streaks", "Daily check-ins, counted targets and 7, 30, 60 or 90-day challenges, with a month at a glance that shows what you actually did."))}
   </div>
 </section>
-{story("Our view", "One place for everything <em>on paper.</em>",
+{story("Why PaperSuite", "One place for everything <em>on paper.</em>",
     "<p>Most of what we keep is paper in some form: the notes from the meeting, the lease to sign, the form to send back, and the reminder to do it by Friday. They usually live in five different apps. PaperSuite keeps them together, on your phone, and lets you ask your own notes what you wrote, with answers drawn only from your writing.</p>",
     f'<div class="devices">{phone("/img/papersuite/01-pdf-editor.png", "Filling in a lease renewal PDF in PaperSuite")}{phone("/img/papersuite/04-note.png", "A PaperSuite note with decisions and a checklist")}</div>')}
 
@@ -504,7 +505,7 @@ page("/papersuite", "PaperSuite · Every document, in one place", "PaperSuite is
 # ---------------------------------------------------------------- kilojo
 KILOJO = f'''{app_hero("kilojo", "A food diary that reads your plate.",
     "Photograph a meal and Kilojo estimates the calories and macronutrients. Scan a barcode and it takes the figures straight off the packet. Everything it produces is editable, because an estimate you cannot correct is a guess you are stuck with.",
-    f'<a class="btn btn-dark" href="/contact?topic=Kilojo">Ask about Kilojo {ARR}</a><a class="btn btn-line" href="/kilojo/privacy">How your data is handled</a>', ["iPhone", "Free"])}
+    f'<a class="btn btn-dark btn-store" href="{KILOJO_STORE}">{I["apple"]} Download on the App Store</a><a class="btn btn-line" href="/kilojo/privacy">How your data is handled</a>', ["iPhone"])}
 
 <section>
   <div class="wrap">
@@ -524,54 +525,54 @@ KILOJO = f'''{app_hero("kilojo", "A food diary that reads your plate.",
         ("scale", "Where you are heading", "A goal weight with the distance still to go, BMI on the WHO scale for context, and a weight trend that reads the line, not any one morning."))}
   </div>
 </section>
-{story("Our view", "What a photograph <em>cannot tell you.</em>",
-    "<p>A picture does not contain the portion. A bowl of rice can hold twice what it appears to, and no amount of cleverness recovers information the camera never captured. Kilojo estimates, and sometimes it is wrong.</p><p>So it is built to be corrected: every figure is editable, it says how confident it is, and it shows the portion it assumed for each item rather than handing down a total. Tell it &ldquo;one cup of rice&rdquo; and the guess becomes arithmetic. Kilojo counts. It is not medical advice, and it does not have an opinion about your dinner.</p>",
+{story("Accuracy", "What a photograph <em>cannot tell you.</em>",
+    "<p>A picture does not contain the portion. A bowl of rice can hold twice what it appears to, and no amount of cleverness recovers information the camera never captured. Kilojo estimates, and sometimes it is wrong.</p><p>So it is built to be corrected: every figure is editable, it says how confident it is, and it shows the portion it assumed for each item rather than handing down a total. Tell it &ldquo;one cup of rice&rdquo; and the estimate becomes arithmetic. Kilojo is a counting tool, not medical advice.</p>",
     f'<div class="devices">{phone("/img/kilojo/4-plan.png", "Kilojo meal plan for the week")}{phone("/img/kilojo/3-progress.png", "Kilojo progress")}</div>')}
 {trust("Private by design. <em>Your diary is yours.</em>",
     check_list(["No advertising, no analytics, no tracking software of any kind.", "Meal photographs are sent for analysis carrying the picture and your typed hint, not your name or email.", "Barcode lookups send the number on the packet and nothing more.", "Erase everything, or delete the account outright, from inside the app. Both reach the server, not just the phone."]),
     '<a class="btn btn-line" href="/kilojo/privacy">Privacy policy</a><a class="btn btn-line" href="/kilojo/terms">Terms of use</a>')}
 '''
-page("/kilojo", "Kilojo · A food diary that reads your plate", "Kilojo photographs a meal and estimates calories and macros, scans barcodes for the packet's own figures, and keeps every number editable. Coming soon for iPhone.", KILOJO, current="/work", image="/img/kilojo/icon.png", theme="t-kilojo")
+page("/kilojo", "Kilojo · A food diary that reads your plate", "Kilojo photographs a meal and estimates calories and macros, scans barcodes for the packet's own figures, and keeps every number editable. Available on the App Store for iPhone.", KILOJO, current="/work", image="/img/kilojo/icon.png", theme="t-kilojo")
 
 # ---------------------------------------------------------------- apps (/work)
 WORK = f'''
 <section class="page-head">
   <div class="wrap">
     <p class="kicker reveal">Apps</p>
-    <h1 class="words">Our apps. <em>Everything we are shipping.</em></h1>
-    <p class="lead reveal" style="--i:2">The list is short because it is honest. An app appears here once it is real and in testers&rsquo; hands, and it is marked released only once it is on the App Store.</p>
+    <h1 class="words">Products <em>designed and built in-house.</em></h1>
+    <p class="lead reveal" style="--i:2">An app is listed here once it is in testers&rsquo; hands, and marked available once it is on the App Store.</p>
   </div>
 </section>
 <section class="section flush-top">
   <div class="wrap">
     <div class="tiles" data-stagger>
-      {tile("gigpal", "Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder and setlists, in one app.")}
+      {tile("gigpal", "Music practice: stem separation, chords, key and tempo, metronome, tuner, piano, recorder and setlists.")}
       {tile("kilojo", "Photo estimates, barcode scanning, a weekly meal plan, and numbers you can always edit.")}
-      {tile("papersuite", "Notes, scans and PDFs in one app: fill in, sign, merge and convert documents, with habits and streaks beside them.")}
-      {tile("lector", "Church presentation for Mac that hears the preacher and puts the verse on screen as it is spoken; songs, slides, videos, four screens and a stage display for the rest.")}
+      {tile("papersuite", "Notes, scans and PDFs in one app: fill in, sign, merge and convert documents, with reminders and habits alongside.")}
+      {tile("lector", "Church presentation for Mac that recognises scripture as it is spoken, with songs, slides, video, four screens and a stage display.")}
     </div>
   </div>
 </section>
-{closing("Work with us", "Want one like these? <em>We will build yours.</em>", "Everything above was designed and engineered in-house. The same process and the same standard, applied to your product. Or, if one of these is the product you want, ask about buying it outright.", f'<a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="/contact?topic=Buy">Ask about buying</a>')}
+{closing("Custom development", "Need an app <em>built to this standard?</em>", "The process behind our own products is available for yours. And if one of these apps is the product you need, it may be available to acquire.", f'<a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="/contact?topic=Acquisition">Enquire about acquisitions</a>')}
 '''
-page("/work", "Apps", "The apps Avodahsoft designs, builds and ships: GigPal on the App Store, with Kilojo, PaperSuite and Lector on the way.", WORK, current="/work")
+page("/work", "Apps", "The apps Avodahsoft designs, builds and publishes: GigPal and Kilojo on the App Store, PaperSuite in App Review and Lector in development.", WORK, current="/work")
 
 # ---------------------------------------------------------------- services
 SERVICES = f'''
 <section class="page-head">
   <div class="wrap">
     <p class="kicker reveal">Services</p>
-    <h1 class="words">From first idea to <em>the App Store.</em></h1>
-    <p class="lead reveal" style="--i:2">We build software for clients, sell our own apps outright, and teach people to build their own. Here is what each involves, and how the work runs.</p>
+    <h1 class="words">From first idea <em>to the App Store.</em></h1>
+    <p class="lead reveal" style="--i:2">We design and build software for clients, offer our own apps for acquisition, and provide practical training in app development.</p>
   </div>
 </section>
 
 <section class="section flush-top" id="build">
   <div class="wrap split top">
-    <div><p class="kicker reveal">Custom software</p><h2 class="words" style="margin-top:20px">Your idea, <em>built properly.</em></h2></div>
+    <div><p class="kicker reveal">Custom software development</p><h2 class="words" style="margin-top:20px">Your product, <em>designed and built end to end.</em></h2></div>
     <div>
-      <p class="lead reveal">You have the idea and know the market. We handle the rest: product design, engineering, the accounts and payments behind it, App Store submission and the first release, with a fixed scope, a fixed price and something working in your hands every week.</p>
-      <div class="reveal" style="margin-top:36px">{check_list(["Product and interface design, down to the empty states and error messages", "Apps for iPhone, iPad, Mac and the web", "Sign-in, sync, subscriptions and payments, wired up properly", "App Store listing, privacy labels and review responses", "Code, accounts and signing keys handed over, documented"])}</div>
+      <p class="lead reveal">We partner with founders and businesses to take an idea from first design to App Store release. Every engagement has a written scope, a fixed price and a working build every week.</p>
+      <div class="reveal" style="margin-top:36px">{check_list(["Product strategy and interface design", "Apps for iPhone, iPad, Mac and the web", "Accounts, sync, subscriptions and payments", "App Store submission, privacy disclosures and review", "Documented handover of code, accounts and signing keys"])}</div>
       <div class="actions reveal" style="margin-top:40px"><a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a></div>
     </div>
   </div>
@@ -579,22 +580,22 @@ SERVICES = f'''
 
 <section class="section alt">
   <div class="wrap">
-    {section_head("How a project runs", "Four steps. <em>No surprises.</em>", "Client work is not listed publicly unless the client wants it to be. What is worth saying is how it goes.")}
+    {section_head("Process", "Four stages. <em>No surprises.</em>", "Client work remains confidential unless a client chooses otherwise. The process is the same for every engagement.")}
     {steps(
-        ("Scope, written down", "Screens, states and what is explicitly out. A fixed price against that document, so the number does not move unless the scope does."),
-        ("A build you can hold", "Every week, installed on your own device rather than a screenshot in a deck. You see it going wrong early enough to say so."),
-        ("Submission included", "App Store listing, privacy labels, review responses. The job is not done when the code is done."),
-        ("You own all of it", "Repository, accounts, signing, the lot, documented well enough that another developer could pick it up without ringing us."))}
+        ("Scope", "Screens, states and exclusions are documented, and a fixed price is agreed against them before work begins."),
+        ("Build", "A working build on your own device every week, so issues surface early and decisions stay yours."),
+        ("Release", "App Store listing, privacy disclosures and App Review are part of the engagement, not an extra."),
+        ("Handover", "You own the repository, accounts and signing keys, documented for any developer to continue."))}
   </div>
 </section>
 
 <section class="section" id="acquire">
   <div class="wrap split top">
-    <div><p class="kicker reveal">Acquisitions</p><h2 class="words" style="margin-top:20px">Buy an app outright.</h2></div>
+    <div><p class="kicker reveal">Acquisitions</p><h2 class="words" style="margin-top:20px">Acquire an app <em>outright.</em></h2></div>
     <div>
-      <p class="lead reveal">When one of our apps would grow faster with a new owner, it is for sale, in whole or in part. You get a clean codebase, a documented handover, whatever revenue history exists, and a transition long enough that nothing breaks on your watch.</p>
-      <p class="reveal muted" style="margin-top:20px">Enquiries get a real reply rather than a calendar link.</p>
-      <div class="actions reveal" style="margin-top:36px"><a class="btn btn-dark" href="/contact?topic=Buy">Ask about buying {ARR}</a><a class="btn btn-line" href="/work">See the apps</a></div>
+      <p class="lead reveal">Our apps are available to acquire, in whole or in part. Each sale includes the codebase, documentation, store listings and revenue history where it exists, with a managed transition for existing users.</p>
+      <p class="reveal muted" style="margin-top:20px">Enquiries are handled confidentially.</p>
+      <div class="actions reveal" style="margin-top:36px"><a class="btn btn-dark" href="/contact?topic=Acquisition">Enquire about acquisitions {ARR}</a><a class="btn btn-line" href="/work">View our apps</a></div>
     </div>
   </div>
 </section>
@@ -602,17 +603,17 @@ SERVICES = f'''
 <section class="section flush-top" id="training">
   <div class="wrap">
     <div class="panel split top reveal">
-      <div><p class="kicker">Training</p><h2 style="margin-top:20px">Learn to build software.</h2></div>
+      <div><p class="kicker">Training</p><h2 style="margin-top:20px">Learn to build apps.</h2></div>
       <div>
-        <p class="lead">For people who want to build apps themselves. Training in software development, taught from real products that ship: how an idea becomes screens, how screens become code, and how code reaches the App Store.</p>
+        <p class="lead">Practical training in software development for individuals and teams, taught from production apps: product design, engineering and App Store release.</p>
         <div class="actions" style="margin-top:36px"><a class="btn btn-dark" href="/contact?topic=Training">Ask about training {ARR}</a></div>
       </div>
     </div>
   </div>
 </section>
-{closing("Fit", "Who we work best with.", "Founders and teams with a clear idea and a real user in mind, who would rather have one considered thing than five rushed ones. Less suited to work that has to be rushed out by Friday, or to filling seats on an existing team.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="mailto:{MAIL}">{MAIL}</a>')}
+{closing("Get started", "Tell us about <em>your project.</em>", "Share the idea, the audience and the timeline. We will reply with a clear view of scope, cost and fit.", f'<a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="mailto:{MAIL}">{MAIL}</a>')}
 '''
-page("/services", "Services", "Custom software for iPhone, iPad, Mac and the web, apps for sale outright, and training in software development. Fixed scope, weekly builds, full handover.", SERVICES, current="/services")
+page("/services", "Services", "Custom software development for iPhone, iPad, Mac and the web, app acquisitions, and practical training in app development. Written scope, fixed price, weekly builds and full handover.", SERVICES, current="/services")
 
 # ---------------------------------------------------------------- company (/studio)
 STUDIO = f'''
@@ -620,8 +621,8 @@ STUDIO = f'''
   <div class="wrap split">
     <div>
       <p class="kicker reveal">Company</p>
-      <h1 class="words">We make software <em>worth keeping.</em></h1>
-      <p class="lead reveal" style="--i:2">Avodahsoft designs, builds and ships apps for iPhone, iPad, Mac and the web. We build for clients, publish our own apps on the App Store, sell them outright when the time is right, and teach the craft to people who want to learn it. The common thread is care: nothing ships until it is genuinely finished.</p>
+      <h1 class="words">We design and build software <em>that lasts.</em></h1>
+      <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac and the web. We build products for clients, publish our own apps on the App Store, offer them for acquisition, and train people who want to build software themselves.</p>
     </div>
     <div class="brand-panel dark reveal" aria-hidden="true">
       {LOGO}
@@ -633,33 +634,33 @@ STUDIO = f'''
 
 <section class="section flush-top">
   <div class="wrap">
-    {section_head("What we believe", "Care is the whole point.", "Work done carefully is worth something on its own terms, whoever is watching and whether or not anyone notices the part that took the longest. It is why nothing ships half-finished, why the code is written to be read by whoever comes next, and why one honest estimate beats winning a job on an optimistic one.")}
+    {section_head("Principles", "Quality is in <em>the details.</em>", "The empty state, the error message, the second tap that should have been one. Few people notice them, and they decide whether software feels finished. We hold every product to that standard, ours or yours.")}
     {features(
-        ("mail", "Straight to engineering", "No account managers relaying your question to someone who has not read the code. You speak with the people building your product."),
-        ("build", "Scope in writing, price fixed to it", "Screens, states and what is deliberately excluded. The number moves only when the document does, and then you decide."),
-        ("ship", "Working software every week", "On your device, not in a slide. The point is that you can tell us it is wrong while it is still cheap to change."),
-        ("hand", "Everything handed over", "Repository, accounts, signing keys and notes explaining the decisions, so you are never held hostage by whoever wrote it."),
+        ("mail", "Direct access", "You deal directly with engineering, without account managers or intermediaries."),
+        ("build", "Fixed scope and price", "Scope is agreed in writing before work begins, and the price changes only with your approval."),
+        ("ship", "Weekly builds", "Working software on your own device every week, from the first week."),
+        ("hand", "Full ownership", "Code, accounts and signing keys are yours, documented for any developer to continue."),
         cls="four")}
   </div>
 </section>
 
 <section class="section alt">
   <div class="wrap">
-    {section_head("What we do", "One company. <em>Four disciplines.</em>")}
+    {section_head("Services", "One company. <em>Four disciplines.</em>")}
     {offers()}
   </div>
 </section>
-{closing("Get in touch", "Tell us what you are building.", "A product to build, an app to buy, or a skill to learn. Tell us what you have in mind and you will get a considered reply, usually the same day.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="/services">Our services</a>')}
+{closing("Contact", "Work <em>with us.</em>", "New products, acquisitions or training. Tell us what you have in mind and you will receive a considered reply, usually within one business day.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="/services">Our services</a>')}
 '''
-page("/studio", "Company", "Avodahsoft is a software company that designs, builds and ships apps for iPhone, iPad, Mac and the web, for clients and under its own name.", STUDIO, current="/studio", image="/img/photos/dev2.jpg")
+page("/studio", "Company", "Avodahsoft is a software company that designs and builds apps for iPhone, iPad, Mac and the web, for clients and under its own name.", STUDIO, current="/studio", image="/img/photos/dev2.jpg")
 
 # ---------------------------------------------------------------- contact
 CONTACT = f'''
 <section class="page-head">
   <div class="wrap">
     <p class="kicker reveal">Contact</p>
-    <h1 class="words">Let&rsquo;s talk. <em>What brings you here?</em></h1>
-    <p class="lead reveal" style="--i:2">Everything reaches the same inbox, and picking the closest topic gets you a faster, more useful answer. Support is answered first, usually the same day.</p>
+    <h1 class="words">Get <em>in touch.</em></h1>
+    <p class="lead reveal" style="--i:2">New products, acquisitions, training or support: every enquiry reaches us directly and receives a considered reply, usually within one business day.</p>
   </div>
 </section>
 <section class="section flush-top">
@@ -668,26 +669,26 @@ CONTACT = f'''
       <form class="form" data-contact novalidate>
         <div class="row">
           <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" placeholder="Your name" autocomplete="name" required minlength="2"></div>
-          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required></div>
         </div>
-        <div class="field"><label for="topic">Topic</label><select name="topic" id="topic"><option>New project</option><option>Buy an app outright</option><option>Training</option><option>Support · GigPal</option><option>Support · Kilojo</option><option>Kilojo</option><option>PaperSuite</option><option>Lector</option><option>Other</option></select></div>
-        <div class="field"><label for="f-message">Message</label><textarea id="f-message" name="message" placeholder="For a project: the idea, who it is for and roughly when it needs to be live. For support: which app and which phone." required minlength="10"></textarea></div>
+        <div class="field"><label for="topic">Topic</label><select name="topic" id="topic"><option>New project</option><option>Acquisition enquiry</option><option>Training</option><option>Support · GigPal</option><option>Support · Kilojo</option><option>PaperSuite</option><option>Lector</option><option>Other</option></select></div>
+        <div class="field"><label for="f-message">Message</label><textarea id="f-message" name="message" placeholder="For a project: the idea, the audience and the timeline. For support: the app and the device you are using." required minlength="10"></textarea></div>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="send"><button class="btn btn-dark" type="submit">Send message {ARR}</button><span class="status" role="status"></span></div>
-        <p class="note">Or email <a href="mailto:{MAIL}">{MAIL}</a> directly. Messages are sent to Avodahsoft and used only to reply to you.</p>
+        <p class="note">Or email <a href="mailto:{MAIL}">{MAIL}</a>. Your message is used only to reply to you.</p>
       </form>
     </div>
     <div class="topics" data-stagger>
-      <div class="reveal"><h3>{I["build"]}I want software built</h3><p>The idea, who it is for, and roughly when it needs to be live. A budget range saves us both a round trip. If it is not a fit we will say so and, where we can, point you somewhere better.</p></div>
-      <div class="reveal"><h3>{I["tag"]}I want to buy an app</h3><p>Enquiries about acquiring one of our apps, in whole or in part, are welcome. You will get a real reply rather than a calendar link.</p></div>
-      <div class="reveal"><h3>{I["learn"]}I want to learn</h3><p>Tell us where you are starting from and what you want to be able to build, and we will tell you how training with us would work.</p></div>
-      <div class="reveal"><h3>{I["mail"]}I use one of your apps</h3><p>Something is broken, a question about your account, or a feature you wish existed. Say which app and which phone, and we will sort it.</p></div>
+      <div class="reveal"><h3>{I["build"]}Start a project</h3><p>Tell us about the idea, the audience and the timeline. A budget range helps us respond with a realistic proposal, and if we are not the right fit, we will say so.</p></div>
+      <div class="reveal"><h3>{I["tag"]}Acquire an app</h3><p>Enquiries about acquiring one of our apps, in whole or in part, are welcome and handled confidentially.</p></div>
+      <div class="reveal"><h3>{I["learn"]}Training</h3><p>Tell us your experience and what you want to build, and we will outline how training would work for you.</p></div>
+      <div class="reveal"><h3>{I["mail"]}Product support</h3><p>Questions about GigPal, Kilojo or your account. Include the app and your device, and we will help you resolve it.</p></div>
     </div>
   </div>
 </section>
 <script>try{{var t=new URLSearchParams(location.search).get('topic');if(t){{t=t.toLowerCase();var s=document.getElementById('topic'),o=[].slice.call(s.options),m=o.find(function(x){{return x.text.toLowerCase()===t}})||o.find(function(x){{return x.text.toLowerCase().indexOf(t)>-1}});if(m)s.value=m.text}}}}catch(e){{}}</script>
 '''
-page("/contact", "Contact", "New projects, buying an app outright, training, and support for GigPal and Kilojo. Everything reaches the same inbox and gets a real reply.", CONTACT, current="/contact")
+page("/contact", "Contact", "New projects, app acquisitions, training, and support for GigPal and Kilojo. Every enquiry receives a considered reply.", CONTACT, current="/contact")
 
 # ---------------------------------------------------------------- legal helpers
 def with_contents(body_html):
