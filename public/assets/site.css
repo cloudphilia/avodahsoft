@@ -6,7 +6,8 @@
   --paper:#F5F5F2;--paper-2:#ECEBE6;--card:#FFFFFF;
   --ink:#111113;--ink-2:#4A4A50;--muted:#6E6E73;--line:rgba(17,17,19,.1);--line-2:rgba(17,17,19,.18);
   --hover:rgba(17,17,19,.05);
-  --accent:#E4572E;--accent-ink:#B8441F;--stage:#0B0B0C;--live:#30D158;
+  --brand:#0E7A55;--brand-ink:#0C6E4C;--brand-light:#3FC495;
+  --accent:var(--brand);--accent-ink:var(--brand-ink);--focus:var(--brand);--stage:#0B0B0C;--live:#30D158;
   --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --serif:"Instrument Serif","Iowan Old Style","Palatino Linotype",Georgia,serif;
   --wrap:1240px;--gutter:clamp(20px,4vw,48px);--nav-h:68px;
@@ -17,7 +18,7 @@
 .dark{
   --paper:#0B0B0C;--paper-2:#141416;--card:#161618;
   --ink:#F5F5F7;--ink-2:#B1B1B8;--muted:#86868C;--line:rgba(255,255,255,.11);--line-2:rgba(255,255,255,.2);
-  --hover:rgba(255,255,255,.07);
+  --hover:rgba(255,255,255,.07);--focus:var(--brand-light);
   background:var(--paper);color:var(--ink);color-scheme:dark;
 }
 
@@ -34,8 +35,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--s
 img,video,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit}
-::selection{background:var(--ink);color:var(--paper)}
-:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
+::selection{background:var(--brand);color:#fff}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:8px}
 h1,h2,h3,h4{margin:0;font-weight:600;line-height:1.1;letter-spacing:-.025em;text-wrap:balance}
 p{margin:0;text-wrap:pretty}
 h1{font-size:clamp(42px,6.4vw,92px);line-height:1;letter-spacing:-.048em}
@@ -71,7 +72,7 @@ h1 em,h2 em{font-style:normal;color:var(--muted)}
 .brand{display:inline-flex;align-items:center;gap:11px;font-size:20px;letter-spacing:-.035em;color:var(--ink)}
 /* The wordmark: the name's root in bold, the rest light. */
 .wm{font-weight:340}.wm b{font-weight:700}
-.brand svg{width:28px;height:28px;flex:none;transition:transform .8s var(--ease)}
+.brand svg{width:28px;height:28px;flex:none;color:var(--brand);transition:transform .8s var(--ease)}
 .brand:hover svg{transform:rotate(-8deg) scale(1.04)}
 .links{position:relative;display:flex;align-items:center;gap:2px}
 .links a{position:relative;z-index:1;padding:8px 14px;font-size:14.5px;font-weight:450;color:var(--ink-2);border-radius:999px;transition:color .35s var(--ease),background-color .35s var(--ease)}
@@ -256,7 +257,7 @@ body.menu-open{overflow:hidden}
 /* The company page's brand panel: the mark, the name and what the company does. */
 .brand-panel{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;min-height:clamp(340px,36vw,480px);padding:clamp(28px,3.4vw,48px);border-radius:var(--r-lg);overflow:hidden;background:#0B0B0C;color:var(--ink)}
 .brand-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%,rgba(255,255,255,.1),transparent 70%)}
-.brand-panel svg{position:relative;width:clamp(96px,11vw,150px);height:auto;margin-bottom:auto;align-self:flex-end}
+.brand-panel svg{position:relative;color:var(--brand-light);width:clamp(96px,11vw,150px);height:auto;margin-bottom:auto;align-self:flex-end}
 .brand-panel .name{position:relative;font-size:clamp(30px,3vw,44px);line-height:1;letter-spacing:-.04em}
 .brand-panel .means{position:relative;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .not-found{min-height:calc(100vh - var(--nav-h) - 120px);display:grid;align-items:center}
@@ -362,7 +363,7 @@ body.menu-open{overflow:hidden}
 .prose li::marker{color:var(--muted)}
 .prose b,.prose strong{color:var(--ink);font-weight:600}
 .prose a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line-2);text-decoration-thickness:1px;text-underline-offset:3px;transition:text-decoration-color .3s var(--ease)}
-.prose a:hover{text-decoration-color:currentColor}
+.prose a:hover{text-decoration-color:var(--brand)}
 .prose .meta{font-size:14.5px;color:var(--muted);margin:0 0 32px}
 .prose .small{font-size:15.5px}
 .prose table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.55;margin:20px 0 32px}
@@ -380,7 +381,7 @@ body.menu-open{overflow:hidden}
 .foot .cols{display:grid;grid-template-columns:minmax(0,1.7fr) repeat(3,minmax(0,1fr));gap:40px}
 @media (max-width:860px){.foot .cols{grid-template-columns:repeat(2,minmax(0,1fr))}.foot .about{grid-column:1/-1}}
 .foot .brand{font-size:22px}
-.foot .brand svg{width:30px;height:30px}
+.foot .brand svg{width:30px;height:30px;color:var(--brand-light)}
 .foot .about p{margin-top:20px;max-width:36ch;line-height:1.6}
 .foot .about .mail{display:inline-block;margin-top:16px;color:var(--ink);font-weight:500}
 .foot h4{font-size:13px;font-weight:500;letter-spacing:-.005em;color:var(--ink);margin-bottom:14px}

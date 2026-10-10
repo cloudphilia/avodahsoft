@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261010c"
+ASSET_VERSION = "20261010d"
 
 I = {
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M20 6 9 17l-5-5"/></svg>',
@@ -129,7 +129,7 @@ FOOT = f'''</main>
       <div><h4>Company</h4><a href="/services">Services</a><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
       <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a><a href="/papersuite/privacy">PaperSuite privacy</a><a href="/papersuite/terms">PaperSuite terms</a></div>
     </div>
-    <div class="legal"><span>&copy; <span data-year>{YEAR}</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store, iPhone, iPad and Mac are trademarks of Apple Inc.</span></div>
+    <div class="legal"><span>&copy; <span data-year>{YEAR}</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store, iPhone, iPad and Mac are trademarks of Apple Inc. Windows is a trademark of Microsoft Corporation.</span></div>
   </div>
 </footer>
 <script src="/assets/site.js?v={ASSET_VERSION}" defer></script>
@@ -1040,5 +1040,5 @@ page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.htm
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 paths = ["/", "/gigpal", "/kilojo", "/papersuite", "/lector", "/work", "/services", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/papersuite/privacy", "/papersuite/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
-write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#111113"/><path d="{MARK}" transform="translate(9.6 9.2) scale(.6)" fill="none" stroke="#F5F5F2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#0E7A55"/><path d="{MARK}" transform="translate(9.6 9.2) scale(.6)" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 print("done")
