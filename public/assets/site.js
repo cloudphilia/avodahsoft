@@ -16,6 +16,37 @@
     burger.setAttribute('aria-expanded', String(open));
     burger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
   };
+  // The black pill marks the page you are on. It slides to a new page the moment that page is
+  // clicked, while it loads, rather than waiting for the next page to appear.
+  const pill = links && links.querySelector('.nav-pill');
+  const wideNav = window.matchMedia('(min-width: 881px)');
+  const current = () => links && links.querySelector('a[aria-current]');
+  const place = (a, animate) => {
+    if (!pill) return;
+    if (!a || !wideNav.matches) { pill.classList.remove('on'); return; }
+    if (!animate) pill.classList.add('still');
+    pill.style.width = a.offsetWidth + 'px';
+    pill.style.height = a.offsetHeight + 'px';
+    pill.style.transform = `translate(${a.offsetLeft}px, ${a.offsetTop}px)`;
+    pill.classList.add('on');
+    links.classList.add('pill-ready');
+    if (!animate) requestAnimationFrame(() => requestAnimationFrame(() => pill.classList.remove('still')));
+  };
+  if (pill) {
+    place(current(), false);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => place(current(), false));
+    window.addEventListener('resize', () => place(current(), false));
+    links.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a || !wideNav.matches || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const was = current();
+      if (was === a) return;
+      if (was) was.removeAttribute('aria-current');
+      a.setAttribute('aria-current', 'page');
+      place(a, Boolean(was));
+    });
+  }
+
   if (burger && links) {
     burger.addEventListener('click', () => setMenu(!links.classList.contains('open')));
     links.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
@@ -81,7 +112,7 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
     // Start once the fonts are in (or after a moment), so letters never change shape mid-animation.
     const fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-    Promise.race([fonts, new Promise((r) => setTimeout(r, 700))]).then(() => targets.forEach((el) => io.observe(el)));
+    Promise.race([fonts, new Promise((r) => setTimeout(r, 250))]).then(() => targets.forEach((el) => io.observe(el)));
   } else {
     targets.forEach((el) => { el.classList.add('in'); el.classList.remove('reveal'); });
   }
@@ -91,16 +122,18 @@
   if (layers.length && !still) {
     let ticking = false;
     const wide = window.matchMedia('(min-width: 700px)');
+    const depths = layers.map((el) => parseFloat(el.dataset.depth) || 0);
     const update = () => {
       ticking = false;
+      if (!wide.matches) { layers.forEach((el) => { el.style.transform = ''; }); return; }
+      // Read every position first, then write, so the browser lays the page out once per frame.
       const vh = window.innerHeight;
-      for (const el of layers) {
-        if (!wide.matches) { el.style.transform = ''; continue; }
-        const r = el.parentElement.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > vh + 200) continue;
+      const rects = layers.map((el) => el.parentElement.getBoundingClientRect());
+      rects.forEach((r, i) => {
+        if (r.bottom < -200 || r.top > vh + 200) return;
         const progress = (r.top + r.height / 2 - vh / 2) / vh;
-        el.style.transform = `translate3d(0, ${(progress * parseFloat(el.dataset.depth)).toFixed(2)}px, 0)`;
-      }
+        layers[i].style.transform = `translate3d(0, ${(progress * depths[i]).toFixed(1)}px, 0)`;
+      });
     };
     const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
     window.addEventListener('scroll', request, { passive: true });

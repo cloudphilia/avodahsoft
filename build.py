@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261010"
+ASSET_VERSION = "20261010b"
 
 I = {
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M20 6 9 17l-5-5"/></svg>',
@@ -69,7 +69,7 @@ APPS = {
 def head(title, desc, path, image, theme="", extra=""):
     full = title if "Avodahsoft" in title else f"{title} · Avodahsoft"
     ld = json.dumps({"@context": "https://schema.org", "@type": "Organization", "name": "Avodahsoft", "url": SITE, "email": MAIL, "logo": f"{SITE}/favicon.svg",
-                     "description": "Avodahsoft designs and builds software for iPhone, iPad, Mac and the web: custom development for clients, its own apps on the App Store, app acquisitions and training."})
+                     "description": "Avodahsoft designs and builds software for iPhone, iPad, Mac, Windows and the web: custom development for clients, its own apps on the App Store, app acquisitions and training."})
     body = f' class="{theme}"' if theme else ""
     return f'''<!doctype html>
 <html lang="en">
@@ -81,6 +81,7 @@ def head(title, desc, path, image, theme="", extra=""):
 <meta name="theme-color" content="#F5F5F2">
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Avodahsoft">
 <meta property="og:title" content="{full}">
 <meta property="og:description" content="{desc}">
@@ -91,11 +92,12 @@ def head(title, desc, path, image, theme="", extra=""):
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Instrument+Serif:ital@0;1&display=swap">{extra}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap">{extra}
 <link rel="stylesheet" href="/assets/site.css?v={ASSET_VERSION}">
 <script type="application/ld+json">{ld}</script>
 </head>
-<body{body}>'''
+<body{body}>
+<a class="skip" href="#main">Skip to content</a>'''
 
 
 def nav(current):
@@ -107,11 +109,11 @@ def nav(current):
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span>Avodahsoft</span></a>
-    <nav class="links" id="site-menu" aria-label="Primary">{"".join(items)}</nav>
+    <nav class="links" id="site-menu" aria-label="Primary"><span class="nav-pill" aria-hidden="true"></span>{"".join(items)}</nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-menu"><span></span><span></span></button>
   </div>
 </header>
-<main>'''
+<main id="main">'''
 
 
 FOOT = f'''</main>
@@ -120,7 +122,7 @@ FOOT = f'''</main>
     <div class="cols">
       <div class="about">
         <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span>Avodahsoft</span></a>
-        <p>Avodahsoft designs and builds software for iPhone, iPad, Mac and the web, for clients and under its own name.</p>
+        <p>Avodahsoft designs and builds software for iPhone, iPad, Mac, Windows and the web, for clients and under its own name.</p>
         <a class="mail" href="mailto:{MAIL}">{MAIL}</a>
       </div>
       <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/papersuite">PaperSuite</a><a href="/lector">Lector</a><a href="/work">All apps</a></div>
@@ -143,8 +145,15 @@ def write(rel, content):
     print("wrote", out.relative_to(ROOT))
 
 
-def page(path, title, desc, body, current=None, image="/img/photos/stage.jpg", out=None, theme="", extra=""):
-    write(out or (path + ".html" if path != "/" else "/index.html"), head(title, desc, path, image, theme, extra) + nav(current) + body + FOOT)
+def use_webp(html):
+    """Points each <img> at the WebP copy of its picture when there is one; link previews keep the PNG."""
+    def swap(m):
+        return f'{m.group(1)}{m.group(2)}.webp"' if (PUB / (m.group(2).lstrip("/") + ".webp")).is_file() else m.group(0)
+    return re.sub(r'(<img [^>]*?src=")(/img/[^"]+)\.png"', swap, html)
+
+
+def page(path, title, desc, body, current=None, image="/img/og/avodahsoft.png", out=None, theme="", extra=""):
+    write(out or (path + ".html" if path != "/" else "/index.html"), use_webp(head(title, desc, path, image, theme, extra) + nav(current) + body + FOOT))
 
 
 # ---------------------------------------------------------------- building blocks
@@ -157,10 +166,11 @@ def more(label, href=None):
     return f'<a class="more" href="{href}">{inner}</a>' if href else f'<span class="more">{inner}</span>'
 
 
-def phone(src, alt="", eager=False, d=None):
+def phone(src, alt="", eager=False, d=None, first=False):
     style = f' style="--d:{d}"' if d is not None else ""
+    priority = ' fetchpriority="high"' if first else ""
     return (f'<div class="device"{style}><div class="screen"><img src="{src}" alt="{alt}" width="640" height="1387" '
-            f'loading="{"eager" if eager else "lazy"}" decoding="async"></div></div>')
+            f'loading="{"eager" if eager else "lazy"}"{priority} decoding="async"></div></div>')
 
 
 def mac(src, alt="", eager=False, d=None):
@@ -172,7 +182,7 @@ def phones(left, centre, right):
     """Three phones on a stage: the middle one first and largest, the outer two drifting faster."""
     return ('<div class="phones">'
             f'<div class="plx side" data-depth="64">{phone(*left, eager=True, d=1)}</div>'
-            f'<div class="plx" data-depth="22">{phone(*centre, eager=True, d=0)}</div>'
+            f'<div class="plx" data-depth="22">{phone(*centre, eager=True, d=0, first=True)}</div>'
             f'<div class="plx side" data-depth="64">{phone(*right, eager=True, d=2)}</div>'
             '</div>')
 
@@ -282,7 +292,7 @@ def closing(kicker, title, lead, actions):
 def offers(cls=""):
     """What Avodahsoft does: client work, its own products and acquisitions first, then training."""
     return f'''<div class="offers{" " + cls if cls else ""}" data-stagger>
-      <a class="offer reveal" href="/services#build"><span class="n">01</span><div><h3>Custom software development</h3><p>We design and engineer apps for iPhone, iPad, Mac and the web: product strategy, interface design, engineering, backend services and App Store release. Every engagement has a written scope, a fixed price and a working build every week.</p>{more("Start a project")}</div></a>
+      <a class="offer reveal" href="/services#build"><span class="n">01</span><div><h3>Custom software development</h3><p>We design and engineer apps for iPhone, iPad, Mac, Windows and the web: product strategy, interface design, engineering, backend services and App Store release. Every engagement has a written scope, a fixed price and a working build every week.</p>{more("Start a project")}</div></a>
       <a class="offer reveal" href="/work"><span class="n">02</span><div><h3>Our products</h3><p>We publish our own apps on the App Store. GigPal and Kilojo are available now, and PaperSuite and Lector are on the way. Each is designed, built and supported in-house, to the same standard as our client work.</p>{more("View our apps")}</div></a>
       <a class="offer reveal" href="/services#acquire"><span class="n">03</span><div><h3>App acquisitions</h3><p>Our apps are available to acquire, in whole or in part. Each sale includes the codebase, documentation, store listings and revenue history where it exists, with a managed transition for existing users.</p>{more("Enquire about acquisitions")}</div></a>
     </div>
@@ -293,10 +303,10 @@ def offers(cls=""):
 HOME = f'''
 <section class="hero">
   <div class="wrap">
-    <p class="kicker reveal">Avodahsoft</p>
+    <p class="kicker reveal">Software company</p>
     <h1 class="display words">We design, build and ship software.</h1>
     <div class="hero-row">
-      <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac and the web. We build products for clients, publish our own apps on the App Store, and offer them for acquisition.</p>
+      <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac, Windows and the web. We build products for clients, publish our own apps on the App Store, and offer them for acquisition.</p>
       <div class="actions reveal" style="--i:3"><a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="/work">View our apps</a></div>
     </div>
   </div>
@@ -305,7 +315,7 @@ HOME = f'''
 <section>
   <div class="wrap">
     {stage(phones(("/img/gigpal/library.png", "GigPal library screen"), ("/img/gigpal/chords.png", "GigPal chord view following a song"), ("/img/gigpal/mixer.png", "GigPal stem mixer with vocals, piano, bass, drums and other")), app="gigpal", theme="t-gigpal")}
-    {facts(("2", "apps available on the App Store"), ("4", "products designed and built in-house"), ("4", "platforms: iPhone, iPad, Mac and the web"), ("End to end", "from first design to App Store release"))}
+    {facts(("2", "apps available on the App Store"), ("4", "products designed and built in-house"), ("5", "platforms: iPhone, iPad, Mac, Windows and the web"), ("End to end", "from first design to App Store release"))}
   </div>
 </section>
 
@@ -344,7 +354,7 @@ HOME = f'''
 </section>
 {closing("Contact", "Have a project in mind? <em>Let&rsquo;s talk.</em>", "New products, acquisitions, training or support. Every enquiry receives a considered reply, usually within one business day.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="mailto:{MAIL}">{MAIL}</a>')}
 '''
-page("/", "Avodahsoft · Software for iPhone, iPad, Mac and the web", "Avodahsoft is a software company. We design and build apps for clients, publish our own on the App Store (GigPal, Kilojo, PaperSuite and Lector), and offer them for acquisition.", HOME)
+page("/", "Avodahsoft · Software for iPhone, iPad, Mac, Windows and the web", "Avodahsoft is a software company. We design and build apps for clients, publish our own on the App Store (GigPal, Kilojo, PaperSuite and Lector), and offer them for acquisition.", HOME)
 
 # ---------------------------------------------------------------- gigpal
 GIGPAL = f'''{app_hero("gigpal", "Practice like the band is in the room.",
@@ -572,7 +582,7 @@ SERVICES = f'''
     <div><p class="kicker reveal">Custom software development</p><h2 class="words" style="margin-top:20px">Your product, <em>designed and built end to end.</em></h2></div>
     <div>
       <p class="lead reveal">We partner with founders and businesses to take an idea from first design to App Store release. Every engagement has a written scope, a fixed price and a working build every week.</p>
-      <div class="reveal" style="margin-top:36px">{check_list(["Product strategy and interface design", "Apps for iPhone, iPad, Mac and the web", "Accounts, sync, subscriptions and payments", "App Store submission, privacy disclosures and review", "Documented handover of code, accounts and signing keys"])}</div>
+      <div class="reveal" style="margin-top:36px">{check_list(["Product strategy and interface design", "Apps for iPhone, iPad, Mac, Windows and the web", "Accounts, sync, subscriptions and payments", "App Store submission, privacy disclosures and review", "Documented handover of code, accounts and signing keys"])}</div>
       <div class="actions reveal" style="margin-top:40px"><a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a></div>
     </div>
   </div>
@@ -613,7 +623,7 @@ SERVICES = f'''
 </section>
 {closing("Get started", "Tell us about <em>your project.</em>", "Share the idea, the audience and the timeline. We will reply with a clear view of scope, cost and fit.", f'<a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="mailto:{MAIL}">{MAIL}</a>')}
 '''
-page("/services", "Services", "Custom software development for iPhone, iPad, Mac and the web, app acquisitions, and practical training in app development. Written scope, fixed price, weekly builds and full handover.", SERVICES, current="/services")
+page("/services", "Services", "Custom software development for iPhone, iPad, Mac, Windows and the web, app acquisitions, and practical training in app development. Written scope, fixed price, weekly builds and full handover.", SERVICES, current="/services")
 
 # ---------------------------------------------------------------- company (/studio)
 STUDIO = f'''
@@ -622,7 +632,7 @@ STUDIO = f'''
     <div>
       <p class="kicker reveal">Company</p>
       <h1 class="words">We design and build software <em>that lasts.</em></h1>
-      <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac and the web. We build products for clients, publish our own apps on the App Store, offer them for acquisition, and train people who want to build software themselves.</p>
+      <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac, Windows and the web. We build products for clients, publish our own apps on the App Store, offer them for acquisition, and train people who want to build software themselves.</p>
     </div>
     <div class="brand-panel dark reveal" aria-hidden="true">
       {LOGO}
@@ -652,7 +662,7 @@ STUDIO = f'''
 </section>
 {closing("Contact", "Work <em>with us.</em>", "New products, acquisitions or training. Tell us what you have in mind and you will receive a considered reply, usually within one business day.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="/services">Our services</a>')}
 '''
-page("/studio", "Company", "Avodahsoft is a software company that designs and builds apps for iPhone, iPad, Mac and the web, for clients and under its own name.", STUDIO, current="/studio", image="/img/photos/dev2.jpg")
+page("/studio", "Company", "Avodahsoft is a software company that designs and builds apps for iPhone, iPad, Mac, Windows and the web, for clients and under its own name.", STUDIO, current="/studio")
 
 # ---------------------------------------------------------------- contact
 CONTACT = f'''
