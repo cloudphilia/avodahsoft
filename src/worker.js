@@ -216,26 +216,43 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // Strip control characters (except newline and tab) and clamp the length.
 const CONTROL_RE = new RegExp('[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F\\u007F]', 'g');
 const clean = (v, max) => String(v ?? '').replace(CONTROL_RE, '').trim().slice(0, max);
+// Name and topic go into the email's subject line, so they are kept to a single line.
+const oneLine = (v, max) => clean(v, max).replace(/\s+/g, ' ');
+const CONTACT_ORIGINS = new Set(['https://avodahsoft.com']);
+const MAX_CONTACT_BODY = 16 * 1024;
 
 async function handleContact(request, env) {
   if (request.method !== 'POST') return json({ ok: false, error: 'Method not allowed' }, 405);
+  // Browsers always send Origin on this request; another website's page posting here is refused.
+  const origin = request.headers.get('Origin');
+  if (origin && !CONTACT_ORIGINS.has(origin)) return json({ ok: false, error: 'Not allowed' }, 403);
+  if (!(request.headers.get('Content-Type') || '').toLowerCase().startsWith('application/json')) return json({ ok: false, error: 'Invalid request' }, 415);
+  if (Number(request.headers.get('Content-Length') || 0) > MAX_CONTACT_BODY) return json({ ok: false, error: 'That message is too long.' }, 413);
+  // Five messages a minute from one address, so a script cannot flood the inbox or the Resend quota.
+  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+  if (env.CONTACT_LIMIT) {
+    const { success } = await env.CONTACT_LIMIT.limit({ key: ip });
+    if (!success) return json({ ok: false, error: 'Too many messages in a short time. Please wait a minute and try again.' }, 429);
+  }
   let data;
   try {
-    data = await request.json();
+    const text = await request.text();
+    if (text.length > MAX_CONTACT_BODY) return json({ ok: false, error: 'That message is too long.' }, 413);
+    data = JSON.parse(text);
   } catch {
     return json({ ok: false, error: 'Invalid request' }, 400);
   }
+  if (!data || typeof data !== 'object') return json({ ok: false, error: 'Invalid request' }, 400);
   if (clean(data.website, 10)) return json({ ok: true }); // honeypot: pretend success
-  const name = clean(data.name, 120);
+  const name = oneLine(data.name, 120);
   const email = clean(data.email, 200);
-  const topic = clean(data.topic, 60) || 'General';
+  const topic = oneLine(data.topic, 60) || 'General';
   const message = clean(data.message, 5000);
   if (name.length < 2) return json({ ok: false, error: 'Please tell us your name.' }, 400);
   if (!EMAIL_RE.test(email)) return json({ ok: false, error: 'That email address does not look right.' }, 400);
   if (message.length < 10) return json({ ok: false, error: 'Please add a little more detail.' }, 400);
   if (!env.RESEND_API_KEY) return json({ ok: false, error: 'Mail is not configured yet. Email hello@avodahsoft.com.' }, 503);
   const to = env.CONTACT_TO || 'hello@avodahsoft.com';
-  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const country = request.headers.get('CF-IPCountry') || '';
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -384,6 +401,10 @@ function gigpalAuthPage() {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // Plain http is never served: the first visit is redirected too, not only those after HSTS.
+    if (url.protocol === 'http:' && url.hostname !== 'localhost' && url.hostname !== '127.0.0.1') {
+      return Response.redirect(`https://${url.host}${url.pathname}${url.search}`, 301);
+    }
     if (url.hostname.startsWith('www.')) return Response.redirect(`https://${url.hostname.slice(4)}${url.pathname}${url.search}`, 301);
     const path = url.pathname.replace(/\/+$/, '') || '/';
     // Auth links in Kilojo's emails point here, on our own domain, and are forwarded to

@@ -46,7 +46,8 @@ h3{font-size:clamp(19px,1.5vw,22px);line-height:1.25;letter-spacing:-.022em}
 h1 em,h2 em{font-style:normal;color:var(--muted)}
 .serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.012em}
 .lead{font-size:clamp(18px,1.45vw,21px);line-height:1.5;color:var(--ink-2);max-width:56ch;letter-spacing:-.012em}
-.kicker{display:block;font-size:16px;font-weight:600;letter-spacing:-.012em;color:var(--ink-2)}
+.kicker{display:block;font-size:16px;font-weight:600;letter-spacing:-.012em;color:var(--accent-ink)}
+.dark .kicker{color:color-mix(in srgb,var(--accent) 55%,#fff)}
 .muted{color:var(--muted)}.dim{color:var(--muted)}.small{font-size:15px}.center{text-align:center}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -71,19 +72,19 @@ h1 em,h2 em{font-style:normal;color:var(--muted)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:var(--nav-h)}
 .brand{display:inline-flex;align-items:center;gap:11px;font-size:20px;letter-spacing:-.035em;color:var(--ink)}
 /* The wordmark: the name's root in bold, the rest light. */
-.wm{font-weight:340}.wm b{font-weight:700}
+.wm{font-weight:360;color:var(--brand)}.wm b{font-weight:700;color:var(--ink)}
+.dark .wm{color:var(--brand-light)}
 .brand svg{width:28px;height:28px;flex:none;color:var(--brand);transition:transform .8s var(--ease)}
 .brand:hover svg{transform:rotate(-8deg) scale(1.04)}
 .links{position:relative;display:flex;align-items:center;gap:2px}
 .links a{position:relative;z-index:1;padding:8px 14px;font-size:14.5px;font-weight:450;color:var(--ink-2);border-radius:999px;transition:color .35s var(--ease),background-color .35s var(--ease)}
 .links a:hover{color:var(--ink);background:var(--hover)}
-.nav-pill{position:absolute;z-index:0;left:0;top:0;width:0;height:0;border-radius:999px;background:var(--ink);opacity:0;pointer-events:none;transition:transform .5s var(--ease),width .5s var(--ease),height .5s var(--ease),opacity .2s ease}
+.nav-pill{position:absolute;z-index:0;left:0;top:0;width:0;height:0;border-radius:999px;background:var(--ink);opacity:0;pointer-events:none;will-change:transform;transition:transform .34s var(--ease),width .34s var(--ease),height .34s var(--ease),opacity .2s ease}
 .nav-pill.on{opacity:1}
 .nav-pill.still{transition:none}
-.links.pill-ready .nav-pill{view-transition-name:nav-pill}
-.links a[aria-current]{color:var(--paper);transition:color .3s var(--ease) .12s,background-color .35s var(--ease)}
+.links a[aria-current]{color:var(--paper);transition:color .2s ease .06s,background-color .3s var(--ease)}
 .links a[aria-current]:hover{color:var(--paper);background:none}
-.links:not(.pill-ready) a[aria-current]{background:var(--ink);view-transition-name:nav-pill}
+.links:not(.pill-ready) a[aria-current]{background:var(--ink)}
 .burger{display:none}
 @media (max-width:880px){
   .burger{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;width:44px;height:44px;margin-right:-10px;padding:0;background:none;border:0;cursor:pointer}
@@ -412,9 +413,6 @@ body.menu-open{overflow:hidden}
 ::view-transition-old(root){animation:vt-out .18s ease-out both}
 ::view-transition-new(root){animation:vt-in .34s var(--ease) both}
 ::view-transition-group(site-nav){animation:none}
-::view-transition-group(nav-pill){animation-duration:.4s;animation-timing-function:cubic-bezier(.16,1,.3,1)}
-::view-transition-old(nav-pill),::view-transition-new(nav-pill){height:100%;animation:none}
-::view-transition-old(nav-pill){display:none}
 @keyframes vt-out{to{opacity:0}}
 @keyframes vt-in{from{opacity:0}}
 

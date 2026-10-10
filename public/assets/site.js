@@ -33,9 +33,23 @@
     if (!animate) requestAnimationFrame(() => requestAnimationFrame(() => pill.classList.remove('still')));
   };
   if (pill) {
-    place(current(), false);
+    const here = current();
+    place(here, false);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => place(current(), false));
     window.addEventListener('resize', () => place(current(), false));
+    // The next page is fetched while the pointer rests on its menu item, so the change is near instant.
+    const fetched = new Set();
+    const prefetch = (a) => {
+      if (!a || fetched.has(a.href) || a.origin !== location.origin) return;
+      fetched.add(a.href);
+      const l = document.createElement('link');
+      l.rel = 'prefetch'; l.href = a.href;
+      document.head.appendChild(l);
+    };
+    links.addEventListener('mouseover', (e) => prefetch(e.target.closest('a')));
+    links.addEventListener('focusin', (e) => prefetch(e.target.closest('a')));
+    // Click: the pill glides to the new item first, then the page changes underneath it. The new
+    // page draws its pill in the same place, so the hand-over is seamless.
     links.addEventListener('click', (e) => {
       const a = e.target.closest('a');
       if (!a || !wideNav.matches || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -44,6 +58,14 @@
       if (was) was.removeAttribute('aria-current');
       a.setAttribute('aria-current', 'page');
       place(a, Boolean(was));
+      if (!still) { e.preventDefault(); setTimeout(() => { location.href = a.href; }, was ? 300 : 140); }
+    });
+    // Coming back with the Back button shows this page's own item again, not the one clicked.
+    window.addEventListener('pageshow', (e) => {
+      if (!e.persisted) return;
+      links.querySelectorAll('a[aria-current]').forEach((x) => x.removeAttribute('aria-current'));
+      if (here) here.setAttribute('aria-current', 'page');
+      place(here, false);
     });
   }
 
