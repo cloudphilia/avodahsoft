@@ -68,7 +68,9 @@ h1 em,h2 em{font-style:normal;color:var(--muted)}
 .nav.scrolled::before,.nav.open::before{opacity:1}
 .nav.open::before{background:var(--paper)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:var(--nav-h)}
-.brand{display:inline-flex;align-items:center;gap:11px;font-weight:680;font-size:19.5px;letter-spacing:-.04em;color:var(--ink)}
+.brand{display:inline-flex;align-items:center;gap:11px;font-size:20px;letter-spacing:-.035em;color:var(--ink)}
+/* The wordmark: the name's root in bold, the rest light. */
+.wm{font-weight:340}.wm b{font-weight:700}
 .brand svg{width:28px;height:28px;flex:none;transition:transform .8s var(--ease)}
 .brand:hover svg{transform:rotate(-8deg) scale(1.04)}
 .links{position:relative;display:flex;align-items:center;gap:2px}
@@ -255,7 +257,7 @@ body.menu-open{overflow:hidden}
 .brand-panel{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;min-height:clamp(340px,36vw,480px);padding:clamp(28px,3.4vw,48px);border-radius:var(--r-lg);overflow:hidden;background:#0B0B0C;color:var(--ink)}
 .brand-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%,rgba(255,255,255,.1),transparent 70%)}
 .brand-panel svg{position:relative;width:clamp(96px,11vw,150px);height:auto;margin-bottom:auto;align-self:flex-end}
-.brand-panel .name{position:relative;font-size:clamp(30px,3vw,44px);font-weight:600;line-height:1;letter-spacing:-.045em}
+.brand-panel .name{position:relative;font-size:clamp(30px,3vw,44px);line-height:1;letter-spacing:-.04em}
 .brand-panel .means{position:relative;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .not-found{min-height:calc(100vh - var(--nav-h) - 120px);display:grid;align-items:center}
 .not-found h1,.not-found .lead{margin-left:auto;margin-right:auto}

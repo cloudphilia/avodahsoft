@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261010b"
+ASSET_VERSION = "20261010c"
 
 I = {
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M20 6 9 17l-5-5"/></svg>',
@@ -108,7 +108,7 @@ def nav(current):
     return f'''
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span>Avodahsoft</span></a>
+    <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span class="wm"><b>Avodah</b>soft</span></a>
     <nav class="links" id="site-menu" aria-label="Primary"><span class="nav-pill" aria-hidden="true"></span>{"".join(items)}</nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-menu"><span></span><span></span></button>
   </div>
@@ -121,7 +121,7 @@ FOOT = f'''</main>
   <div class="wrap">
     <div class="cols">
       <div class="about">
-        <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span>Avodahsoft</span></a>
+        <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span class="wm"><b>Avodah</b>soft</span></a>
         <p>Avodahsoft designs and builds software for iPhone, iPad, Mac, Windows and the web, for clients and under its own name.</p>
         <a class="mail" href="mailto:{MAIL}">{MAIL}</a>
       </div>
@@ -636,7 +636,7 @@ STUDIO = f'''
     </div>
     <div class="brand-panel dark reveal" aria-hidden="true">
       {LOGO}
-      <span class="name">Avodahsoft</span>
+      <span class="name wm"><b>Avodah</b>soft</span>
       <span class="means"><span>Design</span><span>Engineering</span><span>Delivery</span></span>
     </div>
   </div>
