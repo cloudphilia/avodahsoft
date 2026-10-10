@@ -100,9 +100,8 @@ def head(title, desc, path, image, theme="", extra=""):
 def nav(current):
     items = []
     for i, (href, label) in enumerate(NAV):
-        cls = ' class="nav-cta"' if href == "/contact" else ""
         cur = ' aria-current="page"' if current == href else ""
-        items.append(f'<a href="{href}"{cls}{cur} style="--i:{i}">{label}</a>')
+        items.append(f'<a href="{href}"{cur} style="--i:{i}">{label}</a>')
     return f'''
 <header class="nav">
   <div class="wrap">
