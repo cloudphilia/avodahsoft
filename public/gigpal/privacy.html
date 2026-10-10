@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GigPal privacy policy · Avodahsoft</title>
 <meta name="description" content="GigPal analyses your music on your own device, works without an account, and never shows ads or tracks you. This page explains the little we do hold, and how to delete it.">
-<meta name="theme-color" content="#0A0E1F">
+<meta name="theme-color" content="#F5F5F2">
 <link rel="canonical" href="https://avodahsoft.com/gigpal/privacy">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:site_name" content="Avodahsoft">
@@ -13,38 +13,46 @@
 <meta property="og:description" content="GigPal analyses your music on your own device, works without an account, and never shows ads or tracks you. This page explains the little we do hold, and how to delete it.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://avodahsoft.com/gigpal/privacy">
-<meta property="og:image" content="https://avodahsoft.com/img/photos/concert.jpg">
+<meta property="og:image" content="https://avodahsoft.com/img/gigpal/icon.png">
 <meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="/assets/site.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Avodahsoft", "url": "https://avodahsoft.com", "email": "hello@avodahsoft.com", "logo": "https://avodahsoft.com/favicon.svg"}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=20261010">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Avodahsoft", "url": "https://avodahsoft.com", "email": "hello@avodahsoft.com", "logo": "https://avodahsoft.com/favicon.svg", "description": "Software company: custom apps for clients, our own apps on the App Store, apps for sale outright, and training in software development."}</script>
 </head>
-<body>
+<body class="t-gigpal">
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Avodahsoft home"><span class="mark">A</span>Avodahsoft</a>
-    <nav class="links" aria-label="Primary"><a href="/gigpal" aria-current="page">GigPal</a><a href="/kilojo">Kilojo</a><a href="/lector">Lector</a><a href="/work">Work</a><a href="/studio">Studio</a><a href="/contact">Contact</a></nav>
-    <button class="burger" aria-label="Menu" aria-expanded="false">Menu</button>
+    <a class="brand" href="/" aria-label="Avodahsoft home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 9 24 29M36 9v12c0 11-8 18-23 19" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Avodahsoft</span></a>
+    <nav class="links" id="site-menu" aria-label="Primary"><a href="/work" style="--i:0">Apps</a><a href="/services" style="--i:1">Services</a><a href="/studio" style="--i:2">Company</a><a href="/contact" class="nav-cta" style="--i:3">Contact</a></nav>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-menu"><span></span><span></span></button>
   </div>
 </header>
 <main>
-<section class="hero" style="padding-bottom:0"><div class="bg"></div>
-  <div class="wrap"><span class="eyebrow">GigPal · Legal</span><h1 class="mt-16" style="font-size:clamp(32px,4.5vw,56px)">Privacy policy</h1><p class="lead mt-24">GigPal analyses your music on your own device, works without an account, and never shows ads or tracks you. This page explains the little we do hold, and how to delete it.</p>
-  <p class="mt-24"><a class="pill" href="/gigpal/terms">Terms of use <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a> &nbsp; <a class="pill" href="/gigpal">About GigPal</a></p></div>
+<section class="page-head">
+  <div class="wrap">
+    <p class="kicker reveal">GigPal · Legal</p>
+    <h1 class="words">Privacy policy</h1>
+    <p class="lead reveal" style="--i:2">GigPal analyses your music on your own device, works without an account, and never shows ads or tracks you. This page explains the little we do hold, and how to delete it.</p>
+    <div class="doc-links reveal" style="--i:3"><a class="btn btn-line" href="/gigpal/terms">Terms of use <svg class="arr" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-line" href="/gigpal">About GigPal</a></div>
+  </div>
 </section>
-<section class="section" style="padding-top:40px"><div class="wrap"><div class="prose">
+<section class="section flush-top">
+  <div class="wrap doc">
+    <nav class="toc" aria-label="On this page"><p>On this page</p><a href="#who-we-are">Who we are</a><a href="#what-gigpal-stores-on-your-device">What GigPal stores on your device</a><a href="#information-we-collect-when-you-sign-in">Information we collect when you sign in</a><a href="#account-emails">Account emails</a><a href="#stem-separation">Stem separation</a><a href="#third-party-services-you-choose-to-use">Third-party services you choose to use</a><a href="#app-updates">App updates</a><a href="#device-permissions">Device permissions</a><a href="#purchases">Purchases</a><a href="#what-we-do-not-do">What we do not do</a><a href="#service-providers">Service providers</a><a href="#retention-and-deletion">Retention and deletion</a><a href="#security">Security</a><a href="#children">Children</a><a href="#your-rights">Your rights</a><a href="#changes">Changes</a></nav>
+    <div class="prose">
 <p class="meta">Last updated 2 October 2026 &middot; GigPal for iPhone, iPad and web &middot; Operated by Avodahsoft, Australia</p>
 <div class="callout"><b>In one paragraph.</b> GigPal works without an account, and everything that analyses your music (key, tempo, beats, chords, sections) runs on your own device. If you sign in, we hold your email address and a copy of your library metadata so you can sync it. If you use stem separation, the song is uploaded over an encrypted connection, processed, returned to you and deleted from our servers. There is no advertising, no analytics SDK and no tracking, and you can delete your account and everything attached to it from inside the app.</div>
 
-<h2>Who we are</h2>
+<h2 id="who-we-are">Who we are</h2>
 <p>GigPal is made and operated by Avodahsoft, an independent software studio based in Australia. You can reach us at <a href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a>. We are the data controller for the personal information described here.</p>
 
-<h2>What GigPal stores on your device</h2>
+<h2 id="what-gigpal-stores-on-your-device">What GigPal stores on your device</h2>
 <p>Your library lives on your device: the songs and recordings you add, the analysis results (key, tempo, beats, chords, sections and lyrics timing), any separated stems, your setlists (with their dates and the notes you add to songs), lyrics you save, the streaming links you play in Play Along, and your settings. This information stays on the device unless you sign in and sync, or unless you choose to share something. Saved lyrics, Play Along links, setlist dates and song notes are never uploaded. Deleting a song in the app deletes it and its stems from the device.</p>
 
-<h2>Information we collect when you sign in</h2>
+<h2 id="information-we-collect-when-you-sign-in">Information we collect when you sign in</h2>
 <p>An account is optional. Without one, GigPal does not send us any personal information. If you create an account (by email and password) we store:</p>
 <ul>
   <li><b>Account details:</b> your email address, a random account identifier, a display name if you give one, the dates you signed up and last signed in, and a random one-time key used only to let your phone notice that you have confirmed your email.</li>
@@ -53,40 +61,40 @@
 </ul>
 <p>Accounts and synced data are hosted on Supabase infrastructure, protected by per-user access rules so that one account can never read another&rsquo;s data.</p>
 
-<h2>Account emails</h2>
+<h2 id="account-emails">Account emails</h2>
 <p>Confirmation, change-of-address and password-reset emails are sent through Resend. Their links open GigPal, or on another device a page on avodahsoft.com that confirms your address when you tap its button. That page sets no cookies and keeps nothing once you close it.</p>
 
-<h2>Stem separation</h2>
+<h2 id="stem-separation">Stem separation</h2>
 <p>When you ask GigPal to separate a song, the audio file is uploaded over HTTPS to our separation service, processed with an open-source source-separation model (Demucs), and the resulting stems are returned to your device. The uploaded file is deleted as soon as processing ends; the stems are deleted once your device has downloaded them, and in any case within 24 hours. We do not listen to, analyse for other purposes, or train models on your audio. Stem separation requires a signed-in account so that we can apply fair-use limits.</p>
 
-<h2>Third-party services you choose to use</h2>
+<h2 id="third-party-services-you-choose-to-use">Third-party services you choose to use</h2>
 <ul>
   <li><b>Lyrics.</b> When you search for lyrics, the song title and artist you type are sent to LRCLIB (lrclib.net), an open lyrics database. No account information is included.</li>
   <li><b>Google search.</b> &ldquo;Search on Google&rdquo; opens Google in an in-app Safari window. What you search there is between you and Google, under Google&rsquo;s privacy policy; GigPal does not read or collect that page. Lyrics you copy from it and paste into GigPal stay on your device.</li>
   <li><b>Play Along.</b> When you play a YouTube, Spotify, Apple Music or SoundCloud link, it plays inside that service&rsquo;s own embedded player, and GigPal asks the service for the title of the link (its public &ldquo;oEmbed&rdquo; lookup). Those services may set cookies or collect data under their own privacy policies. GigPal does not download, record or store their content.</li>
 </ul>
 
-<h2>App updates</h2>
+<h2 id="app-updates">App updates</h2>
 <p>When it starts, GigPal checks Expo&rsquo;s update service for fixes to the app and downloads them. The check includes the app&rsquo;s version and platform; like any web request it reveals your IP address to Expo. It contains no account details or personal information.</p>
 
-<h2>Device permissions</h2>
+<h2 id="device-permissions">Device permissions</h2>
 <ul>
   <li><b>Microphone</b> is used only while the tuner, live chords or recorder screens are open, and stops when you leave them or the app goes to the background. Audio from the microphone is processed on the device and is not sent anywhere unless you separate a recording you made.</li>
   <li><b>Photo library and files</b> are accessed only when you choose a video, an audio file or a profile picture, and only for the item you pick.</li>
   <li><b>Notifications:</b> GigPal does not send notifications. Practice reminders from earlier versions have been retired, and any still scheduled on your device are cancelled.</li>
 </ul>
 
-<h2>Purchases</h2>
+<h2 id="purchases">Purchases</h2>
 <p>GigPal is free and contains no in-app purchases. If we add a GigPal Pro subscription in a future update it will be sold through Apple, Apple will process the payment, we will never see your card details, and this policy will be updated before it goes live.</p>
 
-<h2>What we do not do</h2>
+<h2 id="what-we-do-not-do">What we do not do</h2>
 <ul>
   <li>No advertising, no advertising identifiers.</li>
   <li>No analytics or tracking SDKs. We do not track you across apps or websites.</li>
   <li>No selling, renting or sharing of personal information with data brokers.</li>
 </ul>
 
-<h2>Service providers</h2>
+<h2 id="service-providers">Service providers</h2>
 <table><tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
 <tr><td>Supabase</td><td>Accounts and database</td><td>Email, account id, synced library metadata</td></tr>
 <tr><td>Our separation service (Fly.io hosting)</td><td>Stem separation</td><td>Uploaded audio, temporarily; daily usage counts</td></tr>
@@ -98,35 +106,39 @@
 <tr><td>YouTube, Spotify, Apple Music, SoundCloud, Google</td><td>Only when you use Play Along or Search on Google</td><td>Under each service&rsquo;s own privacy policy</td></tr></table>
 <p>These providers may process data in the United States and other countries. We choose providers that commit to industry-standard security and data-protection terms.</p>
 
-<h2>Retention and deletion</h2>
+<h2 id="retention-and-deletion">Retention and deletion</h2>
 <p>You can delete songs, recordings, stems, saved lyrics and Play Along links at any time on the device. You can delete your account from the Profile screen inside the app; this removes your account, synced library data and separation history from our servers, normally immediately and in all cases within 30 days. Uploaded audio for separation is deleted within 24 hours as described above. If you would rather email us to request deletion or a copy of your data, write to <a href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a>.</p>
 
-<h2>Security</h2>
+<h2 id="security">Security</h2>
 <p>All traffic between the app and our services is encrypted with HTTPS. Your sign-in session is kept in the app&rsquo;s private storage on your device, which other apps cannot read. Database access is restricted with row-level security so that requests are always scoped to the signed-in account, and email links can only sign a phone into the account it asked for. No system is perfectly secure, and we will notify affected users if we become aware of a breach involving their personal information.</p>
 
-<h2>Children</h2>
+<h2 id="children">Children</h2>
 <p>GigPal is not directed at children under 13 and we do not knowingly collect personal information from them. If you believe a child has created an account, contact us and we will delete it.</p>
 
-<h2>Your rights</h2>
+<h2 id="your-rights">Your rights</h2>
 <p>Depending on where you live you may have rights to access, correct, export or delete your personal information, or to object to certain processing. Australian users are covered by the Privacy Act 1988; users in the EU and UK by the GDPR. Most of these rights can be exercised directly in the app; for anything else, email us and we will respond within 30 days.</p>
 
-<h2>Changes</h2>
+<h2 id="changes">Changes</h2>
 <p>If this policy changes in a way that matters, we will update the date at the top and tell you inside the app before the change takes effect.</p>
 <p><b>Contact:</b> <a href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a></p>
-</div></div></section></main>
-<footer>
+</div>
+  </div>
+</section></main>
+<footer class="foot dark">
   <div class="wrap">
-    <div>
-      <a class="brand" href="/"><span class="mark">A</span>Avodahsoft</a>
-      <p class="mt-16">An independent software studio in Australia. Apps for musicians and everyday life, built to be finished rather than merely working.</p>
-      <p class="mt-8"><a href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a></p>
+    <div class="cols">
+      <div class="about">
+        <a class="brand" href="/" aria-label="Avodahsoft home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 9 24 29M36 9v12c0 11-8 18-23 19" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Avodahsoft</span></a>
+        <p>We design and build apps for clients, ship our own on the App Store, sell them outright, and teach the craft.</p>
+        <a class="mail" href="mailto:hello@avodahsoft.com">hello@avodahsoft.com</a>
+      </div>
+      <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/papersuite">PaperSuite</a><a href="/lector">Lector</a><a href="/work">All apps</a></div>
+      <div><h4>Company</h4><a href="/services">Services</a><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
+      <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a><a href="/papersuite/privacy">PaperSuite privacy</a><a href="/papersuite/terms">PaperSuite terms</a></div>
     </div>
-    <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/papersuite">PaperSuite</a><a href="/lector">Lector</a><a href="/work">All work</a></div>
-    <div><h4>Studio</h4><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
-    <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a><a href="/papersuite/privacy">PaperSuite privacy</a><a href="/papersuite/terms">PaperSuite terms</a></div>
-    <div class="legal"><span>&copy; <span data-year>2026</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store and iPhone are trademarks of Apple Inc.</span></div>
+    <div class="legal"><span>&copy; <span data-year>2026</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store, iPhone, iPad and Mac are trademarks of Apple Inc.</span></div>
   </div>
 </footer>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v=20261010" defer></script>
 </body>
 </html>

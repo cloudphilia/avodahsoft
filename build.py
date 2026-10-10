@@ -9,6 +9,7 @@ MAIL = "hello@avodahsoft.com"
 APPSTORE = "https://apps.apple.com/app/id6809133057"
 UPDATED = "2 October 2026"
 YEAR = "2026"
+ASSET_VERSION = "20261010"
 
 I = {
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M20 6 9 17l-5-5"/></svg>',
@@ -39,22 +40,44 @@ I = {
     "ship": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--teal)"><path d="M5 18 3 12l9-3 9 3-2 6"/><path d="M12 9V3"/><path d="M2 21c2 0 3-1 5-1s3 1 5 1 3-1 5-1 3 1 5 1"/></svg>',
     "hand": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple)"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M4 17v3h16v-3"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    "learn": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg>',
+    "tag": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9-9-9Z"/><circle cx="8" cy="8" r="1.5"/></svg>',
+    "play": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>',
+}
+# Icons take the colour of the text around them and are hidden from screen readers.
+I = {k: re.sub(r' style="[^"]*"', "", v).replace("<svg ", '<svg aria-hidden="true" ', 1) for k, v in I.items()}
+ARR = I["arrow"].replace("<svg ", '<svg class="arr" ', 1)
+# The company mark: two strokes, one open and one sweeping round to the left.
+MARK = "M12 9 24 29M36 9v12c0 11-8 18-23 19"
+LOGO = f'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="{MARK}" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+
+NAV = [("/work", "Apps"), ("/services", "Services"), ("/studio", "Company"), ("/contact", "Contact")]
+
+APPS = {
+    "gigpal": {"name": "GigPal", "href": "/gigpal", "icon": "/img/gigpal/icon.png", "live": True, "dark": True,
+               "tagline": "The practice room in your pocket.", "shot": ("/img/gigpal/chords.png", "GigPal following the chords of a song")},
+    "kilojo": {"name": "Kilojo", "href": "/kilojo", "icon": "/img/kilojo/icon.png", "live": False, "dark": False,
+               "tagline": "A food diary that reads your plate.", "shot": ("/img/kilojo/2-snap-your-meal.png", "Kilojo photographing a meal")},
+    "papersuite": {"name": "PaperSuite", "href": "/papersuite", "icon": "/img/papersuite/icon.png", "live": False, "dark": False,
+                   "tagline": "Every document, in one place.", "shot": ("/img/papersuite/03-notes.png", "PaperSuite notes: due today, pinned and today&rsquo;s reminders")},
+    "lector": {"name": "Lector", "href": "/lector", "icon": "/img/lector/icon.png", "live": False, "dark": True,
+               "tagline": "The verse, the moment it is spoken.", "screen": ("/img/lector/screen.png", "Philippians 4:13 on the projector in Lector&rsquo;s Gold Leaf theme")},
 }
 
-NAV = [("/gigpal", "GigPal"), ("/kilojo", "Kilojo"), ("/lector", "Lector"), ("/work", "Work"), ("/studio", "Studio"), ("/contact", "Contact")]
 
-
-def head(title, desc, path, image):
+def head(title, desc, path, image, theme="", extra=""):
     full = title if "Avodahsoft" in title else f"{title} · Avodahsoft"
-    ld = json.dumps({"@context": "https://schema.org", "@type": "Organization", "name": "Avodahsoft", "url": SITE, "email": MAIL, "logo": f"{SITE}/favicon.svg"})
+    ld = json.dumps({"@context": "https://schema.org", "@type": "Organization", "name": "Avodahsoft", "url": SITE, "email": MAIL, "logo": f"{SITE}/favicon.svg",
+                     "description": "Software company: custom apps for clients, our own apps on the App Store, apps for sale outright, and training in software development."})
+    body = f' class="{theme}"' if theme else ""
     return f'''<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{full}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#0A0E1F">
+<meta name="theme-color" content="#F5F5F2">
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:site_name" content="Avodahsoft">
@@ -64,43 +87,50 @@ def head(title, desc, path, image):
 <meta property="og:url" content="{SITE}{path}">
 <meta property="og:image" content="{SITE}{image}">
 <meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Instrument+Serif:ital@0;1&display=swap">{extra}
+<link rel="stylesheet" href="/assets/site.css?v={ASSET_VERSION}">
 <script type="application/ld+json">{ld}</script>
 </head>
-<body>'''
+<body{body}>'''
 
 
 def nav(current):
-    links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if current == h else ""}>{t}</a>' for h, t in NAV)
+    items = []
+    for i, (href, label) in enumerate(NAV):
+        cls = ' class="nav-cta"' if href == "/contact" else ""
+        cur = ' aria-current="page"' if current == href else ""
+        items.append(f'<a href="{href}"{cls}{cur} style="--i:{i}">{label}</a>')
     return f'''
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Avodahsoft home"><span class="mark">A</span>Avodahsoft</a>
-    <nav class="links" aria-label="Primary">{links}</nav>
-    <button class="burger" aria-label="Menu" aria-expanded="false">Menu</button>
+    <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span>Avodahsoft</span></a>
+    <nav class="links" id="site-menu" aria-label="Primary">{"".join(items)}</nav>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-menu"><span></span><span></span></button>
   </div>
 </header>
 <main>'''
 
 
 FOOT = f'''</main>
-<footer>
+<footer class="foot dark">
   <div class="wrap">
-    <div>
-      <a class="brand" href="/"><span class="mark">A</span>Avodahsoft</a>
-      <p class="mt-16">An independent software studio in Australia. Apps for musicians and everyday life, built to be finished rather than merely working.</p>
-      <p class="mt-8"><a href="mailto:{MAIL}">{MAIL}</a></p>
+    <div class="cols">
+      <div class="about">
+        <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span>Avodahsoft</span></a>
+        <p>We design and build apps for clients, ship our own on the App Store, sell them outright, and teach the craft.</p>
+        <a class="mail" href="mailto:{MAIL}">{MAIL}</a>
+      </div>
+      <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/papersuite">PaperSuite</a><a href="/lector">Lector</a><a href="/work">All apps</a></div>
+      <div><h4>Company</h4><a href="/services">Services</a><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
+      <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a><a href="/papersuite/privacy">PaperSuite privacy</a><a href="/papersuite/terms">PaperSuite terms</a></div>
     </div>
-    <div><h4>Apps</h4><a href="/gigpal">GigPal</a><a href="/kilojo">Kilojo</a><a href="/papersuite">PaperSuite</a><a href="/lector">Lector</a><a href="/work">All work</a></div>
-    <div><h4>Studio</h4><a href="/studio">About</a><a href="/contact">Contact</a><a href="/contact?topic=Support">Support</a></div>
-    <div><h4>Legal</h4><a href="/gigpal/privacy">GigPal privacy</a><a href="/gigpal/terms">GigPal terms</a><a href="/kilojo/privacy">Kilojo privacy</a><a href="/kilojo/terms">Kilojo terms</a><a href="/papersuite/privacy">PaperSuite privacy</a><a href="/papersuite/terms">PaperSuite terms</a></div>
-    <div class="legal"><span>&copy; <span data-year>{YEAR}</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store and iPhone are trademarks of Apple Inc.</span></div>
+    <div class="legal"><span>&copy; <span data-year>{YEAR}</span> Avodahsoft. All rights reserved.</span><span>Apple, the App Store, iPhone, iPad and Mac are trademarks of Apple Inc.</span></div>
   </div>
 </footer>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v={ASSET_VERSION}" defer></script>
 </body>
 </html>
 '''
@@ -113,451 +143,593 @@ def write(rel, content):
     print("wrote", out.relative_to(ROOT))
 
 
-def page(path, title, desc, body, current=None, image="/img/photos/stage.jpg", out=None):
-    write(out or (path + ".html" if path != "/" else "/index.html"), head(title, desc, path, image) + nav(current) + body + FOOT)
+def page(path, title, desc, body, current=None, image="/img/photos/stage.jpg", out=None, theme="", extra=""):
+    write(out or (path + ".html" if path != "/" else "/index.html"), head(title, desc, path, image, theme, extra) + nav(current) + body + FOOT)
+
+
+# ---------------------------------------------------------------- building blocks
+def chip(live):
+    return '<span class="chip live"><i></i>On the App Store</span>' if live else '<span class="chip"><i></i>Coming soon</span>'
+
+
+def more(label, href=None):
+    inner = f"<span>{label}</span>{ARR}"
+    return f'<a class="more" href="{href}">{inner}</a>' if href else f'<span class="more">{inner}</span>'
+
+
+def phone(src, alt="", eager=False, d=None):
+    style = f' style="--d:{d}"' if d is not None else ""
+    return (f'<div class="device"{style}><div class="screen"><img src="{src}" alt="{alt}" width="640" height="1387" '
+            f'loading="{"eager" if eager else "lazy"}" decoding="async"></div></div>')
+
+
+def mac(src, alt="", eager=False, d=None):
+    style = f' style="--d:{d}"' if d is not None else ""
+    return f'<div class="monitor"{style}><img src="{src}" alt="{alt}" width="1800" height="1129" loading="{"eager" if eager else "lazy"}" decoding="async"></div>'
+
+
+def phones(left, centre, right):
+    """Three phones on a stage: the middle one first and largest, the outer two drifting faster."""
+    return ('<div class="phones">'
+            f'<div class="plx side" data-depth="64">{phone(*left, eager=True, d=1)}</div>'
+            f'<div class="plx" data-depth="22">{phone(*centre, eager=True, d=0)}</div>'
+            f'<div class="plx side" data-depth="64">{phone(*right, eager=True, d=2)}</div>'
+            '</div>')
+
+
+def macs(main, front):
+    return (f'<div class="displays"><div class="plx" data-depth="18">{mac(*main, eager=True, d=0)}</div>'
+            f'<div class="float"><div class="plx" data-depth="70">{mac(*front, eager=True, d=1)}</div></div></div>')
+
+
+def stage(media, app=None, theme=""):
+    bar = ""
+    if app:
+        a = APPS[app]
+        bar = (f'<div class="stage-bar"><span class="who"><img src="{a["icon"]}" alt="" width="30" height="30">{a["name"]}{chip(a["live"])}</span>'
+               f'{more("Explore " + a["name"], a["href"])}</div>')
+    return f'<div class="stage reveal{" " + theme if theme else ""}">{bar}{media}</div>'
+
+
+def tile(key, desc):
+    a = APPS[key]
+    media = mac(*a["screen"]) if "screen" in a else phone(*a["shot"])
+    return f'''<a class="tile t-{key}{" dark" if a["dark"] else ""} reveal" href="{a["href"]}">
+        <div class="tile-top"><img src="{a["icon"]}" alt="" width="48" height="48" loading="lazy">{chip(a["live"])}</div>
+        <h3>{a["name"]}</h3>
+        <p class="tagline">{a["tagline"]}</p>
+        <p class="desc">{desc}</p>
+        {more("Explore " + a["name"])}
+        <div class="tile-media">{media}</div>
+      </a>'''
+
+
+def section_head(kicker, title, lead=None):
+    lead_html = f'<p class="lead reveal">{lead}</p>' if lead else ""
+    return f'<div class="section-head{"" if lead else " solo"}"><div><p class="kicker reveal">{kicker}</p><h2 class="words">{title}</h2></div>{lead_html}</div>'
 
 
 def feature(icon, title, text):
-    return f'<div class="card reveal"><div class="icon">{I[icon]}</div><h3>{title}</h3><p>{text}</p></div>'
+    return f'<div class="feature reveal">{I[icon]}<h3>{title}</h3><p>{text}</p></div>'
+
+
+def features(*items, cls=""):
+    return f'<div class="features{" " + cls if cls else ""}" data-stagger>' + "".join(feature(*f) for f in items) + "</div>"
 
 
 def check_list(items):
-    return '<ul class="feature-list">' + "".join(f"<li>{I['check']}<span>{t}</span></li>" for t in items) + "</ul>"
+    return '<ul class="checks">' + "".join(f"<li>{I['check']}<span>{t}</span></li>" for t in items) + "</ul>"
+
+
+def facts(*items):
+    return '<div class="facts" data-stagger>' + "".join(f'<div class="reveal"><b>{n}</b><span>{t}</span></div>' for n, t in items) + "</div>"
+
+
+def steps(*items):
+    return '<div class="steps" data-stagger>' + "".join(f'<div class="step reveal"><span class="n"></span><h3>{t}</h3><p>{p}</p></div>' for t, p in items) + "</div>"
+
+
+def app_hero(key, title, lead, actions, chips=()):
+    a = APPS[key]
+    extra = "".join(f'<span class="chip">{c}</span>' for c in chips)
+    return f'''
+<section class="hero">
+  <div class="wrap">
+    <div class="app-id reveal"><img src="{a["icon"]}" alt="{a["name"]} app icon" width="60" height="60"><div><p class="name">{a["name"]}</p><div class="chips">{chip(a["live"])}{extra}</div></div></div>
+    <h1 class="display words">{title}</h1>
+    <div class="hero-row">
+      <p class="lead reveal" style="--i:2">{lead}</p>
+      <div class="actions reveal" style="--i:3">{actions}</div>
+    </div>
+  </div>
+</section>'''
+
+
+def story(kicker, title, body, media):
+    return f'''
+<section class="section alt story">
+  <div class="wrap split">
+    <div><p class="kicker reveal">{kicker}</p><h2 class="words">{title}</h2><div class="copy reveal">{body}</div></div>
+    <div class="reveal">{media}</div>
+  </div>
+</section>'''
+
+
+def trust(title, body, actions, kicker="Privacy"):
+    return f'''
+<section class="section flush-top">
+  <div class="wrap">
+    <div class="panel trust reveal">
+      <div><p class="kicker">{kicker}</p><h2>{title}</h2></div>
+      <div class="body">{body}<div class="actions">{actions}</div></div>
+    </div>
+  </div>
+</section>'''
+
+
+def closing(kicker, title, lead, actions):
+    return f'''
+<section class="closing dark">
+  <div class="wrap">
+    <p class="kicker reveal">{kicker}</p>
+    <h2 class="words">{title}</h2>
+    <p class="lead reveal">{lead}</p>
+    <div class="actions reveal">{actions}</div>
+  </div>
+</section>'''
+
+
+def offers(cls=""):
+    """The four ways to work with Avodahsoft, the first three leading."""
+    return f'''<div class="offers{" " + cls if cls else ""}" data-stagger>
+      <a class="offer reveal" href="/services#build"><span class="n">01</span><div><h3>We build your software</h3><p>You bring the idea and know the market. We take it from first sketch to the App Store: product design, engineering, accounts and payments, submission and launch. Fixed scope, fixed price, and a working build on your phone every week.</p>{more("Start a project")}</div></a>
+      <a class="offer reveal" href="/work"><span class="n">02</span><div><h3>We ship our own apps</h3><p>GigPal is on the App Store, and Kilojo, PaperSuite and Lector are on the way. Every one is designed, built and supported in-house, to the same standard as the work we do for clients.</p>{more("See the apps")}</div></a>
+      <a class="offer reveal" href="/services#acquire"><span class="n">03</span><div><h3>We sell apps outright</h3><p>When one of our apps would grow faster with a new owner, it is for sale: a clean codebase, a documented handover, the revenue history that exists, and a transition long enough that nothing breaks on your watch.</p>{more("Ask about buying")}</div></a>
+    </div>
+    <a class="learn reveal" href="/services#training"><span class="n">04</span><div><h3>We teach the craft</h3><p>Training in software development for people who want to build apps themselves, taught from real products that ship.</p></div>{more("Learn with us")}</a>'''
 
 
 # ---------------------------------------------------------------- home
 HOME = f'''
 <section class="hero">
-  <div class="photo" style="background-image:url(/img/photos/stage.jpg)"></div><div class="bg"></div>
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow-row"><span class="eyebrow">Independent software studio · Australia</span></div>
-      <h1>Software that feels <span class="accent">alive in your hands.</span></h1>
-      <p class="lead mt-24">We design and build apps for iPhone, iPad and the web. Our own products first, released under our own name, plus select client work for people who want it made properly rather than quickly.</p>
-      <div class="cta">
-        <a class="btn primary" href="/gigpal">Meet GigPal {I["arrow"]}</a>
-        <a class="btn ghost" href="/contact?topic=New%20project">Start a project</a>
-      </div>
-      <div class="stats"><div><b>2</b>apps in the pipeline</div><div><b>{YEAR}</b>founded</div><div><b>iOS · Web</b>platforms</div><div><b>1 inbox</b>you talk to the builder</div></div>
+  <div class="wrap">
+    <p class="kicker reveal">Software company</p>
+    <h1 class="display words">Software that feels finished.</h1>
+    <div class="hero-row">
+      <p class="lead reveal" style="--i:2">We design, build and ship apps for iPhone, iPad, Mac and the web: for clients, for the App Store under our own name, and for anyone who would rather buy one outright.</p>
+      <div class="actions reveal" style="--i:3"><a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="/work">See our apps</a></div>
     </div>
-    <div class="phones"><div class="glow"></div>
-      <div class="phone back"><img src="/img/gigpal/chords.png" alt="GigPal chord view following a song" loading="eager"></div>
-      <div class="phone front"><img src="/img/gigpal/library.png" alt="GigPal library screen" loading="eager"></div>
-    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    {stage(phones(("/img/gigpal/library.png", "GigPal library screen"), ("/img/gigpal/chords.png", "GigPal chord view following a song"), ("/img/gigpal/mixer.png", "GigPal stem mixer with vocals, piano, bass, drums and other")), app="gigpal", theme="t-gigpal")}
+    {facts(("4", "apps designed and built in-house"), ("4 platforms", "iPhone, iPad, Mac and the web"), ("Fixed price", "agreed against a written scope"), ("Weekly", "builds, installed on your own device"))}
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Our apps</span><h2 class="mt-8">Four apps, one standard.</h2><p class="lead">Each one is built by the person who answers your email, and each ships when it is genuinely finished.</p></div>
-    <div class="grid g2">
-      <a class="card product-card reveal" href="/gigpal">
-        <div class="media"><img src="/img/photos/band.jpg" alt="A band rehearsing on stage" loading="lazy"><img class="shot" src="/img/gigpal/library.png" alt=""></div>
-        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>On the App Store</span><span class="pill">iPhone</span></div><h3>GigPal</h3><p>The practice room in your pocket. Split any song into vocals, piano, bass, drums and more, follow the chords as they play, change key and tempo, and rehearse with a metronome, tuner and recorder.</p><span class="btn primary">Explore GigPal {I["arrow"]}</span></div>
-      </a>
-      <a class="card product-card reveal" href="/kilojo">
-        <div class="media"><img src="/img/photos/night.jpg" alt="A table set for dinner in the evening" loading="lazy"><img class="shot" src="/img/kilojo/2-snap-your-meal.png" alt=""></div>
-        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iOS</span></div><h3>Kilojo</h3><p>A food diary that reads your plate. Photograph a meal for calories and macros, scan a barcode for the packet&rsquo;s own figures, or simply type it in. Every number stays editable.</p><span class="btn green">Explore Kilojo {I["arrow"]}</span></div>
-      </a>
-      <a class="card product-card reveal" href="/papersuite">
-        <div class="media"><img src="/img/photos/night.jpg" alt="A quiet desk in the evening" loading="lazy"><img class="shot" src="/img/kepta/today.png" alt=""></div>
-        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span></div><h3>PaperSuite</h3><p>Every document, in one place. Write notes, scan pages, fill in and sign PDFs, merge and convert them, ask your own notes a question, and keep your habits beside it all.</p><span class="btn primary">Explore PaperSuite {I["arrow"]}</span></div>
-      </a>
-      <a class="card product-card reveal" href="/lector">
-        <div class="media"><img src="/img/photos/stage.jpg" alt="A church stage under lights" loading="lazy"><img class="shot wide" src="/img/lector/screen.png" alt=""></div>
-        <div class="body"><div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">Mac</span></div><h3>Lector</h3><p>The verse, the moment it is spoken. Lector listens to the preacher and puts the scripture on the screens as it is read &mdash; with songs, slides, videos, four screens and a stage display for the rest of the service.</p><span class="btn primary">Explore Lector {I["arrow"]}</span></div>
-      </a>
-    </div>
+    {section_head("What we do", "One company. <em>Four ways to work with us.</em>", "Most people come to us for one of the first three. All four are held to the same standard: nothing ships until it is genuinely finished.")}
+    {offers()}
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
+<section class="section flush-top">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">What we do</span><h2 class="mt-8">Build. Ship. Hand over.</h2></div>
-    <div class="grid g3">
-      {feature("build", "We build your app", "You have the idea and know the market. We handle design, development, App Store submission and the first release. Fixed scope, fixed price, and something working in your hands every week.")}
-      {feature("ship", "We run our own", "Products released under the studio&rsquo;s name and supported by the person who wrote them. No ticket queue. You email the studio and the studio answers.")}
-      {feature("hand", "We hand over properly", "When an app finds the right owner: a clean codebase, documented handover, whatever revenue history exists, and a transition long enough that nothing breaks on your watch.")}
+    {section_head("Our apps", "Four apps. <em>One standard.</em>", "Designed, built and supported in-house. An app is marked released only once it is on the App Store.")}
+    <div class="tiles" data-stagger>
+      {tile("gigpal", "Split any song into vocals, piano, bass, drums and more, follow the chords as they play, change key and tempo, and rehearse with a metronome, tuner and recorder.")}
+      {tile("kilojo", "Photograph a meal for calories and macros, scan a barcode for the packet&rsquo;s own figures, or simply type it in. Every number stays editable.")}
+      {tile("papersuite", "Write notes, scan pages, fill in and sign PDFs, merge and convert them, ask your own notes a question, and keep your habits beside it all.")}
+      {tile("lector", "Lector listens to the preacher and puts the scripture on the screens as it is read, with songs, slides, videos, four screens and a stage display for the rest of the service.")}
     </div>
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
+<section class="section alt">
   <div class="wrap">
-    <div class="band reveal"><img src="/img/photos/mixer.jpg" alt="Hands on a mixing console" loading="lazy">
-      <div><span class="eyebrow">Approach</span><h3 class="mt-8">Finished, not merely working.</h3><p>Most software ships at the point it stops erroring. We are interested in the part after that: the copy that says what it means, the state nobody planned for, the second tap that should have been one. You deal with the person doing the work, and the work is done in the open.</p><a class="btn ghost mt-24" href="/studio">About the studio {I["arrow"]}</a></div>
-    </div>
+    <p class="kicker reveal">How we work</p>
+    <p class="statement words">Most software ships when it stops erroring. <em>Ours ships when it is finished.</em></p>
+    <p class="lead reveal statement-lead">The copy that says what it means, the state nobody planned for, the second tap that should have been one. That is the part we are interested in, and it is done in the open.</p>
+    {features(
+        ("mail", "Straight to engineering", "No account managers and no game of telephone. Your questions go directly to the people writing the code, and so do your answers."),
+        ("build", "Scope in writing, price fixed to it", "Screens, states and what is deliberately left out. The price moves only when the document does, and then you decide."),
+        ("ship", "Working software every week", "On your own device, not in a slide deck, so you can say something is wrong while it is still cheap to change."),
+        ("hand", "Everything handed over", "Repository, accounts, signing keys and notes explaining every decision. You are never held hostage by whoever wrote it."),
+        cls="four")}
+    <p class="reveal">{more("How a project runs", "/services")}</p>
   </div>
 </section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap center reveal">
-    <h2>Have something in mind?</h2>
-    <p class="lead mt-16" style="margin-inline:auto">Support, a new project or an acquisition enquiry. Everything reaches the same inbox and gets a real reply, usually the same day.</p>
-    <div class="cta mt-24" style="justify-content:center;display:flex;gap:12px;flex-wrap:wrap"><a class="btn primary" href="/contact">Get in touch {I["arrow"]}</a><a class="btn ghost" href="mailto:{MAIL}">{MAIL}</a></div>
-  </div>
-</section>
+{closing("Start a conversation", "Have something in mind? <em>Let&rsquo;s talk.</em>", "A product to build, an app to buy, a skill to learn, or help with one of ours. Every message reaches the same inbox and gets a considered reply, usually the same day.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="mailto:{MAIL}">{MAIL}</a>')}
 '''
-page("/", "Avodahsoft · Apps for musicians, churches and everyday life", "Avodahsoft is an independent software studio in Australia building GigPal, the music practice app, Kilojo, the food diary that reads your plate, PaperSuite, the habit tracker with notes built in, and Lector, the church presentation app that puts the verse on screen as it is spoken.", HOME)
+page("/", "Avodahsoft · Software for iPhone, iPad, Mac and the web", "Avodahsoft is a software company. We build apps for clients, ship our own on the App Store (GigPal, Kilojo, PaperSuite and Lector), sell apps outright and teach software development.", HOME)
 
 # ---------------------------------------------------------------- gigpal
-GIGPAL = f'''
-<section class="hero">
-  <div class="photo" style="background-image:url(/img/photos/concert.jpg)"></div><div class="bg"></div>
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow-row"><img class="appicon" src="/img/gigpal/icon.png" alt="GigPal app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Now on the App Store</span><span class="pill">iPhone</span></div>
-      <h1>Practice like <span class="accent">the band is in the room.</span></h1>
-      <p class="lead mt-24">GigPal turns any song into a rehearsal. Pull the vocals, piano, bass and drums apart, follow the chords as they change, slow it down, move the key, loop the hard bit, and record yourself over the top.</p>
-      <div class="cta"><a class="btn primary" href="{APPSTORE}">{I["apple"]} Download on the App Store</a><a class="btn ghost" href="#features">See what it does</a></div>
-      <div class="stats"><div><b>5</b>stems per song</div><div><b>3</b>chord notations</div><div><b>&plusmn;12</b>semitones of key change</div><div><b>0</b>ads or trackers</div></div>
-    </div>
-    <div class="phones"><div class="glow"></div>
-      <div class="phone back"><img src="/img/gigpal/mixer.png" alt="GigPal stem mixer with vocals, piano, bass, drums and other" loading="eager"></div>
-      <div class="phone front"><img src="/img/gigpal/chords.png" alt="GigPal chords following the song" loading="eager"></div>
-    </div>
+GIGPAL = f'''{app_hero("gigpal", "Practice like the band is in the room.",
+    "GigPal turns any song into a rehearsal. Pull the vocals, piano, bass and drums apart, follow the chords as they change, slow it down, move the key, loop the hard bit, and record yourself over the top.",
+    f'<a class="btn btn-dark btn-store" href="{APPSTORE}">{I["apple"]} Download on the App Store</a><a class="btn btn-line" href="#features">See what it does</a>', ["iPhone"])}
+
+<section>
+  <div class="wrap">
+    {stage(phones(("/img/gigpal/library.png", "GigPal library with demo songs, keys and tempos"), ("/img/gigpal/chords.png", "GigPal chords following the song"), ("/img/gigpal/mixer.png", "GigPal stem mixer with vocals, piano, bass, drums and other")))}
+    {facts(("5", "stems per song"), ("3", "chord notations"), ("&plusmn;12", "semitones of key change"), ("0", "ads or trackers"))}
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
+<section class="section dark on-stage" id="film" style="margin-top:clamp(88px,11vw,168px)">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">See it in action</span><h2 class="mt-8">Three minutes, start to finish.</h2><p class="lead">Signing in, adding a song, separating the stems, following the chords and building a setlist.</p></div>
-    <div class="video reveal"><video controls playsinline preload="metadata" poster="/img/gigpal/review-poster.jpg"><source src="/gigpal/demo.mp4" type="video/mp4">Your browser cannot play this video. <a href="/gigpal/demo.mp4">Open it directly.</a></video></div>
-    <div class="gallery reveal">
-      <img src="/img/gigpal/library.png" alt="GigPal library with demo songs, keys and tempos" loading="lazy">
-      <img src="/img/gigpal/tools.png" alt="GigPal tools: tuner, metronome, piano, chord finder and more" loading="lazy">
-      <img src="/img/gigpal/metronome.png" alt="GigPal metronome" loading="lazy">
-      <img src="/img/gigpal/setlists.png" alt="GigPal setlists" loading="lazy">
+    <div class="film">
+      <div><p class="kicker reveal">See it in action</p><h2 class="words">Three minutes. <em>Start to finish.</em></h2><p class="lead reveal">Signing in, adding a song, separating the stems, following the chords and building a setlist.</p></div>
+      <div class="device film-device reveal"><div class="screen"><video controls playsinline preload="metadata" poster="/img/gigpal/review-poster.jpg"><source src="/gigpal/demo.mp4" type="video/mp4">Your browser cannot play this video. <a href="/gigpal/demo.mp4">Open it directly.</a></video><button class="play" type="button" aria-label="Play the GigPal demo" hidden>{I["play"]}</button></div></div>
     </div>
+    <ul class="gallery" data-stagger>
+      <li class="reveal">{phone("/img/gigpal/mixer.png", "GigPal stem mixer with vocals, piano, bass, drums and other")}<p class="cap">Stem mixer</p></li>
+      <li class="reveal">{phone("/img/gigpal/chords.png", "GigPal chords following the song")}<p class="cap">Chords</p></li>
+      <li class="reveal">{phone("/img/gigpal/metronome.png", "GigPal metronome")}<p class="cap">Metronome</p></li>
+      <li class="reveal">{phone("/img/gigpal/setlists.png", "GigPal setlists")}<p class="cap">Setlists</p></li>
+    </ul>
   </div>
 </section>
 
 <section class="section" id="features">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Everything a rehearsal needs</span><h2 class="mt-8">One app, the whole practice room.</h2><p class="lead">Built for gigging musicians, worship teams, choirs, students and anyone who learns songs by ear.</p></div>
-    <div class="grid g3">
-      {feature("layers", "Stem mixer", "Separate a song into vocals, piano and keys, bass, drums and everything else. Solo the part you are learning or mute the part you play.")}
-      {feature("chord", "Chords that follow the song", "The chord progression is detected on your device and highlighted bar by bar as the song plays. Read it as letters, as numbers (1, 4, 5, 7&flat;) or as solfa.")}
-      {feature("gauge", "Key and tempo", "Every song is analysed for key, tempo and beats the moment you add it. Re-analyse in a tap if you disagree, and see it laid out on a piano.")}
-      {feature("speed", "Speed and pitch", "Slow a passage to half speed without changing the pitch, or move the whole song into your singing key. Both stay locked to the chords and lyrics.")}
-      {feature("loop", "Sections and loops", "GigPal finds the intro, verses and choruses. Tap a section to jump to it or loop it until it is under your fingers.")}
-      {feature("lyrics", "Lyrics finder", "Pull in synced lyrics for the song you are working on and follow them as they scroll. Save any lyrics you find, or paste ones you read elsewhere, and edit them later.")}
-      {feature("metro", "Metronome", "A rock-solid metronome with tap tempo, count-in, accents and subdivisions, designed to be heard over a full band.")}
-      {feature("tuner", "Tuner", "A chromatic tuner with a clear needle and cents readout, accurate to the cent on guitar and bass, low strings included. Works for voice, brass and strings too.")}
-      {feature("piano", "Piano and chord keys", "A sampled grand piano on iPhone and iPad. One key plays a whole chord in your key, with pads 1&ndash;8, passing chords and a soft synth pad underneath. Turn the phone sideways for a full keyboard, and solo over chords in two rows.")}
-      {feature("mic", "Recorder", "Record yourself over the mix or on its own. Every take is analysed for key and tempo too, so you can see how the rehearsal went.")}
-      {feature("list", "Setlists", "Group songs into setlists for a gig or a service, give each set a date and each song a note, reorder by drag, and Play set runs through them in order.")}
-      {feature("link", "Play Along", "Paste a YouTube, Spotify, Apple Music or SoundCloud link and play along with the tuner, metronome and piano on top. Every link you play is kept, ready to name.")}
+    {section_head("Everything a rehearsal needs", "One app. <em>The whole practice room.</em>", "Built for gigging musicians, worship teams, choirs, students and anyone who learns songs by ear.")}
+    {features(
+        ("layers", "Stem mixer", "Separate a song into vocals, piano and keys, bass, drums and everything else. Solo the part you are learning or mute the part you play."),
+        ("chord", "Chords that follow the song", "The chord progression is detected on your device and highlighted bar by bar as the song plays. Read it as letters, as numbers (1, 4, 5, 7&flat;) or as solfa."),
+        ("gauge", "Key and tempo", "Every song is analysed for key, tempo and beats the moment you add it. Re-analyse in a tap if you disagree, and see it laid out on a piano."),
+        ("speed", "Speed and pitch", "Slow a passage to half speed without changing the pitch, or move the whole song into your singing key. Both stay locked to the chords and lyrics."),
+        ("loop", "Sections and loops", "GigPal finds the intro, verses and choruses. Tap a section to jump to it or loop it until it is under your fingers."),
+        ("lyrics", "Lyrics finder", "Pull in synced lyrics for the song you are working on and follow them as they scroll. Save any lyrics you find, or paste ones you read elsewhere, and edit them later."),
+        ("metro", "Metronome", "A rock-solid metronome with tap tempo, count-in, accents and subdivisions, designed to be heard over a full band."),
+        ("tuner", "Tuner", "A chromatic tuner with a clear needle and cents readout, accurate to the cent on guitar and bass, low strings included. Works for voice, brass and strings too."),
+        ("piano", "Piano and chord keys", "A sampled grand piano on iPhone and iPad. One key plays a whole chord in your key, with pads 1&ndash;8, passing chords and a soft synth pad underneath. Turn the phone sideways for a full keyboard, and solo over chords in two rows."),
+        ("mic", "Recorder", "Record yourself over the mix or on its own. Every take is analysed for key and tempo too, so you can see how the rehearsal went."),
+        ("list", "Setlists", "Group songs into setlists for a gig or a service, give each set a date and each song a note, reorder by drag, and Play set runs through them in order."),
+        ("link", "Play Along", "Paste a YouTube, Spotify, Apple Music or SoundCloud link and play along with the tuner, metronome and piano on top. Every link you play is kept, ready to name."))}
+  </div>
+</section>
+{story("Why we built it", "Made by a musician. <em>Tired of switching apps.</em>",
+    "<p>Chords in one app, a metronome in another, a tuner in a third, and the actual song in a browser tab. GigPal puts them on one screen, keeps them in sync, and stays out of your way when you are playing.</p>",
+    f'<div class="devices">{phone("/img/gigpal/tools.png", "GigPal tools: tuner, metronome, piano, chord finder and more")}{phone("/img/gigpal/tuner.png", "GigPal chromatic tuner")}</div>')}
+
+<section class="section">
+  <div class="wrap">
+    {section_head("How it works", "From file to rehearsal <em>in a minute.</em>")}
+    {steps(
+        ("Add a song", "From your files, your camera roll, a link, or a fresh recording. Demo songs are included so you can try everything first."),
+        ("Analysed on your phone", "Key, tempo, beats, chords and sections are detected on the device itself. Nothing leaves your phone for this step."),
+        ("Separate the stems", "The song is separated in the cloud using the same open-source model family the big apps rely on, then deleted from our servers."),
+        ("Practise", "Mix the parts, follow the chords, slow it down, loop it, record yourself. Then add it to the setlist for Sunday."))}
+  </div>
+</section>
+
+<section class="section flush-top">
+  <div class="wrap split top">
+    <div><p class="kicker reveal">Pricing</p><h2 class="words" style="margin-top:20px">GigPal is free. <em>Stems included.</em></h2><p class="lead reveal" style="margin-top:24px">Everything that runs on your phone is free. Cloud stem separation costs real computing time, so version 1.0 includes it with a fair-use limit of three songs a day per account. A GigPal Pro plan with a higher allowance is planned for a later update and will be billed through the App Store.</p></div>
+    <div class="panel reveal">
+      <table class="compare">
+        <tr><th>Feature</th><th>Free</th><th>Pro (planned)</th></tr>
+        <tr><td>Library, key, tempo, chords, sections</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
+        <tr><td>Speed and pitch, loops, lyrics</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
+        <tr><td>Metronome, tuner, piano and chord keys, solfa, recorder, Play Along</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
+        <tr><td>Setlists, saved lyrics, sync across devices</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
+        <tr><td>Stem separation (vocals, piano, bass, drums, other)</td><td class="yes">3 a day</td><td class="yes">More</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+{trust("Private by design. <em>Your music stays yours.</em>",
+    "<p>No advertising, no analytics SDKs, no tracking. Analysis runs on your device. Songs you separate are uploaded over an encrypted connection, processed, returned to you and deleted from our servers. You can delete your account and everything with it from inside the app.</p>",
+    '<a class="btn btn-line" href="/gigpal/privacy">Privacy policy</a><a class="btn btn-line" href="/gigpal/terms">Terms of use</a>')}
+'''
+page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a music practice app for iPhone, iPad and the web: stem separation, chords that follow the song, key and tempo control, metronome, tuner, piano, recorder and setlists.", GIGPAL, current="/work", image="/img/gigpal/icon.png", theme="t-gigpal")
+
+# ---------------------------------------------------------------- lector
+LECTOR = f'''{app_hero("lector", "The verse, the moment it is spoken.",
+    "Lector listens to the preacher and puts the scripture on the screens as it is read &mdash; no typing, no hunting, no verse three sentences late. Then it runs the rest of the service: songs with arrangements, slides, videos, announcements for the lobby, a stage display for the preacher and a remote for a phone. Recognition happens on the Mac; nothing leaves the room.",
+    f'<a class="btn btn-dark" href="/contact?topic=Lector">Tell me when it launches {ARR}</a><a class="btn btn-line" href="#features">What it does</a>', ["Mac", "Windows to follow"])}
+
+<section>
+  <div class="wrap">
+    {stage(macs(("/img/lector/operator.png", "Lector&rsquo;s operator window: the live transcript, the queue, the verses it heard, and the preview"), ("/img/lector/screen.png", "Philippians 4:13 on the projector in Lector&rsquo;s Gold Leaf theme")))}
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="wrap">
+    {section_head("For the media desk", "Built for a volunteer <em>on a Sunday morning.</em>")}
+    {features(
+        ("mic", "Hears the reference", "&ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is queued before the page is found. Confident references go straight to the screen if you ask; the rest wait for one key."),
+        ("lyrics", "Follows the reading", "As the passage is read, the verse being read lights up and the page turns itself. Nineteen translations are built in; licensed ones link in with a key."),
+        ("layers", "Four screens, one service", "The projector, the choir&rsquo;s monitor, the stream and the lobby each take a look &mdash; what to show, what to leave out &mdash; and every screen sees the same service."),
+        ("music", "Songs, slides and videos", "Lyrics with arrangements, PowerPoint, Keynote and PDF decks, videos, a camera behind the words, a memory stick of walk-in music, and a loop of announcements for the foyer."),
+        ("list", "A stage that tells the truth", "The preacher&rsquo;s screen shows the verse, what is next, the notes, a countdown and a word from the desk &mdash; on a display, or an iPad on the music stand."),
+        ("bell", "One key, several things", "Moments fire the logo, the countdown and the loop together; schedules fire them by the clock; a phone remote and a Stream Deck do the rest from anywhere in the room."))}
+  </div>
+</section>
+{story("Our view", "The verse should not be late.",
+    "<p>Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screen still keeps up.</p>",
+    mac("/img/lector/screen.png", "A verse on the projector in Lector"))}
+{trust("Private by design. <em>Nothing leaves the room.</em>",
+    check_list(["Speech recognition runs on the Mac. The sermon is never sent anywhere to be understood.", "The Bibles are on the disk: nineteen public-domain translations work with no internet at all. Licensed translations fetch a verse at a time with the church&rsquo;s own key.", "The phone remote and the stage display run over the church&rsquo;s own Wi-Fi, with a PIN.", "No account, no analytics, no tracking. A sermon summary uses a language model only if the church adds its own key and asks for it."]),
+    f'<a class="btn btn-dark" href="/contact?topic=Lector">Ask about Lector {ARR}</a>')}
+'''
+page("/lector", "Lector · The verse, the moment it is spoken", "Lector is a church presentation app for Mac that listens to the preacher and puts the scripture on the screens as it is read, then runs the rest of the service: songs, slides, videos, four screens, announcements, a stage display and a phone remote. Coming soon.", LECTOR, current="/work", image="/img/lector/icon.png", theme="t-lector")
+
+# ---------------------------------------------------------------- papersuite
+PAPERSUITE = f'''{app_hero("papersuite", "Every document, in one place.",
+    "Write the note. Scan the page, fill in the form, sign the PDF, and ask your own notes what you said last month. Set the reminder beside it, and keep your habits there too. PaperSuite holds every document in one place, on your iPhone and iPad.",
+    f'<a class="btn btn-dark" href="/contact?topic=PaperSuite">Tell me when it launches {ARR}</a><a class="btn btn-line" href="#features">What it does</a>', ["iPhone", "iPad"])}
+
+<section>
+  <div class="wrap">
+    {stage(phones(("/img/papersuite/02-pdf-hub.png", "PaperSuite PDF Hub: scan, photos to PDF, merge, sign and convert"), ("/img/papersuite/03-notes.png", "PaperSuite notes: due today, pinned and today&rsquo;s reminders"), ("/img/papersuite/05-ask.png", "PaperSuite Ask: a question answered from your own notes")))}
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="wrap">
+    {section_head("Notes, documents and habits", "Write it. Scan it. <em>Sign it.</em>", "Notes, PDFs, reminders and habits in one app, so the paperwork of a week stops living in five.")}
+    {features(
+        ("type", "Notes that keep up", "Headings, checklists, colour and photos as you type. Folders, pins and today&rsquo;s reminders sit at the top, so the note you need is the first one you see. Export any note as text or PDF."),
+        ("hand", "Fill in and sign PDFs", "Type into the form, draw your signature once and place it on the page in black or blue ink. It stays a real PDF, ready to send back. Part of PaperSuite Pro."),
+        ("layers", "Every PDF tool in one place", "Scan pages with Apple&rsquo;s own document scanner, turn photos into PDFs, merge files, and convert Word, Excel and more."),
+        ("lyrics", "Ask your notes anything", "Ask a question with PaperSuite Pro and get an answer drawn only from your own writing. When your notes do not know, it says so instead of making something up."),
+        ("bell", "Reminders that ring", "Put a time on anything worth remembering. The reminder rings when it should, and stays beside the note it belongs to."),
+        ("check", "Habits and streaks", "Daily check-ins, counted targets and 7, 30, 60 or 90-day challenges, with a month at a glance that shows what you actually did."))}
+  </div>
+</section>
+{story("Our view", "One place for everything <em>on paper.</em>",
+    "<p>Most of what we keep is paper in some form: the notes from the meeting, the lease to sign, the form to send back, and the reminder to do it by Friday. They usually live in five different apps. PaperSuite keeps them together, on your phone, and lets you ask your own notes what you wrote, with answers drawn only from your writing.</p>",
+    f'<div class="devices">{phone("/img/papersuite/01-pdf-editor.png", "Filling in a lease renewal PDF in PaperSuite")}{phone("/img/papersuite/04-note.png", "A PaperSuite note with decisions and a checklist")}</div>')}
+
+<section class="section">
+  <div class="wrap">
+    {section_head("Beside your notes", "Beside your notes. <em>Reminders, habits and progress.</em>")}
+    <ul class="gallery three" data-stagger>
+      <li class="reveal">{phone("/img/papersuite/06-reminder.png", "Setting a reminder in PaperSuite")}<p class="cap">Reminders</p></li>
+      <li class="reveal">{phone("/img/papersuite/07-habits.png", "PaperSuite habits: today&rsquo;s check-ins and streaks")}<p class="cap">Habits</p></li>
+      <li class="reveal">{phone("/img/papersuite/08-progress.png", "PaperSuite progress: the month at a glance")}<p class="cap">Progress</p></li>
+    </ul>
+  </div>
+</section>
+{trust("Private by design. <em>Yours, on your phone.</em>",
+    check_list(["No account needed. Sign in with Apple only if you want your notes and habits backed up and on your other devices.", "No advertising, no analytics, no tracking software of any kind.", "Scans, photos, PDFs and signatures stay on the phone, and are shared only when you choose to share them.", "Ask AI asks your permission before anything is sent, and sends only what that question needs."]),
+    f'<a class="btn btn-dark" href="/contact?topic=PaperSuite">Ask about PaperSuite {ARR}</a><a class="btn btn-line" href="/papersuite/privacy">Privacy policy</a>')}
+'''
+page("/papersuite", "PaperSuite · Every document, in one place", "PaperSuite is an app for iPhone and iPad for everything on paper: notes with photos and reminders, document scanning, filling in, signing, merging and converting PDFs, questions answered from your own notes, and habits with streaks. Coming soon.", PAPERSUITE, current="/work", image="/img/papersuite/icon.png", theme="t-papersuite")
+
+# ---------------------------------------------------------------- kilojo
+KILOJO = f'''{app_hero("kilojo", "A food diary that reads your plate.",
+    "Photograph a meal and Kilojo estimates the calories and macronutrients. Scan a barcode and it takes the figures straight off the packet. Everything it produces is editable, because an estimate you cannot correct is a guess you are stuck with.",
+    f'<a class="btn btn-dark" href="/contact?topic=Kilojo">Ask about Kilojo {ARR}</a><a class="btn btn-line" href="/kilojo/privacy">How your data is handled</a>', ["iPhone", "Free"])}
+
+<section>
+  <div class="wrap">
+    {stage(phones(("/img/kilojo/1-today.png", "Kilojo today screen"), ("/img/kilojo/2-snap-your-meal.png", "Kilojo photographing a meal"), ("/img/kilojo/3-progress.png", "Kilojo progress screen")))}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    {section_head("Three ways in, and a plan", "Photograph it, scan it, say it. <em>Or plan the week.</em>")}
+    {features(
+        ("camera", "Point at the plate", "For food that never had a label: a plate of rice, a takeaway, someone else&rsquo;s cooking. Kilojo itemises what it can see and shows its working, so you can see why a number came out as it did."),
+        ("barcode", "Read the packet", "A barcode gives the manufacturer&rsquo;s own figures, which beats any estimate from a photograph. Instant, and free to run."),
+        ("type", "Or just say it", "Sometimes you know. Type the name and the numbers, and log a repeat of it in one tap for as long as you keep eating it."),
+        ("calendar", "Plan the week", "Seven days, four slots each. Pick from meals you have logged or a cookbook of 216 everyday ones, or let Kilojo fill the empty slots to your target and edit what it picked."),
+        ("leaf", "Your way of eating", "Vegetarian, vegan, pescatarian, gluten-free, dairy-free, keto, high-protein or low-carb &mdash; every filter has real options for every meal of the day."),
+        ("scale", "Where you are heading", "A goal weight with the distance still to go, BMI on the WHO scale for context, and a weight trend that reads the line, not any one morning."))}
+  </div>
+</section>
+{story("Our view", "What a photograph <em>cannot tell you.</em>",
+    "<p>A picture does not contain the portion. A bowl of rice can hold twice what it appears to, and no amount of cleverness recovers information the camera never captured. Kilojo estimates, and sometimes it is wrong.</p><p>So it is built to be corrected: every figure is editable, it says how confident it is, and it shows the portion it assumed for each item rather than handing down a total. Tell it &ldquo;one cup of rice&rdquo; and the guess becomes arithmetic. Kilojo counts. It is not medical advice, and it does not have an opinion about your dinner.</p>",
+    f'<div class="devices">{phone("/img/kilojo/4-plan.png", "Kilojo meal plan for the week")}{phone("/img/kilojo/3-progress.png", "Kilojo progress")}</div>')}
+{trust("Private by design. <em>Your diary is yours.</em>",
+    check_list(["No advertising, no analytics, no tracking software of any kind.", "Meal photographs are sent for analysis carrying the picture and your typed hint, not your name or email.", "Barcode lookups send the number on the packet and nothing more.", "Erase everything, or delete the account outright, from inside the app. Both reach the server, not just the phone."]),
+    '<a class="btn btn-line" href="/kilojo/privacy">Privacy policy</a><a class="btn btn-line" href="/kilojo/terms">Terms of use</a>')}
+'''
+page("/kilojo", "Kilojo · A food diary that reads your plate", "Kilojo photographs a meal and estimates calories and macros, scans barcodes for the packet's own figures, and keeps every number editable. Coming soon for iPhone.", KILOJO, current="/work", image="/img/kilojo/icon.png", theme="t-kilojo")
+
+# ---------------------------------------------------------------- apps (/work)
+WORK = f'''
+<section class="page-head">
+  <div class="wrap">
+    <p class="kicker reveal">Apps</p>
+    <h1 class="words">Our apps. <em>Everything we are shipping.</em></h1>
+    <p class="lead reveal" style="--i:2">The list is short because it is honest. An app appears here once it is real and in testers&rsquo; hands, and it is marked released only once it is on the App Store.</p>
+  </div>
+</section>
+<section class="section flush-top">
+  <div class="wrap">
+    <div class="tiles" data-stagger>
+      {tile("gigpal", "Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder and setlists, in one app.")}
+      {tile("kilojo", "Photo estimates, barcode scanning, a weekly meal plan, and numbers you can always edit.")}
+      {tile("papersuite", "Notes, scans and PDFs in one app: fill in, sign, merge and convert documents, with habits and streaks beside them.")}
+      {tile("lector", "Church presentation for Mac that hears the preacher and puts the verse on screen as it is spoken; songs, slides, videos, four screens and a stage display for the rest.")}
+    </div>
+  </div>
+</section>
+{closing("Work with us", "Want one like these? <em>We will build yours.</em>", "Everything above was designed and engineered in-house. The same process and the same standard, applied to your product. Or, if one of these is the product you want, ask about buying it outright.", f'<a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a><a class="btn btn-line" href="/contact?topic=Buy">Ask about buying</a>')}
+'''
+page("/work", "Apps", "The apps Avodahsoft designs, builds and ships: GigPal on the App Store, with Kilojo, PaperSuite and Lector on the way.", WORK, current="/work")
+
+# ---------------------------------------------------------------- services
+SERVICES = f'''
+<section class="page-head">
+  <div class="wrap">
+    <p class="kicker reveal">Services</p>
+    <h1 class="words">From first idea to <em>the App Store.</em></h1>
+    <p class="lead reveal" style="--i:2">We build software for clients, sell our own apps outright, and teach people to build their own. Here is what each involves, and how the work runs.</p>
+  </div>
+</section>
+
+<section class="section flush-top" id="build">
+  <div class="wrap split top">
+    <div><p class="kicker reveal">Custom software</p><h2 class="words" style="margin-top:20px">Your idea, <em>built properly.</em></h2></div>
+    <div>
+      <p class="lead reveal">You have the idea and know the market. We handle the rest: product design, engineering, the accounts and payments behind it, App Store submission and the first release, with a fixed scope, a fixed price and something working in your hands every week.</p>
+      <div class="reveal" style="margin-top:36px">{check_list(["Product and interface design, down to the empty states and error messages", "Apps for iPhone, iPad, Mac and the web", "Sign-in, sync, subscriptions and payments, wired up properly", "App Store listing, privacy labels and review responses", "Code, accounts and signing keys handed over, documented"])}</div>
+      <div class="actions reveal" style="margin-top:40px"><a class="btn btn-dark" href="/contact?topic=New%20project">Start a project {ARR}</a></div>
     </div>
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
+<section class="section alt">
   <div class="wrap">
-    <div class="band reveal"><img src="/img/photos/singer.jpg" alt="A singer performing under stage lights" loading="lazy">
-      <div><span class="eyebrow">Why we built it</span><h3 class="mt-8">Made by a musician who was tired of switching apps.</h3><p>Chords in one app, a metronome in another, a tuner in a third, and the actual song in a browser tab. GigPal puts them on one screen, keeps them in sync, and stays out of your way when you are playing.</p></div>
+    {section_head("How a project runs", "Four steps. <em>No surprises.</em>", "Client work is not listed publicly unless the client wants it to be. What is worth saying is how it goes.")}
+    {steps(
+        ("Scope, written down", "Screens, states and what is explicitly out. A fixed price against that document, so the number does not move unless the scope does."),
+        ("A build you can hold", "Every week, installed on your own device rather than a screenshot in a deck. You see it going wrong early enough to say so."),
+        ("Submission included", "App Store listing, privacy labels, review responses. The job is not done when the code is done."),
+        ("You own all of it", "Repository, accounts, signing, the lot, documented well enough that another developer could pick it up without ringing us."))}
+  </div>
+</section>
+
+<section class="section" id="acquire">
+  <div class="wrap split top">
+    <div><p class="kicker reveal">Acquisitions</p><h2 class="words" style="margin-top:20px">Buy an app outright.</h2></div>
+    <div>
+      <p class="lead reveal">When one of our apps would grow faster with a new owner, it is for sale, in whole or in part. You get a clean codebase, a documented handover, whatever revenue history exists, and a transition long enough that nothing breaks on your watch.</p>
+      <p class="reveal muted" style="margin-top:20px">Enquiries get a real reply rather than a calendar link.</p>
+      <div class="actions reveal" style="margin-top:36px"><a class="btn btn-dark" href="/contact?topic=Buy">Ask about buying {ARR}</a><a class="btn btn-line" href="/work">See the apps</a></div>
     </div>
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
+<section class="section flush-top" id="training">
   <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">How it works</span><h2 class="mt-8">From file to rehearsal in a minute.</h2></div>
-    <div class="grid g4 steps">
-      <div class="step reveal"><h3>Add a song</h3><p class="mt-8 dim">From your files, your camera roll, a link, or a fresh recording. Demo songs are included so you can try everything first.</p></div>
-      <div class="step reveal"><h3>Analysed on your phone</h3><p class="mt-8 dim">Key, tempo, beats, chords and sections are detected on the device itself. Nothing leaves your phone for this step.</p></div>
-      <div class="step reveal"><h3>Separate the stems</h3><p class="mt-8 dim">The song is separated in the cloud using the same open-source model family the big apps rely on, then deleted from our servers.</p></div>
-      <div class="step reveal"><h3>Practise</h3><p class="mt-8 dim">Mix the parts, follow the chords, slow it down, loop it, record yourself. Then add it to the setlist for Sunday.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="grid g2" style="align-items:start">
-      <div class="reveal"><span class="eyebrow">Pricing</span><h2 class="mt-8">GigPal is free. Stems included.</h2><p class="lead mt-16">Everything that runs on your phone is free. Cloud stem separation costs real computing time, so version 1.0 includes it with a fair-use limit of three songs a day per account. A GigPal Pro plan with a higher allowance is planned for a later update and will be billed through the App Store.</p></div>
-      <div class="card reveal" style="padding:10px 18px">
-        <table class="compare">
-          <tr><th>Feature</th><th>Free</th><th>Pro (planned)</th></tr>
-          <tr><td>Library, key, tempo, chords, sections</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
-          <tr><td>Speed and pitch, loops, lyrics</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
-          <tr><td>Metronome, tuner, piano and chord keys, solfa, recorder, Play Along</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
-          <tr><td>Setlists, saved lyrics, sync across devices</td><td class="yes">&check;</td><td class="yes">&check;</td></tr>
-          <tr><td>Stem separation (vocals, piano, bass, drums, other)</td><td class="yes">3 a day</td><td class="yes">More</td></tr>
-        </table>
+    <div class="panel split top reveal">
+      <div><p class="kicker">Training</p><h2 style="margin-top:20px">Learn to build software.</h2></div>
+      <div>
+        <p class="lead">For people who want to build apps themselves. Training in software development, taught from real products that ship: how an idea becomes screens, how screens become code, and how code reaches the App Store.</p>
+        <div class="actions" style="margin-top:36px"><a class="btn btn-dark" href="/contact?topic=Training">Ask about training {ARR}</a></div>
       </div>
     </div>
   </div>
 </section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="card reveal" style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start"><div class="icon" style="margin:0">{I["shield"]}</div>
-      <div><h3>Your music stays yours.</h3><p class="mt-8">No advertising, no analytics SDKs, no tracking. Analysis runs on your device. Songs you separate are uploaded over an encrypted connection, processed, returned to you and deleted from our servers. You can delete your account and everything with it from inside the app.</p><p class="mt-16"><a class="btn ghost" href="/gigpal/privacy">Privacy policy</a> &nbsp; <a class="btn ghost" href="/gigpal/terms">Terms of use</a></p></div>
-    </div>
-  </div>
-</section>
+{closing("Fit", "Who we work best with.", "Founders and teams with a clear idea and a real user in mind, who would rather have one considered thing than five rushed ones. Less suited to work that has to be rushed out by Friday, or to filling seats on an existing team.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="mailto:{MAIL}">{MAIL}</a>')}
 '''
-page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a music practice app for iPhone, iPad and the web: stem separation, chords that follow the song, key and tempo control, metronome, tuner, piano, recorder and setlists.", GIGPAL, current="/gigpal", image="/img/photos/concert.jpg")
+page("/services", "Services", "Custom software for iPhone, iPad, Mac and the web, apps for sale outright, and training in software development. Fixed scope, weekly builds, full handover.", SERVICES, current="/services")
 
-# ---------------------------------------------------------------- lector
-LECTOR = f'''
-<section class="hero">
-  <div class="photo" style="background-image:url(/img/photos/stage.jpg)"></div><div class="bg" style="background:radial-gradient(900px 500px at 15% 10%,rgba(226,185,90,.22),transparent 60%),radial-gradient(700px 500px at 85% 20%,rgba(255,138,61,.14),transparent 60%)"></div>
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow-row"><img class="appicon" src="/img/lector/icon.png" alt="Lector app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">Mac</span><span class="pill">Windows to follow</span></div>
-      <h1>The verse, <span class="accent" style="background:linear-gradient(90deg,#E2B95A,#FF8A3D);-webkit-background-clip:text;background-clip:text">the moment it is spoken.</span></h1>
-      <p class="lead mt-24">Lector listens to the preacher and puts the scripture on the screens as it is read &mdash; no typing, no hunting, no verse three sentences late. Then it runs the rest of the service: songs with arrangements, slides, videos, announcements for the lobby, a stage display for the preacher and a remote for a phone. Recognition happens on the Mac; nothing leaves the room.</p>
-      <div class="cta"><a class="btn primary" href="/contact?topic=Lector">Tell me when it launches {I["arrow"]}</a><a class="btn ghost" href="#features">What it does</a></div>
-    </div>
-    <div class="screens"><div class="glow"></div>
-      <div class="screen back"><img src="/img/lector/operator.png" alt="Lector&rsquo;s operator window: the live transcript, the queue, the verses it heard, and the preview" loading="eager"></div>
-      <div class="screen front"><img src="/img/lector/screen.png" alt="Philippians 4:13 on the projector in Lector&rsquo;s Gold Leaf theme" loading="eager"></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="features">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">For the media desk</span><h2 class="mt-8">Built for a volunteer on a Sunday morning.</h2></div>
-    <div class="grid g3">
-      {feature("mic", "Hears the reference", "&ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is queued before the page is found. Confident references go straight to the screen if you ask; the rest wait for one key.")}
-      {feature("lyrics", "Follows the reading", "As the passage is read, the verse being read lights up and the page turns itself. Nineteen translations are built in; licensed ones link in with a key.")}
-      {feature("layers", "Four screens, one service", "The projector, the choir&rsquo;s monitor, the stream and the lobby each take a look &mdash; what to show, what to leave out &mdash; and every screen sees the same service.")}
-    </div>
-    <div class="grid g3 mt-24">
-      {feature("music", "Songs, slides and videos", "Lyrics with arrangements, PowerPoint, Keynote and PDF decks, videos, a camera behind the words, a memory stick of walk-in music, and a loop of announcements for the foyer.")}
-      {feature("list", "A stage that tells the truth", "The preacher&rsquo;s screen shows the verse, what is next, the notes, a countdown and a word from the desk &mdash; on a display, or an iPad on the music stand.")}
-      {feature("bell", "One key, several things", "Moments fire the logo, the countdown and the loop together; schedules fire them by the clock; a phone remote and a Stream Deck do the rest from anywhere in the room.")}
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="product card reveal">
-      <div class="copy"><span class="eyebrow">Honestly</span><h2 class="mt-8" style="font-size:clamp(26px,3vw,38px)">The verse should not be late.</h2><p class="lead mt-16" style="font-size:17px">Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screen still keeps up.</p></div>
-      <div class="shots"><div class="screen"><img src="/img/lector/operator.png" alt="Lector operator window" loading="lazy"></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="card reveal" style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start"><div class="icon" style="margin:0">{I["shield"]}</div>
-      <div><h3>Nothing leaves the room.</h3>{check_list(["Speech recognition runs on the Mac. The sermon is never sent anywhere to be understood.", "The Bibles are on the disk: nineteen public-domain translations work with no internet at all. Licensed translations fetch a verse at a time with the church&rsquo;s own key.", "The phone remote and the stage display run over the church&rsquo;s own Wi-Fi, with a PIN.", "No account, no analytics, no tracking. A sermon summary uses a language model only if the church adds its own key and asks for it."])}<p class="mt-16"><a class="btn ghost" href="/contact?topic=Lector">Ask about Lector</a></p></div>
-    </div>
-  </div>
-</section>
-'''
-page("/lector", "Lector · The verse, the moment it is spoken", "Lector is a church presentation app for Mac that listens to the preacher and puts the scripture on the screens as it is read, then runs the rest of the service: songs, slides, videos, four screens, announcements, a stage display and a phone remote. Coming soon.", LECTOR, current="/lector", image="/img/photos/stage.jpg")
-
-# ---------------------------------------------------------------- papersuite
-PAPERSUITE = f'''
-<section class="hero">
-  <div class="photo" style="background-image:url(/img/photos/night.jpg)"></div><div class="bg" style="background:radial-gradient(900px 500px at 15% 10%,rgba(52,211,182,.22),transparent 60%),radial-gradient(700px 500px at 85% 20%,rgba(79,184,255,.16),transparent 60%)"></div>
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow-row"><img class="appicon" src="/img/kepta/icon.png" alt="PaperSuite app icon" width="64" height="64"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span><span class="pill">Free</span></div>
-      <h1>Every document, <span class="accent" style="background:linear-gradient(90deg,#34D3B6,#4FB8FF);-webkit-background-clip:text;background-clip:text">in one place.</span></h1>
-      <p class="lead mt-24">Write the note. Scan the page, fill in the form, sign the PDF, and ask your own notes what you said last month. Keep your habits and streaks beside it all. PaperSuite holds every document in one place, and keeps it on your phone.</p>
-      <div class="cta"><a class="btn primary" href="/contact?topic=PaperSuite">Tell me when it launches {I["arrow"]}</a><a class="btn ghost" href="#features">What it does</a></div>
-    </div>
-    <div class="phones"><div class="glow" style="background:radial-gradient(closest-side,rgba(52,211,182,.35),transparent)"></div>
-      <div class="phone back"><img src="/img/kepta/habits.png" alt="PaperSuite habits grid with streaks and challenges" loading="eager"></div>
-      <div class="phone front"><img src="/img/kepta/today.png" alt="PaperSuite Today screen: the week, the summary ring and today&rsquo;s habits" loading="eager"></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="features">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Notes, documents and habits</span><h2 class="mt-8">Write it, scan it, sign it.</h2></div>
-    <div class="grid g3">
-      {feature("check", "Habits and streaks", "Daily habits, counted targets and 7, 30, 60 or 90-day challenges. Streaks walk the days you actually scheduled, so a weekday habit does not break every weekend.")}
-      {feature("calendar", "A calendar that tells the truth", "Past days show what you logged. Future days show only what you put on them. Jump to any date from Today.")}
-      {feature("type", "Notes, in plain markdown", "Headings, checklists, links and photos. Folders come from the notes themselves, so there is never an empty one. Export any note as text or PDF.")}
-    </div>
-    <div class="grid g3 mt-24">
-      {feature("camera", "Scan", "Apple&rsquo;s own document scanner &mdash; edges, perspective and all &mdash; plus image to PDF for the pages you already have.")}
-      {feature("hand", "Sign", "Open a PDF, draw your signature once, drop it on the page in black or blue ink, and export it signed.")}
-      {feature("lyrics", "Ask your notes", "Ask a question and get an answer drawn only from your own writing. When your notes do not know, it says so instead of making something up.")}
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="product card reveal">
-      <div class="copy"><span class="eyebrow">Honestly</span><h2 class="mt-8" style="font-size:clamp(26px,3vw,38px)">A streak is not the point.</h2><p class="lead mt-16" style="font-size:17px">Most habit apps stop at the tick, and a row of ticks says nothing about why a habit is sticking or slipping. PaperSuite keeps the note beside the habit &mdash; what you tried, what worked &mdash; and measures the week rather than the day, because one day is only ever 0, 50 or 100 percent. The number it shows you is the one that means something.</p></div>
-      <div class="shots"><div class="phone"><img src="/img/kepta/calendar.png" alt="PaperSuite monthly calendar and streak board" loading="lazy"></div><div class="phone"><img src="/img/kepta/today.png" alt="PaperSuite Today" loading="lazy"></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="card reveal" style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start"><div class="icon" style="margin:0">{I["shield"]}</div>
-      <div><h3>Yours, on your phone.</h3>{check_list(["No account to create and nothing to sign in to. Your habits and notes live on the device.", "No advertising, no analytics, no tracking software of any kind.", "Scans and signatures are made on the phone and shared only when you choose to share them.", "Questions you ask your notes are answered by a language model and not stored there; nothing else ever leaves the device."])}<p class="mt-16"><a class="btn ghost" href="/contact?topic=PaperSuite">Ask about PaperSuite</a></p></div>
-    </div>
-  </div>
-</section>
-'''
-page("/papersuite", "PaperSuite · Every document, in one place", "PaperSuite is an iPhone app for everything on paper: notes with photos and reminders, document scanning, filling in, signing, merging and converting PDFs, questions answered from your own notes, and habits with streaks. Coming soon.", PAPERSUITE, current="/papersuite", image="/img/photos/night.jpg")
-
-# ---------------------------------------------------------------- kilojo
-KILOJO = f'''
-<section class="hero">
-  <div class="photo" style="background-image:url(/img/photos/night.jpg)"></div><div class="bg" style="background:radial-gradient(900px 500px at 15% 10%,rgba(46,213,115,.22),transparent 60%),radial-gradient(700px 500px at 90% 30%,rgba(31,209,178,.22),transparent 60%)"></div>
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow-row"><span class="pill"><span class="dot"></span>Coming soon</span><span class="pill">iPhone</span><span class="pill">Free</span></div>
-      <h1>A food diary that <span class="accent" style="background:var(--grad-cool);-webkit-background-clip:text;background-clip:text">reads your plate.</span></h1>
-      <p class="lead mt-24">Photograph a meal and Kilojo estimates the calories and macronutrients. Scan a barcode and it takes the figures straight off the packet. Everything it produces is editable, because an estimate you cannot correct is a guess you are stuck with.</p>
-      <div class="cta"><a class="btn green" href="/contact?topic=Kilojo">Ask about Kilojo {I["arrow"]}</a><a class="btn ghost" href="/kilojo/privacy">How your data is handled</a></div>
-    </div>
-    <div class="phones"><div class="glow" style="background:radial-gradient(closest-side,rgba(46,213,115,.35),transparent)"></div>
-      <div class="phone back"><img src="/img/kilojo/3-progress.png" alt="Kilojo progress screen" loading="eager"></div>
-      <div class="phone front"><img src="/img/kilojo/2-snap-your-meal.png" alt="Kilojo photographing a meal" loading="eager"></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow green">Three ways in, and a plan</span><h2 class="mt-8">Photograph it, scan it, say it &mdash; or plan the week.</h2></div>
-    <div class="grid g3">
-      {feature("camera", "Point at the plate", "For food that never had a label: a plate of rice, a takeaway, someone else&rsquo;s cooking. Kilojo itemises what it can see and shows its working, so you can see why a number came out as it did.")}
-      {feature("barcode", "Read the packet", "A barcode gives the manufacturer&rsquo;s own figures, which beats any estimate from a photograph. Instant, and free to run.")}
-      {feature("type", "Or just say it", "Sometimes you know. Type the name and the numbers, and log a repeat of it in one tap for as long as you keep eating it.")}
-    </div>
-    <div class="grid g3 mt-24">
-      {feature("calendar", "Plan the week", "Seven days, four slots each. Pick from meals you have logged or a cookbook of 216 everyday ones, or let Kilojo fill the empty slots to your target and edit what it picked.")}
-      {feature("leaf", "Your way of eating", "Vegetarian, vegan, pescatarian, gluten-free, dairy-free, keto, high-protein or low-carb &mdash; every filter has real options for every meal of the day.")}
-      {feature("scale", "Where you are heading", "A goal weight with the distance still to go, BMI on the WHO scale for context, and a weight trend that reads the line, not any one morning.")}
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="product card reveal">
-      <div class="copy"><span class="eyebrow green">Honestly</span><h2 class="mt-8" style="font-size:clamp(26px,3vw,38px)">What a photograph cannot tell you.</h2><p class="lead mt-16" style="font-size:17px">A picture does not contain the portion. A bowl of rice can hold twice what it appears to, and no amount of cleverness recovers information the camera never captured. Kilojo estimates, and sometimes it is wrong.</p><p class="mt-16 dim">So it is built to be corrected: every figure is editable, it says how confident it is, and it shows the portion it assumed for each item rather than handing down a total. Tell it &ldquo;one cup of rice&rdquo; and the guess becomes arithmetic. Kilojo counts. It is not medical advice, and it does not have an opinion about your dinner.</p></div>
-      <div class="shots"><div class="phone"><img src="/img/kilojo/1-today.png" alt="Kilojo today screen" loading="lazy"></div><div class="phone"><img src="/img/kilojo/3-progress.png" alt="Kilojo progress" loading="lazy"></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="card reveal" style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start"><div class="icon" style="margin:0">{I["shield"]}</div>
-      <div><h3>Your diary is yours.</h3>{check_list(["No advertising, no analytics, no tracking software of any kind.", "Meal photographs are sent for analysis carrying the picture and your typed hint, not your name or email.", "Barcode lookups send the number on the packet and nothing more.", "Erase everything, or delete the account outright, from inside the app. Both reach the server, not just the phone."])}<p class="mt-24"><a class="btn ghost" href="/kilojo/privacy">Privacy policy</a> &nbsp; <a class="btn ghost" href="/kilojo/terms">Terms of use</a></p></div>
-    </div>
-  </div>
-</section>
-'''
-page("/kilojo", "Kilojo · A food diary that reads your plate", "Kilojo photographs a meal and estimates calories and macros, scans barcodes for the packet's own figures, and keeps every number editable. Coming soon for iPhone.", KILOJO, current="/kilojo", image="/img/photos/night.jpg")
-
-# ---------------------------------------------------------------- work
-WORK = f'''
-<section class="hero" style="padding-bottom:20px">
-  <div class="bg"></div>
-  <div class="wrap"><span class="eyebrow">Work</span><h1 class="mt-16">Everything we are shipping.</h1><p class="lead mt-24">The list is short because it is honest. An app appears here once it is real and in testers&rsquo; hands, and it is marked released only once it is on the App Store.</p></div>
-</section>
-<section class="section">
-  <div class="wrap grid g2">
-    <a class="card product-card reveal" href="/gigpal"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot" src="/img/gigpal/chords.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>On the App Store</span><h3 class="mt-16">GigPal</h3><p>Music practice: stems, chords, key and tempo, metronome, tuner, piano, recorder, setlists.</p><span class="btn primary">View GigPal {I["arrow"]}</span></div></a>
-    <a class="card product-card reveal" href="/kilojo"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kilojo/1-today.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Kilojo</h3><p>A food diary that reads your plate: photo estimates, barcode scanning, editable numbers.</p><span class="btn green">View Kilojo {I["arrow"]}</span></div></a>
-    <a class="card product-card reveal" href="/papersuite"><div class="media"><img src="/img/photos/night.jpg" alt="" loading="lazy"><img class="shot" src="/img/kepta/habits.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">PaperSuite</h3><p>Notes, scans and PDFs in one app: fill in, sign, merge and convert documents, with habits and streaks beside them.</p><span class="btn primary">View PaperSuite {I["arrow"]}</span></div></a>
-    <a class="card product-card reveal" href="/lector"><div class="media"><img src="/img/photos/stage.jpg" alt="" loading="lazy"><img class="shot wide" src="/img/lector/screen.png" alt=""></div><div class="body"><span class="pill"><span class="dot"></span>Coming soon</span><h3 class="mt-16">Lector</h3><p>Church presentation for Mac that hears the preacher and puts the verse on screen as it is spoken; songs, slides, videos, four screens and a stage display for the rest.</p><span class="btn primary">View Lector {I["arrow"]}</span></div></a>
-  </div>
-</section>
-<section class="section" style="padding-top:0">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">Client work</span><h2 class="mt-8">How a project runs.</h2><p class="lead">Client work is not listed publicly unless the client wants it to be. What is worth saying is how it goes.</p></div>
-    <div class="grid g4 steps">
-      <div class="step reveal"><h3>Scope, written down</h3><p class="mt-8 dim">Screens, states and what is explicitly out. A fixed price against that document, so the number does not move unless the scope does.</p></div>
-      <div class="step reveal"><h3>A build you can hold</h3><p class="mt-8 dim">Every week, installed on your own device rather than a screenshot in a deck. You see it going wrong early enough to say so.</p></div>
-      <div class="step reveal"><h3>Submission included</h3><p class="mt-8 dim">App Store listing, privacy labels, review responses. The job is not done when the code is done.</p></div>
-      <div class="step reveal"><h3>You own all of it</h3><p class="mt-8 dim">Repository, accounts, signing, the lot, documented well enough that another developer could pick it up without ringing us.</p></div>
-    </div>
-    <p class="mt-40 reveal"><a class="btn primary" href="/contact?topic=New%20project">Start a project {I["arrow"]}</a></p>
-  </div>
-</section>
-'''
-page("/work", "Work", "The apps Avodahsoft is shipping, and how client projects run: fixed scope, weekly builds, submission included, full handover.", WORK, current="/work")
-
-# ---------------------------------------------------------------- studio
+# ---------------------------------------------------------------- company (/studio)
 STUDIO = f'''
-<section class="hero" style="padding-bottom:20px">
-  <div class="photo" style="background-image:url(/img/photos/dev1.jpg)"></div><div class="bg"></div>
-  <div class="wrap hero-grid">
-    <div><span class="eyebrow">Studio</span><h1 class="mt-16">Work, service, worship. <span class="accent">One word.</span></h1><p class="lead mt-24">Avodah is the Hebrew word for work. It is also the word for service, and for worship. Ancient Hebrew did not split them into separate ideas: the same word covered the craftsman at his bench and the offering he made. That distinction never made much sense here either.</p></div>
-    <div class="hero-photo-card reveal"><img src="/img/photos/dev2.jpg" alt="A developer working at a desk" loading="eager"><span class="tag pill">Founder-led · Australia</span></div>
-  </div>
-</section>
-<section class="section">
-  <div class="wrap">
-    <div class="section-head reveal"><span class="eyebrow">The name</span><h2 class="mt-8">Care is the whole point.</h2><p class="lead">Work done carefully is worth something on its own terms, whoever is watching and whether or not anyone notices the part that took the longest. It is why nothing ships half-finished, why the code is written to be read by whoever comes next, and why one honest estimate beats winning a job on an optimistic one.</p></div>
-    <div class="grid g2">
-      {feature("mail", "You talk to the person building it", "No account manager relaying your question to someone who has not read the code. The studio is small on purpose and stays that way.")}
-      {feature("build", "Scope in writing, price fixed to it", "Screens, states and what is deliberately excluded. The number moves only when the document does, and then you decide.")}
-      {feature("ship", "Working software every week", "On your device, not in a slide. The point is that you can tell us it is wrong while it is still cheap to change.")}
-      {feature("hand", "Everything handed over", "Repository, accounts, signing keys and notes explaining the decisions, so you are never held hostage by the only person who understands it.")}
+<section class="page-head">
+  <div class="wrap split">
+    <div>
+      <p class="kicker reveal">Company</p>
+      <h1 class="words">We make software <em>worth keeping.</em></h1>
+      <p class="lead reveal" style="--i:2">Avodahsoft designs, builds and ships apps for iPhone, iPad, Mac and the web. We build for clients, publish our own apps on the App Store, sell them outright when the time is right, and teach the craft to people who want to learn it. The common thread is care: nothing ships until it is genuinely finished.</p>
+    </div>
+    <div class="brand-panel dark reveal" aria-hidden="true">
+      {LOGO}
+      <span class="name">Avodahsoft</span>
+      <span class="means"><span>Design</span><span>Engineering</span><span>Delivery</span></span>
     </div>
   </div>
 </section>
-<section class="section" style="padding-top:0">
+
+<section class="section flush-top">
   <div class="wrap">
-    <div class="band reveal"><img src="/img/photos/studio2.jpg" alt="A recording studio" loading="lazy">
-      <div><span class="eyebrow">Fit</span><h3 class="mt-8">Who this suits.</h3><p>Founders and small teams with a clear idea and a real user in mind, who would rather have one considered thing than five rushed ones. Less good for projects that need twenty people by Friday, or for anyone wanting a body to fill a seat on an existing team.</p><a class="btn primary mt-24" href="/contact">Get in touch {I["arrow"]}</a></div>
-    </div>
+    {section_head("What we believe", "Care is the whole point.", "Work done carefully is worth something on its own terms, whoever is watching and whether or not anyone notices the part that took the longest. It is why nothing ships half-finished, why the code is written to be read by whoever comes next, and why one honest estimate beats winning a job on an optimistic one.")}
+    {features(
+        ("mail", "Straight to engineering", "No account managers relaying your question to someone who has not read the code. You speak with the people building your product."),
+        ("build", "Scope in writing, price fixed to it", "Screens, states and what is deliberately excluded. The number moves only when the document does, and then you decide."),
+        ("ship", "Working software every week", "On your device, not in a slide. The point is that you can tell us it is wrong while it is still cheap to change."),
+        ("hand", "Everything handed over", "Repository, accounts, signing keys and notes explaining the decisions, so you are never held hostage by whoever wrote it."),
+        cls="four")}
   </div>
 </section>
+
+<section class="section alt">
+  <div class="wrap">
+    {section_head("What we do", "One company. <em>Four disciplines.</em>")}
+    {offers()}
+  </div>
+</section>
+{closing("Get in touch", "Tell us what you are building.", "A product to build, an app to buy, or a skill to learn. Tell us what you have in mind and you will get a considered reply, usually the same day.", f'<a class="btn btn-dark" href="/contact">Get in touch {ARR}</a><a class="btn btn-line" href="/services">Our services</a>')}
 '''
-page("/studio", "Studio", "Avodahsoft is a founder-led software studio in Australia. Work, service and worship are one word, and care is the whole point.", STUDIO, current="/studio", image="/img/photos/dev2.jpg")
+page("/studio", "Company", "Avodahsoft is a software company that designs, builds and ships apps for iPhone, iPad, Mac and the web, for clients and under its own name.", STUDIO, current="/studio", image="/img/photos/dev2.jpg")
 
 # ---------------------------------------------------------------- contact
 CONTACT = f'''
-<section class="hero" style="padding-bottom:20px">
-  <div class="bg"></div>
-  <div class="wrap"><span class="eyebrow">Contact</span><h1 class="mt-16">What brings you here?</h1><p class="lead mt-24">Everything reaches the same inbox. Picking the closest topic just means a faster and more useful answer. Support gets answered first, usually the same day.</p></div>
+<section class="page-head">
+  <div class="wrap">
+    <p class="kicker reveal">Contact</p>
+    <h1 class="words">Let&rsquo;s talk. <em>What brings you here?</em></h1>
+    <p class="lead reveal" style="--i:2">Everything reaches the same inbox, and picking the closest topic gets you a faster, more useful answer. Support is answered first, usually the same day.</p>
+  </div>
 </section>
-<section class="section">
-  <div class="wrap grid g2" style="align-items:start">
-    <div class="card reveal">
+<section class="section flush-top">
+  <div class="wrap split top">
+    <div class="panel reveal">
       <form class="form" data-contact novalidate>
-        <div class="row"><input name="name" placeholder="Your name" autocomplete="name" required minlength="2"><input name="email" type="email" placeholder="Email address" autocomplete="email" required></div>
-        <select name="topic" id="topic"><option>Support · GigPal</option><option>Support · Kilojo</option><option>GigPal early access</option><option>Kilojo</option><option>PaperSuite</option><option>Lector</option><option>New project</option><option>Acquisition</option><option>Other</option></select>
-        <textarea name="message" placeholder="Say which app and which phone if it is support. For a project, the idea, who it is for and roughly when it needs to be live." required minlength="10"></textarea>
+        <div class="row">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" placeholder="Your name" autocomplete="name" required minlength="2"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+        </div>
+        <div class="field"><label for="topic">Topic</label><select name="topic" id="topic"><option>New project</option><option>Buy an app outright</option><option>Training</option><option>Support · GigPal</option><option>Support · Kilojo</option><option>Kilojo</option><option>PaperSuite</option><option>Lector</option><option>Other</option></select></div>
+        <div class="field"><label for="f-message">Message</label><textarea id="f-message" name="message" placeholder="For a project: the idea, who it is for and roughly when it needs to be live. For support: which app and which phone." required minlength="10"></textarea></div>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><button class="btn primary" type="submit">Send message {I["arrow"]}</button><span class="status" role="status"></span></div>
-        <p class="small dim">Or email <a href="mailto:{MAIL}" style="color:var(--orange-2)">{MAIL}</a> directly. Messages are sent to the studio and used only to reply to you.</p>
+        <div class="send"><button class="btn btn-dark" type="submit">Send message {ARR}</button><span class="status" role="status"></span></div>
+        <p class="note">Or email <a href="mailto:{MAIL}">{MAIL}</a> directly. Messages are sent to Avodahsoft and used only to reply to you.</p>
       </form>
     </div>
-    <div class="stack">
-      {feature("mail", "I use one of your apps", "Something is broken, a question about your account, or a feature you wish existed. Say which app and which phone, and we will sort it.")}
-      {feature("build", "I want an app built", "The idea, who it is for, and roughly when it needs to be live. A budget range saves us both a round trip. If it is not a fit we will say so and, where we can, point you somewhere better.")}
-      {feature("hand", "I am interested in buying", "Enquiries about acquiring one of our apps, in whole or in part, are welcome. You will get a real reply rather than a calendar link.")}
+    <div class="topics" data-stagger>
+      <div class="reveal"><h3>{I["build"]}I want software built</h3><p>The idea, who it is for, and roughly when it needs to be live. A budget range saves us both a round trip. If it is not a fit we will say so and, where we can, point you somewhere better.</p></div>
+      <div class="reveal"><h3>{I["tag"]}I want to buy an app</h3><p>Enquiries about acquiring one of our apps, in whole or in part, are welcome. You will get a real reply rather than a calendar link.</p></div>
+      <div class="reveal"><h3>{I["learn"]}I want to learn</h3><p>Tell us where you are starting from and what you want to be able to build, and we will tell you how training with us would work.</p></div>
+      <div class="reveal"><h3>{I["mail"]}I use one of your apps</h3><p>Something is broken, a question about your account, or a feature you wish existed. Say which app and which phone, and we will sort it.</p></div>
     </div>
   </div>
 </section>
-<script>try{{var t=new URLSearchParams(location.search).get('topic');if(t){{var s=document.getElementById('topic');for(var o of s.options)if(o.text.toLowerCase().indexOf(t.toLowerCase())>-1){{s.value=o.text;break}}}}}}catch(e){{}}</script>
+<script>try{{var t=new URLSearchParams(location.search).get('topic');if(t){{t=t.toLowerCase();var s=document.getElementById('topic'),o=[].slice.call(s.options),m=o.find(function(x){{return x.text.toLowerCase()===t}})||o.find(function(x){{return x.text.toLowerCase().indexOf(t)>-1}});if(m)s.value=m.text}}}}catch(e){{}}</script>
 '''
-page("/contact", "Contact", "Support for GigPal and Kilojo, new project enquiries and acquisitions. Everything reaches the same inbox and gets a real reply.", CONTACT, current="/contact")
+page("/contact", "Contact", "New projects, buying an app outright, training, and support for GigPal and Kilojo. Everything reaches the same inbox and gets a real reply.", CONTACT, current="/contact")
 
 # ---------------------------------------------------------------- legal helpers
+def with_contents(body_html):
+    """Gives each section heading an id and returns the body with a matching contents list."""
+    tag = "h2" if "<h2>" in body_html else "h3"
+    toc, used = [], set()
+
+    def anchor(m):
+        label = re.sub(r"<[^>]+>", "", m.group(1))
+        slug = re.sub(r"[^a-z0-9]+", "-", re.sub(r"&[a-z]+;", "", label.lower())).strip("-") or "section"
+        base, n = slug, 2
+        while slug in used:
+            slug, n = f"{base}-{n}", n + 1
+        used.add(slug)
+        toc.append(f'<a href="#{slug}">{label}</a>')
+        return f'<{tag} id="{slug}">{m.group(1)}</{tag}>'
+
+    body_html = re.sub(rf"<{tag}>(.*?)</{tag}>", anchor, body_html, flags=re.S)
+    return body_html, "".join(toc)
+
+
 def legal_page(path, app, kind, intro, body_html, image):
     title = f"{app} {'privacy policy' if kind == 'privacy' else 'terms of use'}"
     other = ("terms", "Terms of use") if kind == "privacy" else ("privacy", "Privacy policy")
+    body_html, toc = with_contents(body_html)
     body = f'''
-<section class="hero" style="padding-bottom:0"><div class="bg"></div>
-  <div class="wrap"><span class="eyebrow">{app} · Legal</span><h1 class="mt-16" style="font-size:clamp(32px,4.5vw,56px)">{'Privacy policy' if kind == 'privacy' else 'Terms of use'}</h1><p class="lead mt-24">{intro}</p>
-  <p class="mt-24"><a class="pill" href="/{app.lower()}/{other[0]}">{other[1]} {I["arrow"]}</a> &nbsp; <a class="pill" href="/{app.lower()}">About {app}</a></p></div>
+<section class="page-head">
+  <div class="wrap">
+    <p class="kicker reveal">{app} · Legal</p>
+    <h1 class="words">{'Privacy policy' if kind == 'privacy' else 'Terms of use'}</h1>
+    <p class="lead reveal" style="--i:2">{intro}</p>
+    <div class="doc-links reveal" style="--i:3"><a class="btn btn-line" href="/{app.lower()}/{other[0]}">{other[1]} {ARR}</a><a class="btn btn-line" href="/{app.lower()}">About {app}</a></div>
+  </div>
 </section>
-<section class="section" style="padding-top:40px"><div class="wrap"><div class="prose">{body_html}</div></div></section>'''
-    page(path, title, intro, body, current=f"/{app.lower()}", image=image)
+<section class="section flush-top">
+  <div class="wrap doc">
+    <nav class="toc" aria-label="On this page"><p>On this page</p>{toc}</nav>
+    <div class="prose">{body_html}</div>
+  </div>
+</section>'''
+    page(path, title, intro, body, image=APPS[app.lower()]["icon"], theme=f"t-{app.lower()}")
 
 
 def kilojo_legal():
@@ -845,11 +1017,18 @@ legal_page("/papersuite/terms", "PaperSuite", "terms", "The short version: your 
 
 # ---------------------------------------------------------------- 404, robots, sitemap, favicon
 NOTFOUND = f'''
-<section class="hero"><div class="bg"></div><div class="wrap center"><span class="eyebrow">404</span><h1 class="mt-16">That page is not here.</h1><p class="lead mt-24" style="margin-inline:auto">The link may be old. Try the home page, or write to us if you were looking for something specific.</p><p class="mt-24"><a class="btn primary" href="/">Go home {I["arrow"]}</a> &nbsp; <a class="btn ghost" href="/contact">Contact</a></p></div></section>'''
+<section class="page-head not-found">
+  <div class="wrap center">
+    <p class="kicker reveal">404</p>
+    <h1 class="words">That page is <em>not here.</em></h1>
+    <p class="lead reveal" style="--i:2">The link may be old. Try the home page, or write to us if you were looking for something specific.</p>
+    <div class="actions reveal" style="--i:3"><a class="btn btn-dark" href="/">Go home {ARR}</a><a class="btn btn-line" href="/contact">Contact</a></div>
+  </div>
+</section>'''
 page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.html")
 
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
-paths = ["/", "/gigpal", "/kilojo", "/papersuite", "/lector", "/work", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/papersuite/privacy", "/papersuite/terms"]
+paths = ["/", "/gigpal", "/kilojo", "/papersuite", "/lector", "/work", "/services", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/papersuite/privacy", "/papersuite/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
-write("/favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF7A3D"/><stop offset="1" stop-color="#FF5E62"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#g)"/><path d="M20 46 32 16l12 30h-6.6l-2.4-6.4H29l-2.4 6.4Zm10.6-12h6.8L34 24.6Z" fill="#0A0E1F"/></svg>')
+write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#111113"/><path d="{MARK}" transform="translate(9.6 9.2) scale(.6)" fill="none" stroke="#F5F5F2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 print("done")
