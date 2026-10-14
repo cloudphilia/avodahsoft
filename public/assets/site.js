@@ -48,8 +48,10 @@
     };
     links.addEventListener('mouseover', (e) => prefetch(e.target.closest('a')));
     links.addEventListener('focusin', (e) => prefetch(e.target.closest('a')));
-    // Click: the pill glides to the new item first, then the page changes underneath it. The new
-    // page draws its pill in the same place, so the hand-over is seamless.
+    // Click: the pill glides to the new item while the browser is already fetching the page, and
+    // the new page draws its pill in the same place, so the hand-over is seamless. The browser
+    // navigates at once — an earlier version held the click back on a timer to let the pill
+    // finish, which read as a click that had not taken, and swallowed a second click.
     links.addEventListener('click', (e) => {
       const a = e.target.closest('a');
       if (!a || !wideNav.matches || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -58,7 +60,6 @@
       if (was) was.removeAttribute('aria-current');
       a.setAttribute('aria-current', 'page');
       place(a, Boolean(was));
-      if (!still) { e.preventDefault(); setTimeout(() => { location.href = a.href; }, was ? 300 : 140); }
     });
     // Coming back with the Back button shows this page's own item again, not the one clicked.
     window.addEventListener('pageshow', (e) => {
