@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261014h"
+ASSET_VERSION = "20261014k"
 # Lector ships from the download bucket, not the App Store; the page states the build it links to.
 LECTOR_VERSION = "0.3.0"
 LECTOR_SIZE = "252 MB"
@@ -85,7 +85,7 @@ APPS = {
     "papersuite": {"name": "PaperSuite", "href": "/papersuite", "icon": "/img/papersuite/icon.png", "live": False, "dark": False,
                    "tagline": "Every document, in one place.", "shot": ("/img/papersuite/03-notes.png", "PaperSuite notes: due today, pinned and today&rsquo;s reminders")},
     "lector": {"name": "Lector", "href": "/lector", "icon": "/img/lector/icon.png", "live": True, "where": "download", "dark": True,
-               "tagline": "The church presenter that listens.", "screen": ("/img/lector/screen.png", "Romans 8:28 on the projector in Lector&rsquo;s Gold Leaf theme")},
+               "tagline": "The church presenter that listens.", "screen": ("/img/lector/projector.png", "Romans 8:28 on the projector in Lector&rsquo;s Gold Leaf theme")},
 }
 
 
@@ -103,8 +103,8 @@ def head(title, desc, path, image, theme="", extra=""):
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#F5F5F2">
 <link rel="canonical" href="{SITE}{path}">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.svg?v={ASSET_VERSION}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v={ASSET_VERSION}">
 <meta property="og:site_name" content="Avodahsoft">
 <meta property="og:title" content="{full}">
 <meta property="og:description" content="{desc}">
@@ -175,7 +175,7 @@ def use_webp(html):
     return re.sub(r'(<img [^>]*?src=")(/img/[^"]+)\.png"', swap, html)
 
 
-def page(path, title, desc, body, current=None, image="/img/og/avodahsoft.png", out=None, theme="", extra=""):
+def page(path, title, desc, body, current=None, image="/img/og/avodahsoft-seal.png", out=None, theme="", extra=""):
     write(out or (path + ".html" if path != "/" else "/index.html"), use_webp(head(title, desc, path, image, theme, extra) + nav(current) + body + FOOT))
 
 
@@ -466,13 +466,15 @@ page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a 
 
 # ---------------------------------------------------------------- lector
 DOWNLOAD = f'<a class="btn btn-dark" href="{LECTOR_DMG}">Download for Mac {ARR}</a>'
+# Windows has a place beside the Mac download, marked as coming, so nobody hunts for it.
+WINDOWS_SOON = '<span class="btn btn-line btn-soon" aria-disabled="true">Windows <small>Coming soon</small></span>'
 LECTOR = f'''{app_hero("lector", "The church presenter that listens.",
     "Lector runs the whole service &mdash; lyrics, slides, videos, the stage screen and the stream &mdash; and hears the scripture being preached. &ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is ready, in one tap or on its own. Recognition runs on the Mac; nothing said leaves the room.",
-    f'{DOWNLOAD}<a class="btn btn-line" href="#films">See it work</a>', ["Free", "Mac with Apple silicon", "Windows to follow"])}
+    f'{DOWNLOAD}{WINDOWS_SOON}<a class="more" href="#films"><span>See it work</span>{ARR}</a>', ["Mac with Apple silicon", "Windows coming soon"])}
 
 <section>
   <div class="wrap">
-    {stage(macs(("/img/lector/hero.png", "Lector&rsquo;s operator window on a Sunday: the service down the left, the verses heard in the centre, the projector preview and the transcript on the right"), ("/img/lector/screen.png", "Romans 8:28 on the projector in Lector&rsquo;s Gold Leaf theme")))}
+    {stage(macs(("/img/lector/hero.png", "Lector&rsquo;s operator window on a Sunday: the service down the left, the verses heard in the centre, the projector preview and the transcript on the right"), ("/img/lector/projector.png", "Romans 8:28 on the projector in Lector&rsquo;s Gold Leaf theme")))}
   </div>
 </section>
 
@@ -506,6 +508,15 @@ LECTOR = f'''{app_hero("lector", "The church presenter that listens.",
     </ul>
   </div>
 </section>
+<section class="section">
+  <div class="wrap">
+    {section_head("Stage and remote", "On the stage, <em>and in your pocket.</em>", "The stage screen on a display or an iPad on the music stand: the verse, what is next, the clock, the countdown and a word from the desk. The remote on any phone on the church&rsquo;s Wi-Fi, unlocked with a PIN.")}
+    <div class="pair reveal">
+      <figure><div class="tablet"><img src="/img/lector/stage.png" alt="Lector&rsquo;s stage screen on an iPad: Romans 8:28 to 30, a message from the desk, the clock, the sermon countdown and the hymn coming next" width="2360" height="1640" loading="lazy" decoding="async"></div><figcaption>The stage screen, on an iPad</figcaption></figure>
+      <figure>{phone("/img/lector/remote.png", "Lector&rsquo;s remote on a phone: what is on the screens, Clear, Black, Logo, previous, next, Live, and the service")}<figcaption>The remote, on a phone</figcaption></figure>
+    </div>
+  </div>
+</section>
 {story("Why Lector", "The verse should not be late.",
     "<p>Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screens still keep up.</p><p>The rest of the service is there too, in one running order: the songs, the announcements, the offering slides, the video. The stage screen shows the speaker the verse, what is next, the notes and a countdown &mdash; on a display, or an iPad on the music stand &mdash; and a phone remote or a Stream Deck drives it from anywhere in the room.</p>",
     mac("/img/lector/bible.png", "Psalm 23 in Lector&rsquo;s Bible tab, with the verses most often read with it underneath"))}
@@ -517,7 +528,7 @@ LECTOR = f'''{app_hero("lector", "The church presenter that listens.",
     {section_head("Specifications", "What you <em>need to know.</em>")}
     <dl class="specs reveal">
       <div><dt>Price</dt><dd>Free. No account, no subscription, no ads.</dd></div>
-      <div><dt>Requires</dt><dd>macOS 13 or later on a Mac with Apple silicon (M1 or later). Windows to follow.</dd></div>
+      <div><dt>Requires</dt><dd>macOS 13 or later on a Mac with Apple silicon (M1 or later). Windows coming soon.</dd></div>
       <div><dt>Download</dt><dd>{LECTOR_SIZE}. The accurate recogniser (660 MB) downloads once in the background; Listen works before it arrives.</dd></div>
       <div><dt>Bibles included</dt><dd>King James, American Standard, Berean Standard and World English, all offline. Licensed translations arrive a verse at a time; API.Bible and the ESV with the church&rsquo;s own free key.</dd></div>
       <div><dt>Screens</dt><dd>Up to eight: any display on the Mac, and any browser source in OBS, vMix or a TV. A stage display and a phone remote over the church&rsquo;s Wi-Fi.</dd></div>
@@ -528,8 +539,8 @@ LECTOR = f'''{app_hero("lector", "The church presenter that listens.",
   </div>
 </section>
 {closing("Download", "Free for Mac. <em>Today.</em>",
-    f"Lector {LECTOR_VERSION} &middot; {LECTOR_SIZE} &middot; macOS 13 or later on a Mac with Apple silicon. Open the file, drag Lector to Applications, and the first screen sets up the church in a minute. Windows follows.",
-    f'{DOWNLOAD}<a class="btn btn-line" href="/contact?topic=Lector">Questions? Write to us {ARR}</a>')}
+    f"Lector {LECTOR_VERSION} &middot; {LECTOR_SIZE} &middot; macOS 13 or later on a Mac with Apple silicon. Open the file, drag Lector to Applications, and the first screen sets up the church in a minute.",
+    f'{DOWNLOAD}{WINDOWS_SOON}<a class="btn btn-line" href="/contact?topic=Lector">Questions? Write to us {ARR}</a>')}
 '''
 page("/lector", "Lector · The church presenter that listens", "Lector is a free church presentation app for Mac that runs the whole service — lyrics, slides, videos, the stage screen and the stream — and hears the scripture being preached, so the verse is on the screens the moment it is spoken. Recognition runs on the Mac; nothing leaves the room.", LECTOR, current="/work", image="/img/lector/icon.png", theme="t-lector")
 

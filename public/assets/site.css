@@ -454,3 +454,17 @@ body.menu-open{overflow:hidden}
 .specs dt{font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
 .specs dd{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink-2)}
 @media (max-width:860px){.specs{grid-template-columns:1fr}.specs>div{grid-template-columns:120px 1fr}}
+
+/* A download that is not here yet: shaped like its neighbour, plainly not pressable. */
+.btn-soon{cursor:default;opacity:.62;pointer-events:none;gap:8px}
+.btn-soon small{font-size:.78em;font-weight:500;padding:2px 8px;border-radius:999px;background:var(--hover);color:var(--ink-2)}
+.dark .btn-soon small{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75)}
+
+/* Lector: the stage screen in an iPad and the remote in a phone, side by side. */
+.pair{display:flex;align-items:flex-end;justify-content:center;gap:clamp(28px,5vw,72px);margin-top:clamp(40px,5vw,64px)}
+.pair figure{margin:0;display:flex;flex-direction:column;align-items:center}
+.pair figcaption{margin-top:16px;font-size:14px;color:var(--ink-2)}
+.tablet{--tw:min(700px,58vw);width:var(--tw);aspect-ratio:1180/820;padding:calc(var(--tw) * .026);border-radius:calc(var(--tw) * .048);background:linear-gradient(#1c1c1f,#1c1c1f) padding-box,linear-gradient(160deg,#cfcfd4,#86868b 45%,#bdbdc2 75%,#77777c) border-box;border:calc(var(--tw) * .004) solid transparent;box-shadow:0 calc(var(--tw) * .03) calc(var(--tw) * .06) calc(var(--tw) * -.02) rgba(0,0,0,.35),0 calc(var(--tw) * .1) calc(var(--tw) * .16) calc(var(--tw) * -.08) rgba(0,0,0,.45)}
+.tablet img{display:block;width:100%;height:100%;object-fit:cover;border-radius:calc(var(--tw) * .022)}
+.pair .device{--dw:min(230px,22vw)}
+@media (max-width:760px){.pair{flex-direction:column;align-items:center}.tablet{--tw:88vw}.pair .device{--dw:58vw}}
