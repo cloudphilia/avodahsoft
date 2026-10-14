@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261014g"
+ASSET_VERSION = "20261014h"
 # Lector ships from the download bucket, not the App Store; the page states the build it links to.
 LECTOR_VERSION = "0.3.0"
 LECTOR_SIZE = "252 MB"
@@ -54,13 +54,13 @@ I = {k: re.sub(r' style="[^"]*"', "", v).replace("<svg ", '<svg aria-hidden="tru
 ARR = I["arrow"].replace("<svg ", '<svg class="arr" ', 1)
 # The company mark: two strokes, one open and one sweeping round to the left.
 MARK = "M12 9 24 29M36 9v12c0 11-8 18-23 19"
-# The mark (2026-10-14): two strokes in an arch. The arch is a doorway, something built to last,
-# and the name's own meaning, service and work, without spelling it out; the strokes are two
-# weights, mint and white, as the wordmark is two weights, Avodah bold and soft light. Drawn once
-# here; the favicon, the home-screen icon and the share image are made from the same shapes.
-SHAPE = "M0 24A24 24 0 0 1 48 24V42A6 6 0 0 1 42 48H6A6 6 0 0 1 0 42Z"
-# The strokes sit lower than centre, under the curve of the arch.
-MARK_AT = "translate(9.6 13.2) scale(.6)"
+# The mark (2026-10-14): two strokes, joined, in a seal. The name means both work and service, and
+# the mark is two strokes in two weights (mint and white, as the wordmark is Avodah bold and soft
+# light) joined into one letter; the seal is a maker's mark, the stamp a craftsman strikes on work
+# they stand behind. Never explain it on the site. Drawn once here; the favicon, the home-screen
+# icon and the share image are made from the same shapes.
+SEAL_RING = 20.6
+MARK_AT = "translate(9.6 9.2) scale(.6)"
 MARK_A, MARK_B = "M12 9 24 29", "M36 9v12c0 11-8 18-23 19"
 MINT, LEAF_TOP, LEAF_BOTTOM = "#A3E6CF", "#12805F", "#08503F"
 
@@ -70,7 +70,7 @@ def logo(uid):
     stroke = f'transform="{MARK_AT}" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"'
     return (f'<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lf-{uid}" x1="0" y1="0" x2="0" y2="1">'
             f'<stop offset="0" stop-color="{LEAF_TOP}"/><stop offset="1" stop-color="{LEAF_BOTTOM}"/></linearGradient></defs>'
-            f'<path d="{SHAPE}" fill="url(#lf-{uid})"/><path d="{MARK_A}" {stroke} stroke="{MINT}"/><path d="{MARK_B}" {stroke} stroke="#fff"/></svg>')
+            f'<circle cx="24" cy="24" r="24" fill="url(#lf-{uid})"/><circle cx="24" cy="24" r="{SEAL_RING}" fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="1.3"/><path d="{MARK_A}" {stroke} stroke="{MINT}"/><path d="{MARK_B}" {stroke} stroke="#fff"/></svg>')
 
 
 LOGO = logo("nav")
@@ -695,13 +695,13 @@ STUDIO = f'''
   <div class="wrap split">
     <div>
       <p class="kicker reveal">Company</p>
-      <h1 class="words">We design and build software <em>that lasts.</em></h1>
-      <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac, Windows and the web. We build products for clients, publish our own apps on the App Store, offer them for acquisition, and train people who want to build software themselves.</p>
+      <h1 class="words">Our work is <em>our service.</em></h1>
+      <p class="lead reveal" style="--i:2">Avodah is an old word that means both work and service, and it is how we build: every app made with care for the people who rely on it, and looked after for years. We design and build for iPhone, iPad, Mac, Windows and the web, for clients and under our own name; we offer our apps for acquisition, and we teach people to build their own.</p>
     </div>
     <div class="brand-panel dark reveal" aria-hidden="true">
       {logo("panel")}
       <span class="name wm"><b>Avodah</b>soft</span>
-      <span class="means"><span>Design</span><span>Engineering</span><span>Delivery</span></span>
+      <span class="means"><span>Work</span><span>Service</span><span>Care</span></span>
     </div>
   </div>
 </section>
@@ -1104,5 +1104,5 @@ page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.htm
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 paths = ["/", "/gigpal", "/kilojo", "/papersuite", "/lector", "/work", "/services", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/papersuite/privacy", "/papersuite/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
-write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="{SHAPE}" fill="#0B6650"/><path d="{MARK_A}" transform="{MARK_AT}" fill="none" stroke="{MINT}" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="{MARK_B}" transform="{MARK_AT}" fill="none" stroke="#FFFFFF" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#0B6650"/><path d="{MARK_A}" transform="{MARK_AT}" fill="none" stroke="{MINT}" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="{MARK_B}" transform="{MARK_AT}" fill="none" stroke="#FFFFFF" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 print("done")
