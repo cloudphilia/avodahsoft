@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261014e"
+ASSET_VERSION = "20261014g"
 # Lector ships from the download bucket, not the App Store; the page states the build it links to.
 LECTOR_VERSION = "0.3.0"
 LECTOR_SIZE = "252 MB"
@@ -54,21 +54,23 @@ I = {k: re.sub(r' style="[^"]*"', "", v).replace("<svg ", '<svg aria-hidden="tru
 ARR = I["arrow"].replace("<svg ", '<svg class="arr" ', 1)
 # The company mark: two strokes, one open and one sweeping round to the left.
 MARK = "M12 9 24 29M36 9v12c0 11-8 18-23 19"
-# The mark (2026-10-14): two strokes on a leaf. The leaf has two corners round and two sharp, a
-# silhouette of its own; the strokes are two weights, mint and white, as the wordmark is two
-# weights, Avodah bold and soft light. Drawn once here; the favicon, the home-screen icon and the
-# share image are made from the same shapes.
-LEAF = "M0 0H32A16 16 0 0 1 48 16V48H16A16 16 0 0 1 0 32Z"
+# The mark (2026-10-14): two strokes in an arch. The arch is a doorway, something built to last,
+# and the name's own meaning, service and work, without spelling it out; the strokes are two
+# weights, mint and white, as the wordmark is two weights, Avodah bold and soft light. Drawn once
+# here; the favicon, the home-screen icon and the share image are made from the same shapes.
+SHAPE = "M0 24A24 24 0 0 1 48 24V42A6 6 0 0 1 42 48H6A6 6 0 0 1 0 42Z"
+# The strokes sit lower than centre, under the curve of the arch.
+MARK_AT = "translate(9.6 13.2) scale(.6)"
 MARK_A, MARK_B = "M12 9 24 29", "M36 9v12c0 11-8 18-23 19"
-MINT, LEAF_TOP, LEAF_BOTTOM = "#9BE3C1", "#14935F", "#0B6A49"
+MINT, LEAF_TOP, LEAF_BOTTOM = "#A3E6CF", "#12805F", "#08503F"
 
 
 def logo(uid):
     """The mark as inline SVG. `uid` keeps each copy's gradient id apart on a page."""
-    stroke = 'transform="translate(9.6 9.2) scale(.6)" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"'
+    stroke = f'transform="{MARK_AT}" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"'
     return (f'<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lf-{uid}" x1="0" y1="0" x2="0" y2="1">'
             f'<stop offset="0" stop-color="{LEAF_TOP}"/><stop offset="1" stop-color="{LEAF_BOTTOM}"/></linearGradient></defs>'
-            f'<path d="{LEAF}" fill="url(#lf-{uid})"/><path d="{MARK_A}" {stroke} stroke="{MINT}"/><path d="{MARK_B}" {stroke} stroke="#fff"/></svg>')
+            f'<path d="{SHAPE}" fill="url(#lf-{uid})"/><path d="{MARK_A}" {stroke} stroke="{MINT}"/><path d="{MARK_B}" {stroke} stroke="#fff"/></svg>')
 
 
 LOGO = logo("nav")
@@ -1102,5 +1104,5 @@ page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.htm
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 paths = ["/", "/gigpal", "/kilojo", "/papersuite", "/lector", "/work", "/services", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/papersuite/privacy", "/papersuite/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
-write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="{LEAF}" fill="#0E7A55"/><path d="{MARK_A}" transform="translate(9.6 9.2) scale(.6)" fill="none" stroke="{MINT}" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="{MARK_B}" transform="translate(9.6 9.2) scale(.6)" fill="none" stroke="#FFFFFF" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="{SHAPE}" fill="#0B6650"/><path d="{MARK_A}" transform="{MARK_AT}" fill="none" stroke="{MINT}" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="{MARK_B}" transform="{MARK_AT}" fill="none" stroke="#FFFFFF" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 print("done")
