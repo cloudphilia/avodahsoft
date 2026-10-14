@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261014k"
+ASSET_VERSION = "20261014n"
 # Lector ships from the download bucket, not the App Store; the page states the build it links to.
 LECTOR_VERSION = "0.3.0"
 LECTOR_SIZE = "252 MB"
@@ -212,9 +212,10 @@ def phones(left, centre, right):
             '</div>')
 
 
-def macs(main, front):
-    return (f'<div class="displays"><div class="plx" data-depth="18">{mac(*main, eager=True, d=0)}</div>'
-            f'<div class="float"><div class="plx" data-depth="70">{mac(*front, eager=True, d=1)}</div></div></div>')
+def macs(main, front=None):
+    """The main window on a stage; `front` floats a second screen over its corner when it adds something."""
+    float_html = f'<div class="float"><div class="plx" data-depth="70">{mac(*front, eager=True, d=1)}</div></div>' if front else ""
+    return f'<div class="displays"><div class="plx" data-depth="18">{mac(*main, eager=True, d=0)}</div>{float_html}</div>'
 
 
 def stage(media, app=None, theme=""):
@@ -330,7 +331,7 @@ def offers(cls=""):
 HOME = f'''
 <section class="hero">
   <div class="wrap">
-    <p class="kicker reveal">Software company</p>
+    <p class="kicker reveal">Our work is our service.</p>
     <h1 class="display words">We design, build and ship software.</h1>
     <div class="hero-row">
       <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac, Windows and the web. We build products for clients, publish our own apps on the App Store, and offer them for acquisition.</p>
@@ -474,7 +475,7 @@ LECTOR = f'''{app_hero("lector", "The church presenter that listens.",
 
 <section>
   <div class="wrap">
-    {stage(macs(("/img/lector/hero.png", "Lector&rsquo;s operator window on a Sunday: the service down the left, the verses heard in the centre, the projector preview and the transcript on the right"), ("/img/lector/projector.png", "Romans 8:28 on the projector in Lector&rsquo;s Gold Leaf theme")))}
+    {stage(macs(("/img/lector/hero.png", "Lector&rsquo;s operator window on a Sunday: the service down the left, the verses heard in the centre, the projector preview and the transcript on the right")))}
   </div>
 </section>
 
@@ -595,6 +596,21 @@ KILOJO = f'''{app_hero("kilojo", "A food diary that reads your plate.",
 <section>
   <div class="wrap">
     {stage(phones(("/img/kilojo/1-today.png", "Kilojo today screen"), ("/img/kilojo/2-snap-your-meal.png", "Kilojo photographing a meal"), ("/img/kilojo/3-progress.png", "Kilojo progress screen")))}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    {facts(("3", "ways to log a meal: a photo, a barcode, or typed"), ("216", "everyday meals in the built-in cookbook"), ("7", "days planned at a time, four meals a day"), ("0", "ads or trackers"))}
+  </div>
+</section>
+
+<section class="section dark on-stage" id="film">
+  <div class="wrap">
+    <div class="film">
+      <div><p class="kicker reveal">See it in action</p><h2 class="words">Kilojo <em>in a minute.</em></h2><p class="lead reveal">Photographing a plate of rice, the estimate, checking the numbers, the day&rsquo;s meals, then the week&rsquo;s plan and the progress. Recorded on an iPhone, as it runs.</p></div>
+      <div class="device film-device reveal"><div class="screen"><video controls playsinline preload="metadata" poster="/img/kilojo/demo-poster.jpg"><source src="/kilojo/demo.mp4" type="video/mp4">Your browser cannot play this video. <a href="/kilojo/demo.mp4">Open it directly.</a></video><button class="play" type="button" aria-label="Play the Kilojo demo" hidden>{I["play"]}</button></div></div>
+    </div>
   </div>
 </section>
 

@@ -65,7 +65,7 @@ h1 em,h2 em{font-style:normal;color:var(--muted)}
 @media (max-width:900px){.split{grid-template-columns:1fr}}
 
 /* ------------------------------------------------------------ navigation */
-.nav{position:sticky;top:0;z-index:100;view-transition-name:site-nav;transition:background-color .6s var(--ease),box-shadow .6s var(--ease)}
+.nav{position:sticky;top:0;z-index:100;transition:background-color .6s var(--ease),box-shadow .6s var(--ease)}
 .nav::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;background:color-mix(in srgb,var(--paper) 88%,transparent);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);box-shadow:0 1px 0 var(--line);transition:opacity .6s var(--ease)}
 .nav.scrolled::before,.nav.open::before{opacity:1}
 .nav.open::before{background:var(--paper)}
@@ -79,7 +79,7 @@ h1 em,h2 em{font-style:normal;color:var(--muted)}
 .links{position:relative;display:flex;align-items:center;gap:2px}
 .links a{position:relative;z-index:1;padding:8px 14px;font-size:14.5px;font-weight:450;color:var(--ink-2);border-radius:999px;transition:color .35s var(--ease),background-color .35s var(--ease)}
 .links a:hover{color:var(--ink);background:var(--hover)}
-.nav-pill{position:absolute;z-index:0;left:0;top:0;width:0;height:0;border-radius:999px;background:var(--ink);opacity:0;pointer-events:none;will-change:transform;transition:transform .34s var(--ease),width .34s var(--ease),height .34s var(--ease),opacity .2s ease}
+.nav-pill{position:absolute;z-index:0;left:0;top:0;width:0;height:0;border-radius:999px;background:var(--ink);opacity:0;pointer-events:none;will-change:transform;transition:transform .22s var(--ease),width .22s var(--ease),height .22s var(--ease),opacity .15s ease}
 .nav-pill.on{opacity:1}
 .nav-pill.still{transition:none}
 .links a[aria-current]{color:var(--paper);transition:color .2s ease .06s,background-color .3s var(--ease)}
@@ -97,7 +97,7 @@ h1 em,h2 em{font-style:normal;color:var(--muted)}
   .links.open a{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 45ms + 60ms)}
   .links a:hover{background:none}
   .nav-pill{display:none}
-  .links a[aria-current],.links:not(.pill-ready) a[aria-current]{color:var(--ink);background:none;view-transition-name:none}
+  .links a[aria-current],.links:not(.pill-ready) a[aria-current]{color:var(--ink);background:none;}
   .links a[aria-current]:hover{color:var(--ink);background:none}
   .links a[aria-current]::after{content:"";position:absolute;right:4px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:currentColor}
 }
@@ -409,12 +409,6 @@ body.menu-open{overflow:hidden}
 .js .words.in .w>span{transform:none}
 
 /* Moving between pages fades instead of flashing (where the browser supports it). */
-@view-transition{navigation:auto}
-::view-transition-old(root){animation:vt-out .18s ease-out both}
-::view-transition-new(root){animation:vt-in .34s var(--ease) both}
-::view-transition-group(site-nav){animation:none}
-@keyframes vt-out{to{opacity:0}}
-@keyframes vt-in{from{opacity:0}}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -424,7 +418,7 @@ body.menu-open{overflow:hidden}
   .js .reveal::before{transform:none!important}
   .plx{transform:none!important}
 }
-@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+
 
 /* Printing (the legal pages especially): everything visible, no navigation or motion. */
 @media print{
