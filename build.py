@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261014d"
+ASSET_VERSION = "20261014e"
 # Lector ships from the download bucket, not the App Store; the page states the build it links to.
 LECTOR_VERSION = "0.3.0"
 LECTOR_SIZE = "252 MB"
@@ -54,7 +54,24 @@ I = {k: re.sub(r' style="[^"]*"', "", v).replace("<svg ", '<svg aria-hidden="tru
 ARR = I["arrow"].replace("<svg ", '<svg class="arr" ', 1)
 # The company mark: two strokes, one open and one sweeping round to the left.
 MARK = "M12 9 24 29M36 9v12c0 11-8 18-23 19"
-LOGO = f'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="{MARK}" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+# The mark (2026-10-14): two strokes on a leaf. The leaf has two corners round and two sharp, a
+# silhouette of its own; the strokes are two weights, mint and white, as the wordmark is two
+# weights, Avodah bold and soft light. Drawn once here; the favicon, the home-screen icon and the
+# share image are made from the same shapes.
+LEAF = "M0 0H32A16 16 0 0 1 48 16V48H16A16 16 0 0 1 0 32Z"
+MARK_A, MARK_B = "M12 9 24 29", "M36 9v12c0 11-8 18-23 19"
+MINT, LEAF_TOP, LEAF_BOTTOM = "#9BE3C1", "#14935F", "#0B6A49"
+
+
+def logo(uid):
+    """The mark as inline SVG. `uid` keeps each copy's gradient id apart on a page."""
+    stroke = 'transform="translate(9.6 9.2) scale(.6)" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"'
+    return (f'<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lf-{uid}" x1="0" y1="0" x2="0" y2="1">'
+            f'<stop offset="0" stop-color="{LEAF_TOP}"/><stop offset="1" stop-color="{LEAF_BOTTOM}"/></linearGradient></defs>'
+            f'<path d="{LEAF}" fill="url(#lf-{uid})"/><path d="{MARK_A}" {stroke} stroke="{MINT}"/><path d="{MARK_B}" {stroke} stroke="#fff"/></svg>')
+
+
+LOGO = logo("nav")
 
 NAV = [("/work", "Apps"), ("/services", "Services"), ("/studio", "Company"), ("/contact", "Contact")]
 
@@ -125,7 +142,7 @@ FOOT = f'''</main>
   <div class="wrap">
     <div class="cols">
       <div class="about">
-        <a class="brand" href="/" aria-label="Avodahsoft home">{LOGO}<span class="wm"><b>Avodah</b>soft</span></a>
+        <a class="brand" href="/" aria-label="Avodahsoft home">{logo("foot")}<span class="wm"><b>Avodah</b>soft</span></a>
         <p>Avodahsoft designs and builds software for iPhone, iPad, Mac, Windows and the web, for clients and under its own name.</p>
         <a class="mail" href="mailto:{MAIL}">{MAIL}</a>
       </div>
@@ -680,7 +697,7 @@ STUDIO = f'''
       <p class="lead reveal" style="--i:2">Avodahsoft is a software company working across iPhone, iPad, Mac, Windows and the web. We build products for clients, publish our own apps on the App Store, offer them for acquisition, and train people who want to build software themselves.</p>
     </div>
     <div class="brand-panel dark reveal" aria-hidden="true">
-      {LOGO}
+      {logo("panel")}
       <span class="name wm"><b>Avodah</b>soft</span>
       <span class="means"><span>Design</span><span>Engineering</span><span>Delivery</span></span>
     </div>
@@ -1085,5 +1102,5 @@ page("/404", "Page not found", "That page is not here.", NOTFOUND, out="/404.htm
 write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 paths = ["/", "/gigpal", "/kilojo", "/papersuite", "/lector", "/work", "/services", "/studio", "/contact", "/gigpal/privacy", "/gigpal/terms", "/kilojo/privacy", "/kilojo/terms", "/papersuite/privacy", "/papersuite/terms"]
 write("/sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{p}</loc></url>\n" for p in paths) + "</urlset>\n")
-write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#0E7A55"/><path d="{MARK}" transform="translate(9.6 9.2) scale(.6)" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+write("/favicon.svg", f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="{LEAF}" fill="#0E7A55"/><path d="{MARK_A}" transform="translate(9.6 9.2) scale(.6)" fill="none" stroke="{MINT}" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="{MARK_B}" transform="translate(9.6 9.2) scale(.6)" fill="none" stroke="#FFFFFF" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>')
 print("done")
