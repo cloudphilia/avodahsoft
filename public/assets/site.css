@@ -444,3 +444,13 @@ body.menu-open{overflow:hidden}
 .films .cap b{display:block;font-weight:600;color:var(--ink);margin-bottom:2px}
 .monitor video{display:block;width:100%;height:100%;object-fit:cover;object-position:top left;border-radius:calc(var(--dw) * .006);background:#050506}
 @media (max-width:760px){.films{grid-template-columns:1fr;gap:32px}}
+
+/* Feature tiles with the thing itself in them, as a product page shows features. */
+.feature.pic img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;object-position:top left;border-radius:14px;border:1px solid var(--line);background:#0b0b0d;margin-bottom:20px}
+.feature.pic svg{display:none}
+/* Specifications: a quiet two-column list. */
+.specs{margin:40px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
+.specs>div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--line);margin:0}
+.specs dt{font-size:13.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.specs dd{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+@media (max-width:860px){.specs{grid-template-columns:1fr}.specs>div{grid-template-columns:120px 1fr}}

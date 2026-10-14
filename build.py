@@ -10,7 +10,7 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261014b"
+ASSET_VERSION = "20261014d"
 # Lector ships from the download bucket, not the App Store; the page states the build it links to.
 LECTOR_VERSION = "0.3.0"
 LECTOR_SIZE = "252 MB"
@@ -225,8 +225,10 @@ def section_head(kicker, title, lead=None):
     return f'<div class="section-head{"" if lead else " solo"}"><div><p class="kicker reveal">{kicker}</p><h2 class="words">{title}</h2></div>{lead_html}</div>'
 
 
-def feature(icon, title, text):
-    return f'<div class="feature reveal">{I[icon]}<h3>{title}</h3><p>{text}</p></div>'
+def feature(icon, title, text, img=None):
+    """A feature tile; with `img` (src, alt) it shows the thing itself above the words, as a product page should."""
+    pic = f'<img src="{img[0]}" alt="{img[1]}" width="1200" height="750" loading="lazy" decoding="async">' if img else ""
+    return f'<div class="feature{" pic" if img else ""} reveal">{pic}{I[icon]}<h3>{title}</h3><p>{text}</p></div>'
 
 
 def features(*items, cls=""):
@@ -465,12 +467,12 @@ LECTOR = f'''{app_hero("lector", "The church presenter that listens.",
   <div class="wrap">
     {section_head("For the media desk", "Built for a volunteer <em>on a Sunday morning.</em>")}
     {features(
-        ("mic", "Hears the reference", "&ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is queued before the page is found. A sure reference goes straight to the screens if you ask; the rest wait for one key. In the King James, or the translation named out loud."),
-        ("lyrics", "Follows the reading", "Once a passage is up, the verse being read lights up, the others fade, and the page turns itself. Cautious on purpose: it waits rather than jumps."),
-        ("type", "Catches a quote", "&ldquo;I can do all things through Christ&hellip;&rdquo; with no chapter and verse still finds Philippians 4:13 &mdash; in the King James&rsquo; words or a modern Bible&rsquo;s, a word misheard, or split by a breath."),
-        ("layers", "Up to eight screens", "The projector, the choir&rsquo;s monitor, the lobby and the stream each take a look &mdash; a theme, a text size, which layers to show &mdash; and every screen sees the same service. The stream goes into OBS as a browser source."),
-        ("music", "Lyrics, slides and video", "Lyrics pasted once and arranged by part, PowerPoint, Keynote and PDF decks, slides made in Lector, videos and pictures behind the words, walk-in music, and a loop of announcements for the foyer."),
-        ("list", "The stage and the remote", "The stage screen shows the verse, what is next, the notes, a countdown and a word from the desk &mdash; on a display, or an iPad on the music stand. A phone remote and a Stream Deck drive it from anywhere in the room."))}
+        ("mic", "Hears the reference", "&ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is queued before the page is found. A sure reference goes straight to the screens if you ask; the rest wait for one key. In the King James, or the translation named out loud.", ("/img/lector/f-listen.png", "Two verses heard, each a card with the verse, how sure Lector is, Add and Live")),
+        ("lyrics", "Follows the reading", "Once a passage is up, the verse being read lights up, the others fade, and the page turns itself. Cautious on purpose: it waits rather than jumps.", ("/img/lector/f-follow.png", "Psalm 23 on the screen with the verse being read lit")),
+        ("type", "Catches a quote", "&ldquo;I can do all things through Christ&hellip;&rdquo; with no chapter and verse still finds Philippians 4:13 &mdash; in the King James&rsquo; words or a modern Bible&rsquo;s, a word misheard, or split by a breath.", ("/img/lector/f-quotes.png", "Philippians 4:13 found from its words, with the words heard under it")),
+        ("layers", "Up to eight screens", "The projector, the choir&rsquo;s monitor, the lobby and the stream each take a look &mdash; a theme, a text size, which layers to show &mdash; and every screen sees the same service. The stream goes into OBS as a browser source.", ("/img/lector/f-screens.png", "A screen in Settings: its display, look, theme and layout")),
+        ("music", "Lyrics, slides and video", "Lyrics pasted once and arranged by part, PowerPoint, Keynote and PDF decks, slides made in Lector, videos and pictures behind the words, walk-in music, and a loop of announcements for the foyer. The stage screen and a phone remote come along.", ("/img/lector/f-songs.png", "A hymn in the centre, its slides in parts")),
+        ("calendar", "Plans ahead", "Save an order of service under a name and a day, or drag one onto a calendar. On the morning, the Service column offers it: open, and the whole Sunday is waiting.", ("/img/lector/f-plan.png", "The calendar with three services planned")))}
   </div>
 </section>
 
@@ -486,11 +488,26 @@ LECTOR = f'''{app_hero("lector", "The church presenter that listens.",
   </div>
 </section>
 {story("Why Lector", "The verse should not be late.",
-    "<p>Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screens still keep up.</p><p>The rest of the service is there too, in one running order: the songs, the announcements, the offering slides, the video. Plan next Sunday on a calendar, and on the day the service is waiting.</p>",
+    "<p>Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screens still keep up.</p><p>The rest of the service is there too, in one running order: the songs, the announcements, the offering slides, the video. The stage screen shows the speaker the verse, what is next, the notes and a countdown &mdash; on a display, or an iPad on the music stand &mdash; and a phone remote or a Stream Deck drives it from anywhere in the room.</p>",
     mac("/img/lector/bible.png", "Psalm 23 in Lector&rsquo;s Bible tab, with the verses most often read with it underneath"))}
 {trust("Private by design. <em>Nothing leaves the room.</em>",
     check_list(["Speech recognition runs on the Mac. The sermon is never sent anywhere to be understood.", "Four Bibles are on the disk and work with no internet: the King James, the American Standard, the Berean Standard and the World English Bible. Licensed translations arrive a verse at a time.", "The sermon write-up is off until the church turns it on, and the switch says plainly what leaves the computer when it does.", "The phone remote and the stage display run over the church&rsquo;s own Wi-Fi, with a PIN.", "Lector backs itself up every day into Documents, and the work comes back on a new computer from one file.", "No account, no analytics, no tracking. Nothing to sign up for."]),
     f'{DOWNLOAD}<a class="btn btn-line" href="/contact?topic=Lector">Ask about Lector {ARR}</a>')}
+<section class="section">
+  <div class="wrap">
+    {section_head("Specifications", "What you <em>need to know.</em>")}
+    <dl class="specs reveal">
+      <div><dt>Price</dt><dd>Free. No account, no subscription, no ads.</dd></div>
+      <div><dt>Requires</dt><dd>macOS 13 or later on a Mac with Apple silicon (M1 or later). Windows to follow.</dd></div>
+      <div><dt>Download</dt><dd>{LECTOR_SIZE}. The accurate recogniser (660 MB) downloads once in the background; Listen works before it arrives.</dd></div>
+      <div><dt>Bibles included</dt><dd>King James, American Standard, Berean Standard and World English, all offline. Licensed translations arrive a verse at a time; API.Bible and the ESV with the church&rsquo;s own free key.</dd></div>
+      <div><dt>Screens</dt><dd>Up to eight: any display on the Mac, and any browser source in OBS, vMix or a TV. A stage display and a phone remote over the church&rsquo;s Wi-Fi.</dd></div>
+      <div><dt>Brings in</dt><dd>Lyrics as text, ChordPro or OpenLyrics; PowerPoint, Keynote, PDF and pictures as slides; video, audio and pictures as media.</dd></div>
+      <div><dt>Speech</dt><dd>On the Mac, in English, any accent. Nothing recorded, nothing uploaded.</dd></div>
+      <div><dt>Backups</dt><dd>Daily, into Documents &rsaquo; Lector Backups, or a folder in iCloud Drive, OneDrive or Google Drive. One file restores a new computer.</dd></div>
+    </dl>
+  </div>
+</section>
 {closing("Download", "Free for Mac. <em>Today.</em>",
     f"Lector {LECTOR_VERSION} &middot; {LECTOR_SIZE} &middot; macOS 13 or later on a Mac with Apple silicon. Open the file, drag Lector to Applications, and the first screen sets up the church in a minute. Windows follows.",
     f'{DOWNLOAD}<a class="btn btn-line" href="/contact?topic=Lector">Questions? Write to us {ARR}</a>')}
