@@ -10,7 +10,11 @@ APPSTORE = "https://apps.apple.com/app/id6809133057"
 KILOJO_STORE = "https://apps.apple.com/app/id6808453483"
 UPDATED = "2 October 2026"
 YEAR = "2026"
-ASSET_VERSION = "20261010e"
+ASSET_VERSION = "20261014"
+# Lector ships from the download bucket, not the App Store; the page states the build it links to.
+LECTOR_VERSION = "0.3.0"
+LECTOR_SIZE = "252 MB"
+LECTOR_DMG = f"https://download.avodahsoft.com/lector/lector-{LECTOR_VERSION}.dmg"
 
 I = {
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M20 6 9 17l-5-5"/></svg>',
@@ -61,8 +65,8 @@ APPS = {
                "tagline": "A food diary that reads your plate.", "shot": ("/img/kilojo/2-snap-your-meal.png", "Kilojo photographing a meal")},
     "papersuite": {"name": "PaperSuite", "href": "/papersuite", "icon": "/img/papersuite/icon.png", "live": False, "dark": False,
                    "tagline": "Every document, in one place.", "shot": ("/img/papersuite/03-notes.png", "PaperSuite notes: due today, pinned and today&rsquo;s reminders")},
-    "lector": {"name": "Lector", "href": "/lector", "icon": "/img/lector/icon.png", "live": False, "dark": True,
-               "tagline": "The verse, the moment it is spoken.", "screen": ("/img/lector/screen.png", "Philippians 4:13 on the projector in Lector&rsquo;s Gold Leaf theme")},
+    "lector": {"name": "Lector", "href": "/lector", "icon": "/img/lector/icon.png", "live": True, "where": "download", "dark": True,
+               "tagline": "The church presenter that listens.", "screen": ("/img/lector/screen.png", "Romans 8:28 on the projector in Lector&rsquo;s Gold Leaf theme")},
 }
 
 
@@ -157,8 +161,10 @@ def page(path, title, desc, body, current=None, image="/img/og/avodahsoft.png", 
 
 
 # ---------------------------------------------------------------- building blocks
-def chip(live):
-    return '<span class="chip live"><i></i>On the App Store</span>' if live else '<span class="chip"><i></i>Coming soon</span>'
+def chip(live, where="store"):
+    if not live:
+        return '<span class="chip"><i></i>Coming soon</span>'
+    return '<span class="chip live"><i></i>Free for Mac</span>' if where == "download" else '<span class="chip live"><i></i>On the App Store</span>'
 
 
 def more(label, href=None):
@@ -196,7 +202,7 @@ def stage(media, app=None, theme=""):
     bar = ""
     if app:
         a = APPS[app]
-        bar = (f'<div class="stage-bar"><span class="who"><img src="{a["icon"]}" alt="" width="30" height="30">{a["name"]}{chip(a["live"])}</span>'
+        bar = (f'<div class="stage-bar"><span class="who"><img src="{a["icon"]}" alt="" width="30" height="30">{a["name"]}{chip(a["live"], a.get("where", "store"))}</span>'
                f'{more("Explore " + a["name"], a["href"])}</div>')
     return f'<div class="stage reveal{" " + theme if theme else ""}">{bar}{media}</div>'
 
@@ -205,7 +211,7 @@ def tile(key, desc):
     a = APPS[key]
     media = mac(*a["screen"]) if "screen" in a else phone(*a["shot"])
     return f'''<a class="tile t-{key}{" dark" if a["dark"] else ""} reveal" href="{a["href"]}">
-        <div class="tile-top"><img src="{a["icon"]}" alt="" width="48" height="48" loading="lazy">{chip(a["live"])}</div>
+        <div class="tile-top"><img src="{a["icon"]}" alt="" width="48" height="48" loading="lazy">{chip(a["live"], a.get("where", "store"))}</div>
         <h3>{a["name"]}</h3>
         <p class="tagline">{a["tagline"]}</p>
         <p class="desc">{desc}</p>
@@ -245,7 +251,7 @@ def app_hero(key, title, lead, actions, chips=()):
     return f'''
 <section class="hero">
   <div class="wrap">
-    <div class="app-id reveal"><img src="{a["icon"]}" alt="{a["name"]} app icon" width="60" height="60"><div><p class="name">{a["name"]}</p><div class="chips">{chip(a["live"])}{extra}</div></div></div>
+    <div class="app-id reveal"><img src="{a["icon"]}" alt="{a["name"]} app icon" width="60" height="60"><div><p class="name">{a["name"]}</p><div class="chips">{chip(a["live"], a.get("where", "store"))}{extra}</div></div></div>
     <h1 class="display words">{title}</h1>
     <div class="hero-row">
       <p class="lead reveal" style="--i:2">{lead}</p>
@@ -293,7 +299,7 @@ def offers(cls=""):
     """What Avodahsoft does: client work, its own products and acquisitions first, then training."""
     return f'''<div class="offers{" " + cls if cls else ""}" data-stagger>
       <a class="offer reveal" href="/services#build"><span class="n">01</span><div><h3>Custom software development</h3><p>We design and engineer apps for iPhone, iPad, Mac, Windows and the web: product strategy, interface design, engineering, backend services and App Store release. Every engagement has a written scope, a fixed price and a working build every week.</p>{more("Start a project")}</div></a>
-      <a class="offer reveal" href="/work"><span class="n">02</span><div><h3>Our products</h3><p>We publish our own apps on the App Store. GigPal and Kilojo are available now, and PaperSuite and Lector are on the way. Each is designed, built and supported in-house, to the same standard as our client work.</p>{more("View our apps")}</div></a>
+      <a class="offer reveal" href="/work"><span class="n">02</span><div><h3>Our products</h3><p>We publish our own apps on the App Store. GigPal, Kilojo and Lector are available now, and PaperSuite is on the way. Each is designed, built and supported in-house, to the same standard as our client work.</p>{more("View our apps")}</div></a>
       <a class="offer reveal" href="/services#acquire"><span class="n">03</span><div><h3>App acquisitions</h3><p>Our apps are available to acquire, in whole or in part. Each sale includes the codebase, documentation, store listings and revenue history where it exists, with a managed transition for existing users.</p>{more("Enquire about acquisitions")}</div></a>
     </div>
     <a class="learn reveal" href="/services#training"><span class="n">04</span><div><h3>Training</h3><p>Practical training in app development for individuals and teams, taught from production apps: design, engineering and App Store release.</p></div>{more("Ask about training")}</a>'''
@@ -328,12 +334,12 @@ HOME = f'''
 
 <section class="section flush-top">
   <div class="wrap">
-    {section_head("Products", "Our apps. <em>Designed and built in-house.</em>", "GigPal and Kilojo are available on the App Store. PaperSuite is in App Review, and Lector is in development.")}
+    {section_head("Products", "Our apps. <em>Designed and built in-house.</em>", "GigPal and Kilojo are on the App Store, Lector is a free download for Mac, and PaperSuite is in App Review.")}
     <div class="tiles" data-stagger>
       {tile("gigpal", "Split any song into vocals, piano, bass, drums and more, follow the chords as they play, change key and tempo, and rehearse with a metronome, tuner and recorder.")}
       {tile("kilojo", "Photograph a meal for calories and macros, scan a barcode for the manufacturer&rsquo;s figures, or enter it by hand. Every number stays editable.")}
       {tile("papersuite", "Notes, scanning, PDF filling and signing, conversion and merging, answers drawn from your own notes, and habits, in one app.")}
-      {tile("lector", "Church presentation software for Mac that recognises scripture references as they are spoken and puts the verse on screen, with songs, slides, video and a stage display.")}
+      {tile("lector", "Church presentation for Mac that hears the scripture being preached and has the verse on the screens in one tap, then runs the lyrics, slides, videos, stage display and stream. Free.")}
     </div>
   </div>
 </section>
@@ -438,13 +444,20 @@ GIGPAL = f'''{app_hero("gigpal", "Practice like the band is in the room.",
 page("/gigpal", "GigPal · Practice like the band is in the room", "GigPal is a music practice app for iPhone, iPad and the web: stem separation, chords that follow the song, key and tempo control, metronome, tuner, piano, recorder and setlists.", GIGPAL, current="/work", image="/img/gigpal/icon.png", theme="t-gigpal")
 
 # ---------------------------------------------------------------- lector
-LECTOR = f'''{app_hero("lector", "The verse, the moment it is spoken.",
-    "Lector listens to the preacher and puts the scripture on the screens as it is read &mdash; no typing, no hunting, no verse three sentences late. Then it runs the rest of the service: songs with arrangements, slides, videos, announcements for the lobby, a stage display for the preacher and a remote for a phone. Recognition happens on the Mac; nothing leaves the room.",
-    f'<a class="btn btn-dark" href="/contact?topic=Lector">Notify me at launch {ARR}</a><a class="btn btn-line" href="#features">What it does</a>', ["Mac", "Windows to follow"])}
+DOWNLOAD = f'<a class="btn btn-dark" href="{LECTOR_DMG}">Download for Mac {ARR}</a>'
+LECTOR = f'''{app_hero("lector", "The church presenter that listens.",
+    "Lector runs the whole service &mdash; lyrics, slides, videos, the stage screen and the stream &mdash; and hears the scripture being preached. &ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is ready, in one tap or on its own. Recognition runs on the Mac; nothing said leaves the room.",
+    f'{DOWNLOAD}<a class="btn btn-line" href="#films">See it work</a>', ["Free", "Mac with Apple silicon", "Windows to follow"])}
 
 <section>
   <div class="wrap">
-    {stage(macs(("/img/lector/operator.png", "Lector&rsquo;s operator window: the live transcript, the queue, the verses it heard, and the preview"), ("/img/lector/screen.png", "Philippians 4:13 on the projector in Lector&rsquo;s Gold Leaf theme")))}
+    {stage(macs(("/img/lector/hero.png", "Lector&rsquo;s operator window on a Sunday: the service down the left, the verses heard in the centre, the projector preview and the transcript on the right"), ("/img/lector/screen.png", "Romans 8:28 on the projector in Lector&rsquo;s Gold Leaf theme")))}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    {facts(("4", "Bibles on the computer, with no internet at all"), ("8", "screens from one service: projector, choir, lobby, stream"), ("1", "tap from the verse heard to the screens"), ("0", "accounts, logins or tracking"))}
   </div>
 </section>
 
@@ -452,22 +465,37 @@ LECTOR = f'''{app_hero("lector", "The verse, the moment it is spoken.",
   <div class="wrap">
     {section_head("For the media desk", "Built for a volunteer <em>on a Sunday morning.</em>")}
     {features(
-        ("mic", "Hears the reference", "&ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is queued before the page is found. Confident references go straight to the screen if you ask; the rest wait for one key."),
-        ("lyrics", "Follows the reading", "As the passage is read, the verse being read lights up and the page turns itself. Nineteen translations are built in; licensed ones link in with a key."),
-        ("layers", "Four screens, one service", "The projector, the choir&rsquo;s monitor, the stream and the lobby each take a look &mdash; what to show, what to leave out &mdash; and every screen sees the same service."),
-        ("music", "Songs, slides and videos", "Lyrics with arrangements, PowerPoint, Keynote and PDF decks, videos, a camera behind the words, a memory stick of walk-in music, and a loop of announcements for the foyer."),
-        ("list", "A stage that tells the truth", "The preacher&rsquo;s screen shows the verse, what is next, the notes, a countdown and a word from the desk &mdash; on a display, or an iPad on the music stand."),
-        ("bell", "One key, several things", "Moments fire the logo, the countdown and the loop together; schedules fire them by the clock; a phone remote and a Stream Deck do the rest from anywhere in the room."))}
+        ("mic", "Hears the reference", "&ldquo;Turn with me to Romans eight twenty-eight&rdquo; and the verse is queued before the page is found. A sure reference goes straight to the screens if you ask; the rest wait for one key. In the King James, or the translation named out loud."),
+        ("lyrics", "Follows the reading", "Once a passage is up, the verse being read lights up, the others fade, and the page turns itself. Cautious on purpose: it waits rather than jumps."),
+        ("type", "Catches a quote", "&ldquo;I can do all things through Christ&hellip;&rdquo; with no chapter and verse still finds Philippians 4:13 &mdash; in the King James&rsquo; words or a modern Bible&rsquo;s, a word misheard, or split by a breath."),
+        ("layers", "Up to eight screens", "The projector, the choir&rsquo;s monitor, the lobby and the stream each take a look &mdash; a theme, a text size, which layers to show &mdash; and every screen sees the same service. The stream goes into OBS as a browser source."),
+        ("music", "Lyrics, slides and video", "Lyrics pasted once and arranged by part, PowerPoint, Keynote and PDF decks, slides made in Lector, videos and pictures behind the words, walk-in music, and a loop of announcements for the foyer."),
+        ("list", "The stage and the remote", "The stage screen shows the verse, what is next, the notes, a countdown and a word from the desk &mdash; on a display, or an iPad on the music stand. A phone remote and a Stream Deck drive it from anywhere in the room."))}
+  </div>
+</section>
+
+<section class="section alt" id="films">
+  <div class="wrap">
+    {section_head("See it work", "A Sunday, <em>in four short films.</em>", "Recorded from the app as it runs. The sermon is spoken, the verses are heard, and nothing is staged after the fact.")}
+    <ul class="films" data-stagger>
+      <li class="reveal"><div class="monitor film-device"><video playsinline muted loop preload="metadata" poster="/img/lector/hears-the-verse-poster.jpg"><source src="/lector/hears-the-verse.mp4" type="video/mp4">Your browser cannot play this film. <a href="/lector/hears-the-verse.mp4">Open it directly.</a></video><button class="play" type="button" aria-label="Play: Hears the verse." hidden>{I["play"]}</button></div><p class="cap"><b>Hears the verse.</b> &ldquo;Turn with me to Romans eight twenty-eight&rdquo; &mdash; and it is on the screens.</p></li>
+      <li class="reveal"><div class="monitor film-device"><video playsinline muted loop preload="metadata" poster="/img/lector/follows-the-reading-poster.jpg"><source src="/lector/follows-the-reading.mp4" type="video/mp4">Your browser cannot play this film. <a href="/lector/follows-the-reading.mp4">Open it directly.</a></video><button class="play" type="button" aria-label="Play: Follows the reading." hidden>{I["play"]}</button></div><p class="cap"><b>Follows the reading.</b> The verse being read lights up; the page turns itself.</p></li>
+      <li class="reveal"><div class="monitor film-device"><video playsinline muted loop preload="metadata" poster="/img/lector/quoted-poster.jpg"><source src="/lector/quoted.mp4" type="video/mp4">Your browser cannot play this film. <a href="/lector/quoted.mp4">Open it directly.</a></video><button class="play" type="button" aria-label="Play: Catches a quote." hidden>{I["play"]}</button></div><p class="cap"><b>Catches a quote.</b> No chapter and verse said, and Philippians 4:13 is found from its words.</p></li>
+      <li class="reveal"><div class="monitor film-device"><video playsinline muted loop preload="metadata" poster="/img/lector/runs-the-song-poster.jpg"><source src="/lector/runs-the-song.mp4" type="video/mp4">Your browser cannot play this film. <a href="/lector/runs-the-song.mp4">Open it directly.</a></video><button class="play" type="button" aria-label="Play: Runs the song." hidden>{I["play"]}</button></div><p class="cap"><b>Runs the song.</b> Lyrics in parts, each slide drawn as the screens will show it.</p></li>
+    </ul>
   </div>
 </section>
 {story("Why Lector", "The verse should not be late.",
-    "<p>Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screen still keeps up.</p>",
-    mac("/img/lector/screen.png", "A verse on the projector in Lector"))}
+    "<p>Every church has watched a volunteer type a reference while the preacher moves on. Presentation software treats scripture as one more slide to prepare. Lector treats it as something that happens live: it hears the reference, finds the verse and offers it, and the operator&rsquo;s job becomes one keystroke. When the preacher wanders off the plan, the screens still keep up.</p><p>The rest of the service is there too, in one running order: the songs, the announcements, the offering slides, the video. Plan next Sunday on a calendar, and on the day the service is waiting.</p>",
+    mac("/img/lector/bible.png", "Psalm 23 in Lector&rsquo;s Bible tab, with the verses most often read with it underneath"))}
 {trust("Private by design. <em>Nothing leaves the room.</em>",
-    check_list(["Speech recognition runs on the Mac. The sermon is never sent anywhere to be understood.", "The Bibles are on the disk: nineteen public-domain translations work with no internet at all. Licensed translations fetch a verse at a time with the church&rsquo;s own key.", "The phone remote and the stage display run over the church&rsquo;s own Wi-Fi, with a PIN.", "No account, no analytics, no tracking. A sermon summary uses a language model only if the church adds its own key and asks for it."]),
-    f'<a class="btn btn-dark" href="/contact?topic=Lector">Ask about Lector {ARR}</a>')}
+    check_list(["Speech recognition runs on the Mac. The sermon is never sent anywhere to be understood.", "Four Bibles are on the disk and work with no internet: the King James, the American Standard, the Berean Standard and the World English Bible. Licensed translations arrive a verse at a time.", "The sermon write-up is off until the church turns it on, and the switch says plainly what leaves the computer when it does.", "The phone remote and the stage display run over the church&rsquo;s own Wi-Fi, with a PIN.", "Lector backs itself up every day into Documents, and the work comes back on a new computer from one file.", "No account, no analytics, no tracking. Nothing to sign up for."]),
+    f'{DOWNLOAD}<a class="btn btn-line" href="/contact?topic=Lector">Ask about Lector {ARR}</a>')}
+{closing("Download", "Free for Mac. <em>Today.</em>",
+    f"Lector {LECTOR_VERSION} &middot; {LECTOR_SIZE} &middot; macOS 13 or later on a Mac with Apple silicon. Open the file, drag Lector to Applications, and the first screen sets up the church in a minute. Windows follows.",
+    f'{DOWNLOAD}<a class="btn btn-line" href="/contact?topic=Lector">Questions? Write to us {ARR}</a>')}
 '''
-page("/lector", "Lector · The verse, the moment it is spoken", "Lector is a church presentation app for Mac that listens to the preacher and puts the scripture on the screens as it is read, then runs the rest of the service: songs, slides, videos, four screens, announcements, a stage display and a phone remote. Coming soon.", LECTOR, current="/work", image="/img/lector/icon.png", theme="t-lector")
+page("/lector", "Lector · The church presenter that listens", "Lector is a free church presentation app for Mac that runs the whole service — lyrics, slides, videos, the stage screen and the stream — and hears the scripture being preached, so the verse is on the screens the moment it is spoken. Recognition runs on the Mac; nothing leaves the room.", LECTOR, current="/work", image="/img/lector/icon.png", theme="t-lector")
 
 # ---------------------------------------------------------------- papersuite
 PAPERSUITE = f'''{app_hero("papersuite", "Every document, in one place.",
@@ -550,7 +578,7 @@ WORK = f'''
   <div class="wrap">
     <p class="kicker reveal">Apps</p>
     <h1 class="words">Products <em>designed and built in-house.</em></h1>
-    <p class="lead reveal" style="--i:2">An app is listed here once it is in testers&rsquo; hands, and marked available once it is on the App Store.</p>
+    <p class="lead reveal" style="--i:2">An app is listed here once it is in testers&rsquo; hands, and marked available once it is on the App Store or ready to download.</p>
   </div>
 </section>
 <section class="section flush-top">
@@ -559,7 +587,7 @@ WORK = f'''
       {tile("gigpal", "Music practice: stem separation, chords, key and tempo, metronome, tuner, piano, recorder and setlists.")}
       {tile("kilojo", "Photo estimates, barcode scanning, a weekly meal plan, and numbers you can always edit.")}
       {tile("papersuite", "Notes, scans and PDFs in one app: fill in, sign, merge and convert documents, with reminders and habits alongside.")}
-      {tile("lector", "Church presentation for Mac that recognises scripture as it is spoken, with songs, slides, video, four screens and a stage display.")}
+      {tile("lector", "Church presentation for Mac that hears the scripture being preached and puts the verse on the screens, with lyrics, slides, video, up to eight screens and a stage display. Free.")}
     </div>
   </div>
 </section>
@@ -692,7 +720,7 @@ CONTACT = f'''
       <div class="reveal"><h3>{I["build"]}Start a project</h3><p>Tell us about the idea, the audience and the timeline. A budget range helps us respond with a realistic proposal, and if we are not the right fit, we will say so.</p></div>
       <div class="reveal"><h3>{I["tag"]}Acquire an app</h3><p>Enquiries about acquiring one of our apps, in whole or in part, are welcome and handled confidentially.</p></div>
       <div class="reveal"><h3>{I["learn"]}Training</h3><p>Tell us your experience and what you want to build, and we will outline how training would work for you.</p></div>
-      <div class="reveal"><h3>{I["mail"]}Product support</h3><p>Questions about GigPal, Kilojo or your account. Include the app and your device, and we will help you resolve it.</p></div>
+      <div class="reveal"><h3>{I["mail"]}Product support</h3><p>Questions about GigPal, Kilojo, Lector or your account. Include the app and your device, and we will help you resolve it.</p></div>
     </div>
   </div>
 </section>

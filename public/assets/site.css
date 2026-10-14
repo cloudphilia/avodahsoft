@@ -435,3 +435,12 @@ body.menu-open{overflow:hidden}
   .doc{display:block}
   .prose a{text-decoration:underline}
 }
+
+/* Lector: short films in Mac frames, two across; the same play button as the phone film. */
+.films{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 32px}
+.films li{margin:0}
+.films .monitor{--dw:100%;width:100%}
+.films .cap{margin:16px 2px 0;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.films .cap b{display:block;font-weight:600;color:var(--ink);margin-bottom:2px}
+.monitor video{display:block;width:100%;height:100%;object-fit:cover;object-position:top left;border-radius:calc(var(--dw) * .006);background:#050506}
+@media (max-width:760px){.films{grid-template-columns:1fr;gap:32px}}
